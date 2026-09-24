@@ -12,7 +12,8 @@ const atLeast = (cur, floor) => (rank(floor) > rank(cur) ? floor : cur);
  *   creditImpaired credit-impaired flag (IFRS 9 Stage 3 evidence)
  *   eclRatio       ECL / gross carrying amount (decimal)
  *   restructured   restructured because of the debtor's financial difficulty
- *   npShare        share of the debtor's exposures at this bank already non-performing (decimal)
+ *   npShare        share of the debtor's exposures at this bank already non-performing (decimal);
+ *                  more than 10 % makes all of them non-performing (2023 Measures, Art. 7)
  *   adverse        other factors that may adversely affect repayment (watchlist, SICR evidence)
  * Returns the category and the rules that fired (keys for i18n).
  */
@@ -30,7 +31,7 @@ export function fiveCategory({ dpd = 0, creditImpaired = false, eclRatio = 0, re
   apply(restructured, 'specialMention', 'restructured');
   apply(dpd > 90, 'substandard', 'dpd90');
   apply(creditImpaired, 'substandard', 'impaired');
-  apply(npShare >= 0.1, 'substandard', 'debtor10');
+  apply(npShare > 0.1, 'substandard', 'debtor10'); // Measures Art. 7: more than 10 % non-performing
   apply(dpd > 270, 'doubtful', 'dpd270');
   apply(creditImpaired && eclRatio >= 0.5, 'doubtful', 'ecl50');
   apply(dpd > 360, 'loss', 'dpd360');

@@ -88,6 +88,9 @@ const bundled = order.map((abs) => {
 const css = ['src/styles/tokens.css', 'src/styles/app.css', 'src/styles/print.css'].map(read).join('\n');
 const i18n = { en: JSON.parse(read('i18n/en.json')), zh: existsSync(resolve(root, 'i18n/zh.json')) ? JSON.parse(read('i18n/zh.json')) : {} };
 const caseData = JSON.parse(read('data/case.json'));
+// The class question bank is copied into data/ unchanged; the app reads it as-is.
+const questions = existsSync(resolve(root, 'data/questions.json')) ? JSON.parse(read('data/questions.json')) : null;
+if (!questions) console.warn('data/questions.json not found — choose-one panels will be empty until the question bank is added.');
 const pkg = JSON.parse(read('package.json'));
 
 // Prevent "</script>" inside JSON strings from closing the inline script.
@@ -99,7 +102,7 @@ const template = read('src/index.template.html');
 const page = (variant, extraCss) => template
   .replace('<html lang="en">', variant === 'focus' ? '<html lang="en" class="focus">' : '<html lang="en">')
   .replace('/*__CSS__*/', () => css + (extraCss ? `\n${extraCss}` : ''))
-  .replace('/*__DATA__*/', () => `window.__CASE__ = ${safeJson(caseData)};\nwindow.__I18N__ = ${safeJson(i18n)};\nwindow.__VERSION__ = ${JSON.stringify(pkg.version)};\nwindow.__VARIANT__ = ${JSON.stringify(variant)};`)
+  .replace('/*__DATA__*/', () => `window.__CASE__ = ${safeJson(caseData)};\nwindow.__I18N__ = ${safeJson(i18n)};\nwindow.__VERSION__ = ${JSON.stringify(pkg.version)};\nwindow.__QUESTIONS__ = ${safeJson(questions)};\nwindow.__VARIANT__ = ${JSON.stringify(variant)};`)
   .replace('/*__JS__*/', () => `"use strict";\n${bundled}`);
 const html = page('standard');
 
@@ -109,7 +112,7 @@ writeFileSync(resolve(root, 'app/focus.html'), page('focus', read('src/styles/fo
 
 // ---- app/description.html: generated from the same translation files --------------------------
 const esc = (x) => String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const TABS = ['home', 'position', 'mechanisms', 'repricing', 'spread', 'ratings', 'timeline', 'structure', 'portfolio', 'recognition', 'capital', 'controls', 'decision', 'answer', 'glossary'];
+const TABS = ['home', 'position', 'mechanisms', 'bondsloans', 'repricing', 'spread', 'ratings', 'timeline', 'structure', 'portfolio', 'recognition', 'capital', 'controls', 'decision', 'answer', 'glossary'];
 function descBody(L) {
   const d = i18n[L];
   if (!d.desc) return '';

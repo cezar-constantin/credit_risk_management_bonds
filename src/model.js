@@ -5,7 +5,7 @@ import {
   bondOf, purchaseYield, purchasePrice, valueAtStop, caseFigures, stopMarket, ecl, lifetimeEcl,
 } from '../engine/index.js';
 
-export const TABS = ['home', 'position', 'mechanisms', 'repricing', 'spread', 'ratings', 'timeline', 'structure',
+export const TABS = ['home', 'position', 'mechanisms', 'bondsloans', 'repricing', 'spread', 'ratings', 'timeline', 'structure',
   'portfolio', 'recognition', 'capital', 'controls', 'decision', 'answer', 'glossary'];
 
 export const STOP_IDS = CASE.stops.map((s) => s.id);

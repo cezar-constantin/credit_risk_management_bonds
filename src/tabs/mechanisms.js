@@ -3,7 +3,7 @@ import { t, tr } from '../i18n.js';
 import * as store from '../state.js';
 import { CASE } from '../data.js';
 import { h, card, segmented, table, checkbox, paras } from '../ui.js';
-import { tabHeader } from './common.js';
+import { tabHeader, guidedKeep } from './common.js';
 
 export function render(root, ctx) {
   const lensCtl = segmented({ path: 'ctx.lens', label: t('ui.lens'), options: ['AC', 'FVOCI', 'FVTPL'].map((v) => ({ value: v, label: t(`lens.${v}.short`) })) });
@@ -49,7 +49,7 @@ export function render(root, ctx) {
       h('button', { type: 'button', class: 'btn btn-small', onClick: () => { store.get().mech = {}; store.save(); store.emit('mech'); } }, t('mech.hideAll'))),
     cards,
     h('div', { class: 'grid grid-2', style: { marginTop: '16px' } },
-      card(t('mech.matrixTitle'), matrix, h('p', { class: 'small muted' }, t('mech.matrixNote'))),
+      guidedKeep(card(t('mech.matrixTitle'), matrix, h('p', { class: 'small muted' }, t('mech.matrixNote')))),
       card(t('mech.noncallTitle'), ...paras(tr('mech.noncall')))),
   );
 }

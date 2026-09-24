@@ -17,7 +17,7 @@ html.focus body, html.focus body :where(*) { font-size: var(--fs-m) !important; 
 html.focus :is(.small, .note, .muted, .field-hint, .footer, .metric-label, .metric-sub, .brand-sub, .badge, .pill,
   .tab-n, .legend, .shortcut-help, kbd, .workings, .timer, .t-kind, .impact, .label-illustrative, .back-label,
   table.data thead th, table.data caption, .formula, .tab-intro, .field-label, .field label, .seg-item label,
-  .btn-small, .suffix, .req, .validation, .hint-text),
+  .btn-small, .suffix, .req, .validation, .hint-text, .choose-label, .choose-id, .choose-engine, .choose-tally),
 html.focus :is(.small, .note, .muted, .field-hint, .footer, .metric-label, .metric-sub, .brand-sub, .badge, .pill,
   .legend, .shortcut-help, .workings, .timer, .t-kind, .impact, .label-illustrative, .formula, .validation, .hint-text) *,
 html.focus .chart text, html.focus .chart tspan {
@@ -146,3 +146,8 @@ html.focus .topbar .seg-item input:checked + label { background: #fff; color: va
 html.focus .field-check label { font-weight: 400; color: var(--text); }
 html.focus .trigger-row { gap: 12px; }
 html.focus .trigger-row :is(select, input) { min-height: 40px; }
+
+/* Choose-one panels in the focus view */
+html.focus .choose-panel { border: 0; border-left: 3px solid var(--red); box-shadow: 0 1px 2px rgba(0, 0, 0, .06); }
+html.focus .choose-btn { border-color: #E6E6E6; }
+html.focus .choose-label { color: var(--red-dark); }

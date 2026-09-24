@@ -4,3 +4,4 @@ export * from './ecl.js';
 export * from './classification.js';
 export * from './decision.js';
 export * from './case.js';
+export * from './questions.js';

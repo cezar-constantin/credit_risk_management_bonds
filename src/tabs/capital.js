@@ -5,7 +5,7 @@ import { CASE } from '../data.js';
 import * as fmt from '../format.js';
 import { h, card, segmented, select, slider, table, workings, paras, list, reveal } from '../ui.js';
 import { irbCorporateRW, capitalCharge } from '../../engine/index.js';
-import { tabHeader } from './common.js';
+import { tabHeader, guidedKeep } from './common.js';
 import { position, figures } from '../model.js';
 
 export function render(root, ctx) {
@@ -13,7 +13,8 @@ export function render(root, ctx) {
     h('span', { class: 'label-illustrative' }, t('ui.illustrative')),
     table([t('capital.exposure'), t('capital.rw'), t('capital.ref')],
       CASE.riskWeights.map((r) => [t(`capital.rwRows.${r.id}`), fmt.pctRaw(r.rw, 0), t(`capital.rwRef.${r.id}`)]), { numericCols: [1] }),
-    h('p', { class: 'note' }, t('capital.rwNote')));
+    h('p', { class: 'note' }, t('capital.rwNote')),
+    workings('cap-holdings', t('capital.weightedFormula'), [[t('capital.rwRows.bankTier2'), '150%']], t('capital.holdingsNote')));
 
   const approach = card(t('capital.approachTitle'),
     segmented({ path: 'capital.approach', label: t('capital.approach'), options: [{ value: 'weighted', label: t('capital.weighted') }, { value: 'irb', label: t('capital.irb') }] }),
@@ -75,6 +76,7 @@ export function render(root, ctx) {
 
   const q = card(t('capital.qTitle'), h('p', null, t('capital.q')), reveal(ctx, 'q', () => paras(tr('capital.a'))));
 
+  guidedKeep(nots);
   root.append(...tabHeader('capital'),
     h('div', { class: 'grid grid-2' }, h('div', { class: 'stack' }, approach, oci, q), h('div', { class: 'stack' }, rwTable, nots, gsib)));
 }

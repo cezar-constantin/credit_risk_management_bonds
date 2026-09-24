@@ -71,3 +71,12 @@ export function recognition({ grossAmortisedCost, fairValue, allowancePrev, allo
   };
   return { charge, ac, fvoci, fvtpl };
 }
+
+/**
+ * CECL order of magnitude (US GAAP, ASU 2016-13): lifetime expected loss from day one, no stages.
+ * Teaching approximation only — annual PD × LGD × EAD × remaining years, before discounting and scenarios.
+ * It is NOT a CECL calculation; it shows the size of the day-one difference against IFRS 9's 12-month ECL.
+ */
+export function ceclOrderOfMagnitude({ pdAnnual, lgd, ead, years }) {
+  return pdAnnual * lgd * ead * years;
+}

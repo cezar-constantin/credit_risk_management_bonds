@@ -144,7 +144,8 @@ test('five-category classification vs IFRS stage', () => {
   assert.equal(fiveCategory({ dpd: 10 }).category, 'specialMention');
   assert.equal(fiveCategory({ restructured: true }).category, 'specialMention');
   assert.equal(fiveCategory({ dpd: 91 }).category, 'substandard');
-  assert.equal(fiveCategory({ npShare: 0.1 }).category, 'substandard');
+  assert.equal(fiveCategory({ npShare: 0.1 }).category, 'normal', 'exactly 10 % is not “more than 10 %”');
+  assert.equal(fiveCategory({ npShare: 0.11 }).category, 'substandard');
   assert.equal(fiveCategory({ dpd: 271 }).category, 'doubtful');
   assert.equal(fiveCategory({ creditImpaired: true, eclRatio: 0.5 }).category, 'doubtful');
   assert.equal(fiveCategory({ dpd: 361 }).category, 'loss');

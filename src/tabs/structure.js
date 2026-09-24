@@ -2,7 +2,7 @@
 import { t, tr } from '../i18n.js';
 import * as store from '../state.js';
 import { h, card, table, paras, select, reveal } from '../ui.js';
-import { tabHeader } from './common.js';
+import { tabHeader, guidedKeep } from './common.js';
 
 const INSTRUMENTS = ['mtn', 'keepwell', 'tier2'];
 const ROWS = ['obligor', 'currency', 'claim', 'support', 'whilePaying', 'watch'];
@@ -38,5 +38,6 @@ export function render(root, ctx) {
       h('h4', null, t(`structure.prec.${p}.title`)), ...paras(tr(`structure.prec.${p}.text`), 'small'))),
     h('p', { class: 'note' }, t('structure.precNote')));
 
+  guidedKeep(compare);
   root.append(...tabHeader('structure'), compare, h('div', { class: 'grid grid-2', style: { marginTop: '16px' } }, quiz, precedents));
 }

@@ -6,7 +6,7 @@ import * as fmt from '../format.js';
 import { h, card, slider, segmented, table, workings, button, hint } from '../ui.js';
 import { cashflows, pv, macaulayDuration, modifiedDuration, shockCompare, decompose, holdingPeriod, pricePath, accrued, bp } from '../../engine/index.js';
 import { lineChart, barChart } from '../charts.js';
-import { tabHeader, tallyInput, voteBar, legend } from './common.js';
+import { tabHeader, tallyInput, voteBar, legend, guidedKeep } from './common.js';
 import { bond, y0, p0, scale, position, value, stopById } from '../model.js';
 
 const PRESETS = [
@@ -199,7 +199,7 @@ export function render(root, ctx) {
     h('div', { class: 'grid grid-side' },
       h('div', { class: 'stack' }, controls),
       h('div', { class: 'stack' },
-        h('div', { class: 'grid grid-2' }, approxCard, hpCard),
+        guidedKeep(h('div', { class: 'grid grid-2' }, approxCard, hpCard)),
         decompCard,
         pathCard)),
     h('div', { style: { marginTop: '16px' } }, exercise),

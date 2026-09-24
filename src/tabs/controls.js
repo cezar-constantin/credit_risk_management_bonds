@@ -6,10 +6,10 @@ import { CASE } from '../data.js';
 import * as fmt from '../format.js';
 import { h, card, numberField, table, workings, paras, reveal } from '../ui.js';
 import { evaluateEscalation, accrued } from '../../engine/index.js';
-import { tabHeader } from './common.js';
+import { tabHeader, guidedKeep } from './common.js';
 import { value, stopById, position, bond } from '../model.js';
 
-const LENSES = ['investment', 'risk', 'audit', 'operations'];
+const LENSES = ['fmd', 'branch', 'risk', 'audit', 'operations'];
 
 function observations() {
   return CASE.escalation.observations.map((o) => {
@@ -66,6 +66,7 @@ export function render(root, ctx) {
 
   const q = card(t('controls.qTitle'), h('p', null, t('controls.q')), reveal(ctx, 'q', () => paras(tr('controls.a'))));
 
+  guidedKeep(lenses);
   root.append(...tabHeader('controls'),
     h('div', { class: 'grid grid-2' }, h('div', { class: 'stack' }, steps, q), rule),
     h('div', { style: { marginTop: '16px' } }, lenses));

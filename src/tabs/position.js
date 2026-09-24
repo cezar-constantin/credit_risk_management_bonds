@@ -1,11 +1,11 @@
 // 1 · Position — term sheet, FY2024 profile, editable in Free play; tie-out table of class figures.
-import { t } from '../i18n.js';
+import { t, tr } from '../i18n.js';
 import * as store from '../state.js';
 import { CASE } from '../data.js';
 import * as fmt from '../format.js';
 import { h, card, numberField, table, fictionalBadge, button, workings } from '../ui.js';
 import { figureAt } from '../../engine/index.js';
-import { tabHeader, isClass } from './common.js';
+import { tabHeader, isClass, guidedKeep } from './common.js';
 import { figures, y0, p0 } from '../model.js';
 
 const EDITABLE = [
@@ -28,6 +28,8 @@ export function render(root, ctx) {
     const p = pos();
     return h('dl', { class: 'kv' },
       h('dt', null, t('position.issuer')), h('dd', null, t('case.issuer')),
+      h('dt', null, t('position.issuerProfile')), h('dd', null, t('position.issuerProfileVal')),
+      h('dt', null, t('position.book')), h('dd', null, t('position.bookVal')),
       h('dt', null, t('position.structure')), h('dd', null, t('position.structureVal')),
       h('dt', null, t('position.instrument')), h('dd', null, t('position.instrumentVal', { coupon: fmt.pctRaw(p.coupon) })),
       h('dt', null, t('position.currency')), h('dd', null, t('position.currencyVal')),
@@ -36,7 +38,7 @@ export function render(root, ctx) {
       h('dt', null, t('position.nominal')), h('dd', null, fmt.money(p.nominal, 0)),
       h('dt', null, t('position.benchmark')), h('dd', null, t('position.benchmarkVal', { b: fmt.pctRaw(p.benchmark) })),
       h('dt', null, t('position.spread')), h('dd', null, `${fmt.bp(p.spread)} → ${t('position.yield')} ${fmt.pct(y0())}`),
-      h('dt', null, t('position.support')), h('dd', null, t('position.supportVal', { own: F.ownership, seats: F.boardSeats, loan: fmt.bn(F.shareholderLoanBn), date: fmt.date(F.shareholderLoanDate, { month: true }) })),
+      h('dt', null, t('position.support')), h('dd', null, t('position.supportVal', { own: F.ownership, loan: fmt.bn(F.shareholderLoanBn), year: F.shareholderLoanYear })),
       h('dt', null, t('position.businessModel')), h('dd', null, t('position.businessModelVal')),
       h('dt', null, t('position.funding')), h('dd', null, t('position.fundingVal', { f: fmt.pctRaw(p.funding), carry: fmt.bp((y0() * 100 - p.funding) * 100) })),
       h('dt', null, t('position.original')), h('dd', null, t('position.originalVal', { pd: fmt.pctRaw(p.pd12, 1), lgd: fmt.pctRaw(p.lgd, 0), ecl: fmt.money(p.pd12 / 100 * p.lgd / 100 * p.nominal) })));
@@ -87,12 +89,14 @@ export function render(root, ctx) {
 
   root.append(
     ...tabHeader('position', fictionalBadge()),
-    h('div', { class: 'print-factsheet' },
+    guidedKeep(h('div', { class: 'print-factsheet' },
       h('div', { class: 'print-only' }, h('h2', null, `${t('app.title')} — ${t('position.factSheet')}`), h('p', null, t('ui.fictionalLong'))),
       h('div', { class: 'grid grid-2' },
-        card(t('position.termSheet'), termSheet),
+        h('div', { class: 'stack' },
+          card(t('position.termSheet'), termSheet),
+          h('section', { class: 'card accent callout' }, h('h3', { class: 'card-title' }, t('position.icbcLensTitle')), ...tr('position.icbcLens').map((x) => h('p', null, x)))),
         card(t('position.profileTitle'), profile, h('p', { class: 'small muted' }, t('position.profileNote')))),
-      h('p', { class: 'small print-only' }, t('disclaimer.text'))),
+      h('p', { class: 'small print-only' }, t('disclaimer.text')))),
     h('div', { class: 'row no-print', style: { margin: '12px 0' } }, button(t('position.printSheet'), printSheet, { cls: 'btn' })),
     editor,
     tieOut,

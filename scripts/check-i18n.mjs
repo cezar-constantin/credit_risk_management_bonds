@@ -56,7 +56,7 @@ for (const file of walk(join(root, 'src'))) {
 }
 
 // Dynamic key families (template literals) expanded from case data.
-const TABS = ['home', 'position', 'mechanisms', 'repricing', 'spread', 'ratings', 'timeline', 'structure', 'portfolio', 'recognition', 'capital', 'controls', 'decision', 'answer', 'glossary'];
+const TABS = ['home', 'position', 'mechanisms', 'bondsloans', 'repricing', 'spread', 'ratings', 'timeline', 'structure', 'portfolio', 'recognition', 'capital', 'controls', 'decision', 'answer', 'glossary'];
 TABS.forEach((id) => ['title', 'short', 'intro', 'back'].forEach((f) => used.add(`tabs.${id}.${f}`)));
 CASE.stops.forEach((s) => used.add(`stops.${s.id}.short`));
 CASE.classStops.forEach((s) => { used.add(`classStops.s${s.n}`); used.add(`classStops.d${s.n}`); });
@@ -97,7 +97,7 @@ CASE.shocks.forEach((s) => used.add(`lab.shock.${s.id}`));
 ['normal', 'specialMention', 'substandard', 'doubtful', 'loss'].forEach((c) => used.add(`recog.fc.cats.${c}`));
 ['impaired', 'dpd90', 'sicr', 'dpd30', 'none'].forEach((r) => used.add(`recog.fc.stageReason.${r}`));
 ['dpdAny', 'adverse', 'restructured', 'dpd90', 'impaired', 'debtor10', 'dpd270', 'ecl50', 'dpd360', 'ecl90'].forEach((r) => used.add(`recog.fc.rules.${r}`));
-['investment', 'risk', 'audit', 'operations'].forEach((l) => ['name', 'role', 'case'].forEach((f) => used.add(`controls.lenses.${l}.${f}`)));
+['fmd', 'branch', 'risk', 'audit', 'operations'].forEach((l) => ['name', 'role', 'case'].forEach((f) => used.add(`controls.lenses.${l}.${f}`)));
 ['hold', 'reduce', 'hedge', 'exit'].forEach((a) => used.add(`decision.actions.${a}`));
 ['spread', 'price', 'cashCover', 'event', 'date'].forEach((m) => used.add(`decision.metrics.${m}`));
 ['action', 'sellShare', 'rationale', 'owner', 'trigger', 'escalation', 'responseA', 'responseB'].forEach((v) => used.add(`decision.v.${v}`));
@@ -107,6 +107,11 @@ CASE.shocks.forEach((s) => used.add(`lab.shock.${s.id}`));
 TABS.forEach((id) => { used.add(`desc.modules.${id}.inputs`); used.add(`desc.modules.${id}.outputs`); });
 ['purposeTitle', 'purpose', 'questionTitle', 'modulesTitle', 'colModule', 'colDoes', 'colInputs', 'colOutputs', 'inputsTitle', 'inputs', 'outputsTitle', 'outputs', 'runTitle', 'run', 'privacyTitle', 'privacy', 'disclaimerTitle'].forEach((k) => used.add(`desc.${k}`));
 used.add('units.year');
+CASE.route.forEach((r) => used.add(`route.s${r.slide}`));
+CASE.appendix.forEach((a, i) => used.add(`route.a${i + 1}`));
+['information', 'renegotiation', 'valuation', 'exit', 'security', 'concentration'].forEach((r) => ['topic', 'loan', 'bond'].forEach((f) => used.add(`bl.rows.${r}.${f}`)));
+['p1', 'p2'].forEach((p) => { used.add(`timeline.lgfv.${p}.name`); used.add(`timeline.lgfv.${p}.facts`); });
+['importance', 'linkage', 'capacity'].forEach((f) => used.add(`timeline.${f}`));
 
 for (const k of used) {
   if (!exists(en, k)) errors.push(`key used in src but missing in en.json: ${k}`);

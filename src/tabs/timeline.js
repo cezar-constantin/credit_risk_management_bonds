@@ -5,7 +5,7 @@ import * as store from '../state.js';
 import { CASE } from '../data.js';
 import * as fmt from '../format.js';
 import { h, card, slider, segmented, table, checkbox, button, workings, paras, reveal, tone } from '../ui.js';
-import { tabHeader, tallyInput, voteBar } from './common.js';
+import { tabHeader, tallyInput, voteBar, guidedKeep } from './common.js';
 import { value, market } from '../model.js';
 
 const MISSING = ['projectDebt', 'restrictedCash', 'maturityProfile', 'jvDebt', 'salesCollection', 'landBank', 'trustTerms', 'supportDocs', 'crossDefault', 'auditOpinion'];
@@ -115,13 +115,44 @@ export function render(root, ctx) {
     h('ol', { class: 'small' }, tr('timeline.funnel').map((x) => h('li', null, x))),
     h('p', { class: 'note' }, t('timeline.funnelNote')));
 
+  // LGFV — score two fictional profiles (class slide 23).
+  const LEVELS = ['strong', 'moderate', 'limited', 'low'];
+  const levelOf = (sp) => {
+    const score = (sp.importance + sp.linkage + sp.capacity) / 3;
+    const weakest = Math.min(sp.importance, sp.linkage, sp.capacity);
+    return { score, level: weakest <= 1 ? 'low' : score >= 4 ? 'strong' : score >= 3 ? 'moderate' : score >= 2 ? 'limited' : 'low' };
+  };
+  const lgfv = card(t('timeline.lgfv.title'),
+    h('p', { class: 'small' }, t('timeline.lgfv.intro')),
+    h('div', { class: 'grid grid-2' }, ['p1', 'p2'].map((p) => h('div', { class: 'card' },
+      h('h4', null, t(`timeline.lgfv.${p}.name`)),
+      h('ul', { class: 'small' }, tr(`timeline.lgfv.${p}.facts`).map((x) => h('li', null, x))),
+      ['importance', 'linkage', 'capacity'].map((f) => slider({ path: `timeline.lgfv.${p}.${f}`, label: t(`timeline.${f}`), min: 1, max: 5, step: 1, fmt: (v) => `${v}/5` })),
+      ctx.live(() => {
+        const r = levelOf(store.get().timeline.lgfv[p]);
+        return h('p', null, h('strong', null, `${t('timeline.lgfv.assessment')}: `),
+          h('span', { class: `pill ${r.level === 'strong' ? 'ok' : r.level === 'moderate' ? 'amber' : 'red'}` }, t(`timeline.levels.${r.level}`)), ` ${fmt.num(r.score, 1)}/5`);
+      }),
+      ctx.live(() => {
+        if (store.get().mode !== 'instructor') return null;
+        return h('div', { class: 'small' },
+          h('p', null, h('strong', null, t('timeline.lgfv.tally'))),
+          LEVELS.map((lv) => h('div', { class: 'row' },
+            h('span', { style: { minWidth: '8em' } }, t(`timeline.levels.${lv}`)),
+            tallyInput(`timeline.lgfvTally.${p}.${lv}`, `${t(`timeline.lgfv.${p}.name`)} — ${t(`timeline.levels.${lv}`)}`))));
+      })))),
+    h('p', { class: 'note' }, t('timeline.lgfv.rule')),
+    h('p', { class: 'small muted' }, t('timeline.lgfv.fictional')));
+
   const q = card(t('timeline.qTitle'), h('p', null, t('timeline.q')), reveal(ctx, 'q', () => paras(tr('timeline.a'))));
 
+  guidedKeep(ratios);
   root.append(
     ...tabHeader('timeline'),
     h('div', { class: 'grid grid-2' },
       h('div', { class: 'stack' }, factList, q, funnel),
       h('div', { class: 'stack' }, ratios, cf, support, missing)),
+    h('div', { style: { marginTop: '20px' } }, lgfv),
   );
 }
 

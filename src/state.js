@@ -26,7 +26,7 @@ export function defaultState() {
       restSpread: CASE.sizing.restSpreads[0],
     },
     ratings: { terminated: false, reason: '', note: '', grade: '', refreshed: false },
-    timeline: { revealed: 0, votes: {}, myVotes: {}, missing: {}, support: { importance: 3, linkage: 2, capacity: 2 } },
+    timeline: { revealed: 0, votes: {}, myVotes: {}, missing: {}, support: { importance: 3, linkage: 2, capacity: 2 }, lgfv: { p1: { importance: 3, linkage: 3, capacity: 3 }, p2: { importance: 3, linkage: 3, capacity: 3 } }, lgfvTally: {} },
     structure: { quiz: {} },
     portfolio: { answers: {} },
     recog: {
@@ -50,6 +50,9 @@ export function defaultState() {
       form: { action: '', sellShare: 0, rationale: '', owner: '', triggers: [{ metric: 'spread', number: '', date: '', consequence: '' }], escalation: '', responseA: '', responseB: '' },
       replay: 'none',
     },
+    answers: {},
+    qtally: {},
+    guided: null,
     reveals: {},
     visited: {},
     hints: {},

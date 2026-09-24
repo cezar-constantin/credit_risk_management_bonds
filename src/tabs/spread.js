@@ -5,7 +5,7 @@ import * as fmt from '../format.js';
 import { h, card, slider, table, workings, paras, reveal, hint } from '../ui.js';
 import { spreadAnatomy, sizing, bp, pct } from '../../engine/index.js';
 import { stackedBar } from '../charts.js';
-import { tabHeader, legend } from './common.js';
+import { tabHeader, legend, guidedKeep } from './common.js';
 
 export function render(root, ctx) {
   const S = () => store.get().spread;
@@ -78,6 +78,7 @@ export function render(root, ctx) {
       ];
     }));
 
+  guidedKeep(breakeven);
   root.append(
     ...tabHeader('spread'),
     h('div', { class: 'grid grid-side' },

@@ -3,7 +3,7 @@ import { t } from '../i18n.js';
 import * as store from '../state.js';
 import { CASE } from '../data.js';
 import { h, card, table, select, reveal, textField } from '../ui.js';
-import { tabHeader } from './common.js';
+import { tabHeader, guidedKeep } from './common.js';
 
 const QUESTIONS = ['mechanism', 'missing', 'control', 'evidence'];
 
@@ -37,5 +37,5 @@ export function render(root, ctx) {
   root.append(...tabHeader('portfolio'),
     h('p', { class: 'small' }, t('portfolio.questionsIntro')),
     h('ol', { class: 'small' }, QUESTIONS.map((q) => h('li', null, t(`portfolio.q.${q}`)))),
-    h('div', { class: 'grid grid-2' }, lines), h('div', { style: { marginTop: '16px' } }, ref));
+    guidedKeep(h('div', { class: 'grid grid-2' }, lines)), h('div', { style: { marginTop: '16px' } }, ref));
 }

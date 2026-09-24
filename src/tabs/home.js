@@ -3,7 +3,7 @@ import { t, tr } from '../i18n.js';
 import * as store from '../state.js';
 import { CASE } from '../data.js';
 import { h, card, segmented, select, button, paras, fictionalBadge } from '../ui.js';
-import { tabHeader, tallyInput, voteBar } from './common.js';
+import { tabHeader, tallyInput, voteBar, guidedKeep } from './common.js';
 
 const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'];
 
@@ -12,7 +12,7 @@ export function render(root, ctx, { goTab }) {
     ...tabHeader('home', fictionalBadge()),
     h('p', { class: 'question-hero' }, t('question')),
     h('div', { class: 'grid grid-2' },
-      card(t('home.pollTitle'),
+      guidedKeep(card(t('home.pollTitle'),
         h('p', null, h('strong', null, t('home.poll.q'))),
         h('p', { class: 'small muted' }, t('home.pollHow')),
         ctx.live(() => {
@@ -44,7 +44,7 @@ export function render(root, ctx, { goTab }) {
           const s = store.get();
           const all = LETTERS.every((L) => s.reveals[`home.poll${L}`]);
           return all ? h('p', { class: 'note' }, t('home.pollTakeaway')) : null;
-        })),
+        }))),
       h('div', { class: 'stack' },
         card(t('home.settings'),
           select({ path: 'lang', label: t('ui.language'), options: [{ value: 'en', label: 'English' }, { value: 'zh', label: '简体中文' }] }),
@@ -58,6 +58,10 @@ export function render(root, ctx, { goTab }) {
               store.get().ctx.stop = cs.stop;
               goTab(cs.tab);
             }, { cls: 'btn btn-link btn-small' }))))),
+        card(t('ui.route'),
+          h('details', null, h('summary', null, t('home.routeOpen')),
+            h('ol', { class: 'small route-list' }, CASE.route.map((r) => h('li', { value: r.slide },
+              button(`${t(`route.s${r.slide}`)}${r.questions.length ? ` · ${r.questions.join(' ')}` : ''}`, () => goTab(r.tab), { cls: 'btn btn-link btn-small' })))))),
         card(t('home.howTitle'),
           h('h4', null, t('ui.instructor')), ...paras(tr('home.howInstructor')),
           h('h4', null, t('ui.participant')), ...paras(tr('home.howParticipant'))))),

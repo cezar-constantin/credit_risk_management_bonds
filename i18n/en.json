@@ -70,20 +70,23 @@
     "about": "About this app (description)",
     "focusView": "Focus view",
     "standardView": "Standard view",
-    "viewHint": "Same content and numbers; switch between the standard and the calmer focus layout"
+    "viewHint": "Same content and numbers; switch between the standard and the calmer focus layout",
+    "route": "Slide route (v3 deck, 35 slides)",
+    "slide": "Slide",
+    "appendix": "Appendix"
   },
   "tabs": {
     "home": {
       "title": "Home — the question",
       "short": "Home",
-      "intro": "One fictional bond, four dated stops, every number computed live. We finish by answering the question explicitly.",
+      "intro": "The bank's bond, your client: one fictional bond in the head-office book, issued by a branch client, followed through four dated stops with every number computed live. We finish by answering the question explicitly.",
       "back": "The question we answer by the end of the class: how a bond loses money while every coupon arrives on time."
     },
     "position": {
-      "title": "The position",
-      "short": "Position",
-      "intro": "The term sheet and FY2024 profile at purchase. Class defaults lock these values; Free play lets you change them within sane bounds and every screen recomputes.",
-      "back": "This is the position that will lose money without a missed payment — note what the purchase decision relied on."
+      "title": "The bank's bond, your client",
+      "short": "Bond & client",
+      "intro": "The bond sits in the head-office book; the issuer is a branch client. Term sheet and FY2024 profile at purchase. Class defaults lock these values; Free play lets you change them within sane bounds and every screen recomputes.",
+      "back": "This is the bank's bond — and your client — that will lose value without a missed payment. Note what the purchase decision relied on."
     },
     "mechanisms": {
       "title": "Six loss mechanisms while payments continue",
@@ -142,7 +145,7 @@
     "controls": {
       "title": "Controls mapped to the case dates",
       "short": "Controls",
-      "intro": "Monitoring → escalation → formal impairment assessment → execution, with the four functional lenses. The escalation rule is illustrative only.",
+      "intro": "Monitoring → escalation → formal impairment assessment → execution, across the branch that knows the client and the head office that holds the bond, seen through five functional lenses. The escalation rule is illustrative only.",
       "back": "Losses while paying become larger when evidence is seen late or acted on slowly."
     },
     "decision": {
@@ -162,6 +165,12 @@
       "short": "Glossary",
       "intro": "Bilingual terms and acronyms used in the class (Appendix A7 and A9). Search in either language.",
       "back": "Shared vocabulary keeps the answer precise across two languages and consecutive interpretation."
+    },
+    "bondsloans": {
+      "title": "Bonds vs loans — one obligor, two books",
+      "short": "Bonds vs loans",
+      "intro": "The same client can owe the branch a loan and the head office a bond. Flip each row to see how the bond differs and which loss mechanism the difference feeds.",
+      "back": "The branch knows the obligor first; what it sees reaches the bond's value through the six mechanisms."
     }
   },
   "stops": {
@@ -195,14 +204,14 @@
     "d4": "Jun 2026: executable proceeds vs probability-weighted holding value; write the decision."
   },
   "agenda": {
-    "b1": "Opening question and poll",
-    "b2": "Stops 1–2: repricing and spread anatomy",
-    "b3": "Stop 3: evidence, timeline, structure",
+    "b1": "Question, poll, the bank's bond",
+    "b2": "Mechanisms, bonds vs loans, three lenses",
+    "b3": "Stops 1–2: sensitivity, shocks, holding period, spread, ratings",
     "b4": "Break",
-    "b5": "Portfolio contrasts and recognition",
-    "b6": "Capital and controls",
+    "b5": "Stop 3: timeline, ratios, support, LGFV, structure, contrasts",
+    "b6": "Recognition, classification, capital, controls",
     "b7": "Stop 4: the decision",
-    "b8": "The answer and ZKB visit questions"
+    "b8": "ZKB questions and the answer"
   },
   "timer": {
     "inBlock": "{block} — {left} min left",
@@ -300,7 +309,8 @@
       "Work through the tabs in order at your own pace. Hints and “Check my answer” are available on the exercise screens.",
       "Progress, answers and your decision are saved in this browser only (localStorage). Nothing is sent anywhere; the app works fully offline."
     ],
-    "fictionalNote": "Huaxing Development Co., Ltd. is a fictional composite. Names of real institutions appear only in public precedents and regulatory facts, which should be verified against primary sources."
+    "fictionalNote": "Huaxing Development Co., Ltd. is a fictional composite. Names of real institutions appear only in public precedents and regulatory facts, which should be verified against primary sources.",
+    "routeOpen": "Show the 35 slides and their questions"
   },
   "position": {
     "termSheet": "Term sheet",
@@ -320,7 +330,7 @@
     "spread": "Spread at purchase",
     "yield": "yield",
     "support": "Shareholder support",
-    "supportVal": "No contractual support. Municipal SOE holds {own}% with {seats} board seats; {loan} shareholder loan in {date}.",
+    "supportVal": "No contractual support. A provincial SOE holds {own}% with no board seat; one {loan} shareholder loan in {year}, nothing since.",
     "businessModel": "Business model",
     "businessModelVal": "Hold to collect → amortised cost (SPPI test passed)",
     "funding": "Funding",
@@ -357,7 +367,16 @@
     "tieOk": "ties",
     "tieDrift": "drift",
     "tieFree": "free play",
-    "tieFormula": "PV = Σ CFᵢ / (1 + y)^tᵢ  (annual compounding, fractional exponents; dirty = PV of all remaining cash flows)\ny = benchmark + spread; bid yield = mid yield + bid–ask"
+    "tieFormula": "PV = Σ CFᵢ / (1 + y)^tᵢ  (annual compounding, fractional exponents; dirty = PV of all remaining cash flows)\ny = benchmark + spread; bid yield = mid yield + bid–ask",
+    "issuerProfile": "Issuer profile",
+    "issuerProfileVal": "Top-30 developer, tier-2 city",
+    "book": "Book and obligor",
+    "bookVal": "Head-office investment book; the obligor is a branch client",
+    "icbcLensTitle": "ICBC lens — two books, one obligor",
+    "icbcLens": [
+      "The bond sits in the head-office book. The obligor is a branch client: its loans, guarantees, escrow accounts and the CFO's phone number are in the branch.",
+      "The same deterioration reaches both books. The branch usually sees it first — a CFO leaving, supplier arrears, escrow behaviour — while the bond's price may show it earlier or later. Report what you see; do not wait for the price."
+    ]
   },
   "fin": {
     "revenue": "Revenue",
@@ -647,7 +666,9 @@
     "a": [
       "Termination at the issuer’s request removes an independent monitor at exactly the time monitoring matters; issuers rarely drop ratings they expect to be upgraded.",
       "It is evidence to assess — with the sales, CFO, trust-loan and FY2025 facts — not a mechanical downgrade and not a reason to ignore the other evidence."
-    ]
+    ],
+    "historyTitle": "Historical example",
+    "history": "Yongcheng Coal & Electricity (November 2020): an AAA-rated provincial SOE defaulted on a short-term note — a national-scale AAA did not signal the event. Verify details in primary sources."
   },
   "timeline": {
     "factsTitle": "Dated facts",
@@ -706,13 +727,13 @@
       "auditOpinion": "Auditor’s opinion and any going-concern emphasis"
     },
     "supportTitle": "Support scoring",
-    "supportIntro": "Score non-contractual support from the 28% municipal-SOE shareholder. Support is a judgement, not a claim.",
+    "supportIntro": "Score non-contractual support from the 20% provincial-SOE shareholder. Support is a judgement, not a claim.",
     "importance": "Importance to the supporter",
-    "importanceHint": "Strategic role, local employment, housing delivery",
+    "importanceHint": "Delivers housing in a tier-2 city; the province has other developers and other priorities",
     "linkage": "Linkage",
-    "linkageHint": "Ownership 28%, two board seats, name, shared funding",
+    "linkageHint": "20% stake, no board seat, one RMB 5 bn loan in 2024 and nothing since",
     "capacity": "Capacity and willingness",
-    "capacityHint": "Fiscal capacity of the municipality; past behaviour (RMB 8 bn loan in Jan 2024)",
+    "capacityHint": "Fiscal capacity and willingness of the province; past behaviour (one RMB 5 bn loan in 2024)",
     "supportScore": "Qualitative support:",
     "supportFormula": "Score = average of the three dimensions (0–5)\nIf any dimension ≤ 1, support is at most “low”.",
     "supportNote": "A score informs the probability of counterfactual A; it never replaces a legal claim.",
@@ -731,7 +752,7 @@
     "cfTitle": "Counterfactuals (Jul 2026)",
     "cfIntro": "Choose a counterfactual: it drives spread → price in the tiles, the Decision tab and everywhere downstream.",
     "cfA": [
-      "A registered guarantee plus a new RMB 8 bn shareholder loan.",
+      "A registered guarantee plus a new RMB 5 bn shareholder loan.",
       "Spread tightens to 350 bp."
     ],
     "cfB": [
@@ -756,7 +777,37 @@
       "Liquidity and refinancing: dated maturities onshore and offshore, access to markets.",
       "Support and structure: who owes you, on what claim, and who might support — by contract or by choice."
     ],
-    "funnelNote": "Work from the outside in; stop and escalate when a layer contradicts the thesis."
+    "funnelNote": "Work from the outside in; stop and escalate when a layer contradicts the thesis.",
+    "lgfv": {
+      "title": "LGFV — score two profiles",
+      "intro": "Two fictional local-government financing vehicles. Score each 1–5 on the three support factors; the room's assessments are tallied in instructor mode.",
+      "rule": "Ownership is a fact to analyse, not a contract. Leaving a financing list does not mechanically remove support; being on one does not guarantee it. Score the entity's own cash flows and the region's capacity.",
+      "p1": {
+        "name": "Profile 1 — provincial-level platform",
+        "facts": [
+          "Strong fiscal region",
+          "Refinancing-bond allocation received",
+          "Positive own operating cash flow",
+          "Bank lines renewed",
+          "Maturities spread over 5 years",
+          "Consolidated in provincial SOE reporting; on the financing list"
+        ]
+      },
+      "p2": {
+        "name": "Profile 2 — district-level platform",
+        "facts": [
+          "Weak fiscal region with overdue non-standard debt",
+          "Negative own operating cash flow",
+          "Maturity wall within 12 months",
+          "No refinancing-bond allocation",
+          "Removed from the financing list in 2024",
+          "“Market-oriented transformation” announced"
+        ]
+      },
+      "assessment": "Support assessment",
+      "tally": "Room tally (hand counts)",
+      "fictional": "Fictional profiles — no real platform, region or province."
+    }
   },
   "structure": {
     "compareTitle": "Three instruments, three claims",
@@ -899,9 +950,9 @@
       },
       "t2": {
         "name": "Big-six bank Tier-2, 10NC5",
-        "desc": "Subordinated capital bond; call expected at year 5.",
-        "mechanism": "Spread widening and extension if not called; write-down at non-viability.",
-        "missing": "Issuer’s call intention, capital headroom, regulator’s approval.",
+        "desc": "Subordination spread; a non-call extends duration; 150% weight.",
+        "mechanism": "Subordination spread; a non-call extends duration; 150% risk weight.",
+        "missing": "Issuer's call intention, capital headroom, regulator's approval.",
         "control": "Call-assumption monitoring; legal review of loss-absorption terms.",
         "evidence": "Call approval or refusal; capital ratios near triggers."
       },
@@ -923,11 +974,11 @@
       },
       "keepwell": {
         "name": "USD keepwell note vs UST",
-        "desc": "Offshore SPV note; spread against US Treasuries, in USD.",
-        "mechanism": "Structure (keepwell is not a guarantee), refinancing, USD spread moves.",
-        "missing": "Deed enforceability, cross-border approvals, onshore assets reachable.",
-        "control": "Legal structure review; FX hedge and cross-currency limits.",
-        "evidence": "Parent performing under the deed, or a court decision on enforcement."
+        "desc": "Offshore SPV note in USD, spread against US Treasuries; English/Hong Kong law.",
+        "mechanism": "Structure (keepwell is not a guarantee) and refinancing; FX — USD funding and P&L translation; governing law decides enforcement.",
+        "missing": "Deed enforceability under its governing law, cross-border approvals, onshore assets reachable, USD funding cost.",
+        "control": "Legal review of claim and governing law; hedge of USD funding and translation; cross-currency limits.",
+        "evidence": "Parent performing under the deed, a court decision on enforcement, or a change in USD funding conditions."
       }
     },
     "refTitle": "Nine-line reference list",
@@ -1100,7 +1151,7 @@
         "restructured": "restructured asset → at least special mention, with an observation period before any upgrade",
         "dpd90": "more than 90 days past due → at least substandard",
         "impaired": "credit-impaired → at least substandard",
-        "debtor10": "≥ 10% of the debtor’s exposures non-performing → all its exposures at least substandard",
+        "debtor10": "more than 10% of the debtor’s exposures at the bank non-performing → all its exposures at least substandard (Art. 7)",
         "dpd270": "more than 270 days past due → at least doubtful",
         "ecl50": "credit-impaired and ECL ≥ 50% → at least doubtful",
         "dpd360": "more than 360 days past due → loss",
@@ -1117,7 +1168,17 @@
     "a": [
       "FVTPL shows the whole economic change (−6.41) in P&L. FVOCI shows the same equity effect split between P&L (ECL) and OCI.",
       "Amortised cost shows only the ECL charge (−5.40); the spread and liquidity loss stay hidden until the bond is sold."
-    ]
+    ],
+    "cecl": {
+      "title": "New York branch: CECL",
+      "text": "US regulatory reports (FFIEC 002) apply CECL (ASU 2016-13): lifetime expected losses from day one, no stages.",
+      "ifrs": "IFRS 9, day one: 12-month ECL",
+      "cecl": "CECL, day one: lifetime (order of magnitude)",
+      "label": "Order of magnitude, not a CECL calculation: remaining years × annual PD × LGD × EAD, before discounting and scenarios.",
+      "formula": "IFRS 9 day one = PD₁₂ × LGD × EAD\nCECL order of magnitude = years × PD₁₂ × LGD × EAD",
+      "source": "Source: Federal Register, 14 Feb 2019, 84 FR 4222. Group reporting stays IFRS / CAS with no differences.",
+      "years": "Remaining years"
+    }
   },
   "capital": {
     "rwTitle": "Standardised risk weights (weighted approach)",
@@ -1178,8 +1239,7 @@
     "gsibTitle": "Static facts: G-SIB and TLAC",
     "gsibFacts": [
       "G-SIB bucket 3 applies from 1 January 2027 (higher loss-absorbency requirement per the FSB list; verify the current list).",
-      "TLAC: minimum 16% of RWA from 1 January 2025, rising to 18% from 1 January 2028; leverage-ratio TLAC 6% then 6.75%.",
-      "Bank Tier-2 and TLAC-eligible holdings of other banks attract high risk weights and deductions — relevant for the Tier-2 line in the portfolio."
+      "TLAC: minimum 16% of RWA from 1 January 2025, rising to 18% from 1 January 2028; leverage-ratio TLAC 6% then 6.75%."
     ],
     "gsibNote": "Static regulatory facts for context only; verify against primary sources.",
     "notTitle": "What capital does not do",
@@ -1193,7 +1253,8 @@
     "a": [
       "No. Capital fell through the ECL charge (retained earnings) and, under FVOCI, through OCI in CET1.",
       "Under IRB the higher PD would also raise RWA. And a realised loss on sale reduces capital immediately."
-    ]
+    ],
+    "holdingsNote": "Holdings of other banks' AT1 and Tier-2 instruments and TLAC-eligible debt attract high risk weights (Tier-2: 150%) and, above thresholds, deductions from capital — relevant for the Tier-2 line in the portfolio."
   },
   "controls": {
     "stepsTitle": "Four steps mapped to the case dates",
@@ -1225,7 +1286,7 @@
       "jul26": "Jul 2026"
     },
     "ruleTitle": "Illustrative escalation rule",
-    "notPolicy": "Illustrative only — neither ICBC policy nor regulation",
+    "notPolicy": "Illustrative only — neither ICBC policy nor a regulatory requirement",
     "ruleText": "Escalate to the credit committee within five working days when at least the chosen number of signals is present at a date. Edit the thresholds and see when the rule would have fired.",
     "rule": {
       "spreadLevel": "Spread level ≥",
@@ -1249,19 +1310,24 @@
     "noTrigger": "With these thresholds the rule never fires on the case dates.",
     "ruleFormula": "Signals = count of {spread ≥ level, spread − 210 ≥ widening, clean price < floor, cash cover < threshold, qualitative red flag}\nEscalate when signals ≥ required",
     "ruleNote": "Dec 2025 has no market observation in the case; red flags: sales (Dec 2025), CFO and trust loans (Mar 2026), FY2025 results (Apr 2026), rating termination (Jun 2026).",
-    "lensesTitle": "Four functional lenses",
+    "lensesTitle": "Five functional lenses",
     "function": "Function",
     "responsibility": "Responsibility",
     "inCase": "In the Huaxing case",
     "lenses": {
-      "investment": {
-        "name": "Investment (front office)",
-        "role": "Owns the position and the hold/sell decision; proposes actions with economics.",
-        "case": "Prepares the Jun 2026 decision: proceeds vs hold value, break-even probability, hedge feasibility."
+      "fmd": {
+        "name": "Financial Markets Department (HO)",
+        "role": "Owns the position, the business-model assessment and the executable-price check.",
+        "case": "Prepares the Jun 2026 decision: executable bid vs hold value, break-even probability, hedge feasibility."
+      },
+      "branch": {
+        "name": "Branch / relationship",
+        "role": "Knows the obligor first — CFO exit, supplier arrears, escrow behaviour — and reports to head office within a set time, no-fault.",
+        "case": "Reports the CFO resignation and the trust-loan extensions when they happen, not when the price has moved."
       },
       "risk": {
         "name": "Risk management",
-        "role": "Independent assessment, limits, internal grade, SICR and ECL inputs; challenges the front office.",
+        "role": "Independent assessment, limits, internal grade, SICR and ECL inputs; challenges the first line.",
         "case": "Refreshes the internal grade after the rating termination; runs the escalation rule; sets ECL scenarios."
       },
       "audit": {
@@ -1831,6 +1897,10 @@
       "glossary": {
         "inputs": "Search text",
         "outputs": "Bilingual glossary and acronyms"
+      },
+      "bondsloans": {
+        "inputs": "Row flips",
+        "outputs": "Loan vs bond on six dimensions and the loss mechanism each feeds"
       }
     },
     "inputsTitle": "Inputs",
@@ -1853,5 +1923,122 @@
     "privacyTitle": "Privacy",
     "privacy": "No backend, no accounts, no analytics and no network calls. State stays in this browser’s localStorage.",
     "disclaimerTitle": "Disclaimer"
+  },
+  "bl": {
+    "tableTitle": "Loan (branch book) vs bond (head-office book)",
+    "colTopic": "Dimension",
+    "colLoan": "Loan — branch book",
+    "colBond": "Bond — head-office book",
+    "colMech": "Mechanism",
+    "flip": "Flip to the bond",
+    "mech": "Mechanism",
+    "rows": {
+      "information": {
+        "topic": "Information",
+        "loan": "Private and frequent: accounts, covenants, account flows, site visits — the branch sees the client every month.",
+        "bond": "Public disclosure only; the investor sees what the issuer publishes and what the market prices."
+      },
+      "renegotiation": {
+        "topic": "Renegotiation",
+        "loan": "Bilateral: the bank and the client can restructure the terms.",
+        "bond": "Many holders; changes go through a bondholder meeting — a distressed extension is proposed to all."
+      },
+      "valuation": {
+        "topic": "Valuation",
+        "loan": "Amortised cost; no daily price.",
+        "bond": "A market price every day: value moves with rates, spread and liquidity even when the book is at amortised cost."
+      },
+      "exit": {
+        "topic": "Exit",
+        "loan": "Hard to sell; held to maturity, restructured or transferred.",
+        "bond": "Can be sold — at the executable bid, which widens exactly when you need to sell."
+      },
+      "security": {
+        "topic": "Security",
+        "loan": "Often secured or guaranteed; the branch holds the collateral documents.",
+        "bond": "Senior unsecured; behind project-level secured debt; recovery depends on the claim."
+      },
+      "concentration": {
+        "topic": "Concentration",
+        "loan": "Client and group limits in the branch credit system.",
+        "bond": "Held in another book, possibly outside the same limit: one obligor, two exposures."
+      }
+    },
+    "measuresTitle": "One classification for both",
+    "measures": "The 2023 Measures classify both; more than 10% non-performing at one debtor makes all its exposures at the bank non-performing (Art. 7).",
+    "closeTitle": "What the branch sees",
+    "close": [
+      "What the branch sees — a CFO leaving, supplier arrears, escrow behaviour — reaches the bond's value through mechanism 5.",
+      "Report it; do not wait for the price."
+    ]
+  },
+  "route": {
+    "s1": "Cover",
+    "s2": "The question and opening poll",
+    "s3": "Reveal: six answers",
+    "s4": "The bank's bond, your client",
+    "s5": "Route: four stops",
+    "s6": "Transition slide",
+    "s7": "Six loss mechanisms",
+    "s8": "Bonds vs loans",
+    "s9": "Three accounting lenses",
+    "s10": "ICBC context: two books, one obligor",
+    "s11": "Transition slide",
+    "s12": "Sensitivity: duration and DCF",
+    "s13": "Three shocks",
+    "s14": "Holding-period result",
+    "s15": "What a spread pays for",
+    "s16": "Ratings and evidence",
+    "s17": "First decision (Stop 2)",
+    "s18": "Transition slide",
+    "s19": "Transition slide",
+    "s20": "Timeline: deterioration while paying",
+    "s21": "Ratios",
+    "s22": "Support scoring",
+    "s23": "LGFV: score two profiles",
+    "s24": "Structure and claims",
+    "s25": "Portfolio contrasts",
+    "s26": "Transition slide",
+    "s27": "Recognition",
+    "s28": "Five-category classification",
+    "s29": "Capital",
+    "s30": "Controls and five lenses",
+    "s31": "Decision economics",
+    "s32": "Final decision (Stop 4)",
+    "s33": "ZKB visit questions",
+    "s34": "The answer",
+    "s35": "Transition slide",
+    "a1": "Pricing formulas",
+    "a2": "Sensitivity and decomposition workings",
+    "a3": "ECL formulas",
+    "a4": "Five-category rules",
+    "a5": "CECL for New York",
+    "a6": "Risk weights and IRB",
+    "a7": "Glossary",
+    "a8": "Nine-line reference list",
+    "a9": "Acronyms"
+  },
+  "q": {
+    "chooseOne": "Choose one",
+    "vote": "Vote",
+    "answer": "Answer",
+    "modelAnswer": "Model answer",
+    "engine": "Engine",
+    "engineLine": "Computed by the engine",
+    "reference": "Reference",
+    "viewMode": "Screen detail",
+    "guided": "Guided",
+    "full": "Full",
+    "showFull": "Show the full screen",
+    "scoreTitle": "Questions and score",
+    "score": "Your score: {right} of {total}",
+    "scoreNote": "{answered} of {total} choose-one questions answered. Answers stay in this browser.",
+    "printSheet": "Print the question sheet",
+    "printKey": "Print the answer key",
+    "sheetTitle": "Participant question sheet",
+    "keyTitle": "Answer key (instructor)",
+    "name": "Name",
+    "unit": "Unit",
+    "noBank": "The class question bank (data/questions.json) has not been added yet, so the choose-one panels are empty. Copy question_bank.json into data/questions.json unchanged and rebuild."
   }
 }

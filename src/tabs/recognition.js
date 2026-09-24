@@ -3,8 +3,8 @@ import { t, tr } from '../i18n.js';
 import * as store from '../state.js';
 import * as fmt from '../format.js';
 import { h, card, slider, segmented, checkbox, table, workings, paras, reveal, button, numberField, hint } from '../ui.js';
-import { weightedEcl, recognition, fiveCategory, ifrsStage, ecl, pct } from '../../engine/index.js';
-import { tabHeader } from './common.js';
+import { weightedEcl, recognition, fiveCategory, ifrsStage, ecl, pct, ceclOrderOfMagnitude } from '../../engine/index.js';
+import { tabHeader, guidedKeep } from './common.js';
 import { value, position, y0 } from '../model.js';
 
 const EVIDENCE = ['spread', 'rating', 'financials', 'watchlist', 'dpd30'];
@@ -135,10 +135,27 @@ export function render(root, ctx) {
   const fcCard = card(t('recog.fc.title'), ...paras(tr('recog.fc.intro'), 'small'), fcInputs, fcOut,
     h('p', { class: 'note' }, t('recog.fc.group')));
 
+  // New York branch: CECL day-one comparison (order of magnitude only).
+  const cecl = card(t('recog.cecl.title'), h('p', { class: 'small' }, t('recog.cecl.text')), ctx.live(() => {
+    const pos = position();
+    const ifrs = ecl(pct(pos.pd12), pct(pos.lgd), pos.nominal);
+    const us = ceclOrderOfMagnitude({ pdAnnual: pct(pos.pd12), lgd: pct(pos.lgd), ead: pos.nominal, years: pos.tenor });
+    return [
+      table([t('recog.measure'), t('recog.amount')], [
+        [t('recog.cecl.ifrs'), fmt.money(ifrs)],
+        { cls: 'hl', cells: [t('recog.cecl.cecl'), `≈ ${fmt.money(us)}`] },
+      ], { numericCols: [1] }),
+      h('p', { class: 'note' }, t('recog.cecl.label')),
+      workings('rec-cecl', t('recog.cecl.formula'), [[t('recog.pd12'), fmt.pctRaw(pos.pd12, 1)], [t('recog.lgd'), fmt.pctRaw(pos.lgd, 0)], [t('recog.ead'), fmt.money(pos.nominal)], [t('recog.cecl.years'), pos.tenor]]),
+      h('p', { class: 'small muted' }, t('recog.cecl.source')),
+    ];
+  }));
+
   const q = card(t('recog.qTitle'), h('p', null, t('recog.q')), reveal(ctx, 'q', () => paras(tr('recog.a'))));
 
+  guidedKeep(lenses);
   root.append(...tabHeader('recognition'),
     h('div', { class: 'grid grid-side' },
       h('div', { class: 'stack' }, scenCard, sicr),
-      h('div', { class: 'stack' }, lenses, h('div', { class: 'grid grid-2' }, eclCard, q), classification, fcCard)));
+      h('div', { class: 'stack' }, lenses, h('div', { class: 'grid grid-2' }, eclCard, q), classification, fcCard, cecl)));
 }

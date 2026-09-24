@@ -1,6 +1,6 @@
 {
   "name": "bond-credit-risk-case-lab",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Bond Credit Risk Case Lab — interactive companion app for the UZH Executive Education class Credit Risk Management in Bond Investment.",
   "type": "module",
   "private": true,
@@ -11,7 +11,8 @@
     "check:i18n": "node scripts/check-i18n.mjs",
     "build": "node scripts/build.mjs",
     "check": "npm run check:i18n && npm test && npm run build",
-    "screenshots": "node scripts/screenshots.mjs"
+    "screenshots": "node scripts/screenshots.mjs",
+    "question-shots": "node scripts/question-shots.mjs"
   },
   "engines": {
     "node": ">=20"

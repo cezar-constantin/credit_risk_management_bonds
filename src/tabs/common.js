@@ -40,3 +40,9 @@ export function legend(items) {
 }
 
 export const isClass = () => store.get().preset === 'class';
+
+/** Marks the one element a screen keeps in Guided mode (the table the class uses). */
+export function guidedKeep(el) {
+  el.dataset.guided = 'keep';
+  return el;
+}

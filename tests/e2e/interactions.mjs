@@ -19,6 +19,9 @@ page.on('console', (m) => { if (m.type() === 'error' || m.type() === 'warning') 
 const external = [];
 page.on('request', (r) => { if (!/^(file|data|blob):/.test(r.url())) external.push(r.url()); });
 await page.goto(url);
+// Guided mode (default for participants) shows one table per screen; these checks use the Full mode.
+await page.evaluate(() => localStorage.setItem('bcrcl-state-v1', JSON.stringify({ guided: false })));
+await page.reload();
 const text = async (sel) => (await page.textContent(sel)).replace(/\s+/g, ' ');
 
 // Class defaults tie-out: every figure ties.
@@ -86,6 +89,14 @@ await page.selectOption('.topbar select', 'zh');
 assert.equal(await page.getAttribute('html', 'lang'), 'zh-Hans');
 assert.equal(await page.inputValue('input[data-fkey="decision.form.owner"]'), before, 'state survives a language switch');
 await page.selectOption('.topbar select', 'en');
+
+// Guided mode: a screen keeps its heading, one table and the choose-one panels.
+await page.click('#tab-repricing');
+await page.click('.panel label:has-text("Guided")');
+assert.equal(await page.locator('#tabpanel .card').count() <= 3, true, 'guided screen shows one table');
+assert.ok((await text('#tabpanel')).includes('Show the full screen'));
+await page.click('button:has-text("Show the full screen")');
+assert.ok((await text('#tabpanel')).includes('Price path over the bond'), 'full screen restored');
 
 assert.deepEqual(external, [], 'no network requests');
 assert.deepEqual(errors, [], 'no console errors');

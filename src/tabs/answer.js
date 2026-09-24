@@ -3,6 +3,8 @@ import { t, tr } from '../i18n.js';
 import * as fmt from '../format.js';
 import { h, card, button, paras } from '../ui.js';
 import { tabHeader } from './common.js';
+import * as store from '../state.js';
+import { score, questionSheet, allQuestions } from '../questions.js';
 import { figures, value } from '../model.js';
 
 const STATEMENTS = [
@@ -33,12 +35,34 @@ export function render(root, ctx, { goTab }) {
         s.tabs.map((tab) => button(t(`tabs.${tab}.title`), () => goTab(tab), { cls: 'btn btn-link btn-small' }))))));
   });
 
+  // Score (participant) and printable question sheet / answer key.
+  const printView = h('div', { class: 'print-sheet print-only' });
+  const print = (key) => {
+    printView.replaceChildren(questionSheet({ key }));
+    document.documentElement.dataset.print = 'sheet';
+    window.print();
+    setTimeout(() => { delete document.documentElement.dataset.print; }, 500);
+  };
+  const scoreCard = card(t('q.scoreTitle'), ctx.live(() => {
+    const sc = score();
+    if (!allQuestions().length) return h('p', { class: 'note' }, t('q.noBank'));
+    return [
+      store.get().mode === 'participant' ? h('p', { class: 'metric-value' }, t('q.score', { right: sc.right, total: sc.total })) : null,
+      h('p', { class: 'small muted' }, t('q.scoreNote', { answered: sc.answered, total: sc.total })),
+      h('div', { class: 'row no-print' },
+        button(t('q.printSheet'), () => print(false), { cls: 'btn' }),
+        store.get().mode === 'instructor' ? button(t('q.printKey'), () => print(true), { cls: 'btn' }) : null),
+    ];
+  }));
+
   root.append(...tabHeader('answer'),
+    scoreCard,
     h('p', { class: 'question-hero' }, t('question')),
     card(t('answer.shortTitle'), ...paras(tr('answer.short'))),
     h('h3', { style: { marginTop: '16px' } }, t('answer.fiveTitle')),
     list,
     h('div', { class: 'grid grid-2', style: { marginTop: '16px' } },
       card(t('answer.notTitle'), h('ul', null, tr('answer.nots').map((x) => h('li', null, x)))),
-      card(t('answer.zkbTitle'), h('p', { class: 'small muted' }, t('answer.zkbIntro')), h('ol', null, tr('answer.zkb').map((x) => h('li', null, x))))));
+      card(t('answer.zkbTitle'), h('p', { class: 'small muted' }, t('answer.zkbIntro')), h('ol', null, tr('answer.zkb').map((x) => h('li', null, x))))),
+    printView);
 }

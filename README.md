@@ -39,6 +39,10 @@ Fifteen tabs: Home · Position · Mechanisms · Repricing lab · Spread anatomy 
 
 The app is published on GitHub Pages at **https://cezar-constantin.github.io/credit_risk_management_bonds/**. It works on any laptop or tablet browser, and participants can use it straight away. Every push to `main` redeploys it.
 
+### Class questions (v3)
+
+Every teaching screen ends with its **Choose one** questions from the class question bank. Copy `question_bank.json` unchanged to `data/questions.json`, then run `npm run build`. Participants tap an answer and reveal it. The instructor enters hand counts and reveals with → . Engine questions show the figure the engine computed, together with its workings. The Answer screen shows the participant's score and prints the question sheet or, in instructor mode, the answer key. **Guided** mode (default for participants) keeps each screen to one table plus its questions; **Full** shows everything. `npm run question-shots` checks that every question is reachable on its screen and saves screenshots to `docs/questions/`.
+
 ### Two views: standard and focus
 
 The app comes as two files with identical content, numbers and features. Both share progress in the same browser, and the header button switches between them.

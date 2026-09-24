@@ -6,6 +6,7 @@ import * as fmt from './format.js';
 import { h, createCtx, segmented, select, button, metric, resetIds } from './ui.js';
 import { TABS, STOP_IDS, value, market, allowanceAt, couponsReceived, stopById } from './model.js';
 import { TAB_MODULES } from './tabs/index.js';
+import { questionsFor, choosePanel } from './questions.js';
 
 const app = document.getElementById('app');
 let ctx = null;
@@ -13,7 +14,7 @@ let tilesCtx = null;
 let panelCtx = null;
 let timerEl = null;
 
-const FULL = new Set(['*', 'lang', 'mode', 'preset', 'presenter', 'tab']);
+const FULL = new Set(['*', 'lang', 'mode', 'preset', 'presenter', 'tab', 'guided']);
 
 function applyRootAttrs() {
   const s = store.get();
@@ -65,7 +66,7 @@ function panel() {
     h('div', { class: 'panel-inner' },
       h('div', null,
         h('h2', null, t('ui.jumpToStop')),
-        h('div', { class: 'stop-nav' }, CASE.classStops.map((cs) => button(`${t('ui.stop')} ${cs.n} · ${t(`classStops.s${cs.n}`)}`, () => {
+        h('div', { class: 'stop-nav' }, CASE.classStops.map((cs) => button(`${t('ui.stop')} ${cs.n} · ${t(`classStops.s${cs.n}`)} (${cs.questions.join(', ')})`, () => {
           store.get().ctx.stop = cs.stop;
           if (cs.n === 3) store.get().ctx.cf = 'none';
           goTab(cs.tab);
@@ -78,12 +79,17 @@ function panel() {
         segmented({ path: 'ctx.lens', label: t('ui.lens'), options: ['AC', 'FVOCI', 'FVTPL'].map((v) => ({ value: v, label: t(`lens.${v}.short`) })) })),
       h('div', null,
         h('h2', null, t('ui.preset')),
+        segmented({ path: 'guidedView', label: t('q.viewMode'), options: [{ value: true, label: t('q.guided') }, { value: false, label: t('q.full') }], onChange: (v) => store.set('guided', v) }),
         segmented({ path: 'preset', label: t('ui.preset'), options: [{ value: 'class', label: t('ui.classDefaults') }, { value: 'free', label: t('ui.freePlay') }], onChange: (v) => { if (v === 'class') store.resetToClass(); } }),
         button(t('ui.resetClass'), () => store.resetToClass(), { cls: 'btn btn-small' })),
       h('div', { class: 'instructor-only' },
         h('h2', null, t('ui.agenda')),
         h('ol', { class: 'small' }, CASE.agenda.map((b) => h('li', null, `${b.start}–${b.end} `, t(`agenda.${b.id}`), ' ',
           b.tabs.map((tab) => button(t(`tabs.${tab}.short`), () => goTab(tab), { cls: 'btn btn-link btn-small' }))))),
+        h('h2', null, t('ui.route')),
+        h('ol', { class: 'small route-list' }, CASE.route.map((r) => h('li', { value: r.slide },
+          button(`${t(`route.s${r.slide}`)}${r.questions.length ? ` · ${r.questions.join(' ')}` : ''}`, () => goTab(r.tab), { cls: 'btn btn-link btn-small' })))),
+        h('p', { class: 'small' }, `${t('ui.appendix')}: `, CASE.appendix.map((a, i) => button(`${a.slide} ${t(`route.a${i + 1}`)}`, () => goTab(a.tab), { cls: 'btn btn-link btn-small' }))),
         h('p', { class: 'shortcut-help' }, h('kbd', null, '→'), ' ', t('ui.kNext'), ' · ', h('kbd', null, 'R'), ' ', t('ui.kReset'), ' · ', h('kbd', null, 'P'), ' ', t('ui.kPresenter'))),
       panelCtx.live(() => {
         const s = store.get();
@@ -165,6 +171,17 @@ function renderTab() {
   ctx = createCtx(s.tab);
   const panelEl = h('section', { class: 'tabpanel', id: 'tabpanel', role: 'tabpanel', 'aria-labelledby': `tab-${s.tab}`, tabindex: '-1' });
   mod.render(panelEl, ctx, { goTab });
+  // Every teaching screen ends with its choose-one questions (identical panels on every screen).
+  const qs = questionsFor(s.tab);
+  const qBox = qs.length ? h('div', { class: 'choose-list' }, qs.map((q) => choosePanel(ctx, q))) : null;
+  if (qBox) panelEl.appendChild(qBox);
+  // Guided mode: the screen shows only its heading, the one table the class uses and the questions.
+  const keep = panelEl.querySelector('[data-guided="keep"]');
+  if (isGuided() && keep) {
+    const head = [...panelEl.children].filter((el) => el.matches('.tab-head, .back-strip, .tab-intro'));
+    panelEl.replaceChildren(...head, keep, ...(qBox ? [qBox] : []),
+      h('p', { class: 'no-print' }, button(t('q.showFull'), () => store.set('guided', false), { cls: 'btn btn-small' })));
+  }
   if (!s.visited[s.tab]) {
     s.visited[s.tab] = true;
     store.save();
@@ -172,8 +189,15 @@ function renderTab() {
   return panelEl;
 }
 
+/** Guided mode is on by default for participants and off for the instructor, until chosen. */
+function isGuided() {
+  const s = store.get();
+  return s.guided == null ? s.mode === 'participant' : Boolean(s.guided);
+}
+
 function renderAll() {
   resetIds();
+  store.get().guidedView = isGuided();
   applyRootAttrs();
   const s = store.get();
   if (!TABS.includes(s.tab)) s.tab = 'home';

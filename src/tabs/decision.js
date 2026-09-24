@@ -6,7 +6,7 @@ import * as fmt from '../format.js';
 import { h, card, slider, numberField, segmented, select, textField, table, workings, button, paras } from '../ui.js';
 import { holdValue, breakEvenProbability, extensionBranch } from '../../engine/index.js';
 import { barChart } from '../charts.js';
-import { tabHeader, legend } from './common.js';
+import { tabHeader, legend, guidedKeep } from './common.js';
 import { value, allowanceAt, market } from '../model.js';
 
 const ACTIONS = ['hold', 'reduce', 'hedge', 'exit'];
@@ -280,6 +280,7 @@ export function render(root, ctx, { goTab }) {
     ];
   }, { cls: 'print-decision print-only' });
 
+  guidedKeep(prob);
   root.append(...tabHeader('decision'),
     h('div', { class: 'stack' },
       ladder,

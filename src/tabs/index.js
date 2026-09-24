@@ -2,6 +2,7 @@
 import * as home from './home.js';
 import * as position from './position.js';
 import * as mechanisms from './mechanisms.js';
+import * as bondsloans from './bondsloans.js';
 import * as repricing from './repricing.js';
 import * as spread from './spread.js';
 import * as ratings from './ratings.js';
@@ -16,5 +17,5 @@ import * as answer from './answer.js';
 import * as glossary from './glossary.js';
 
 export const TAB_MODULES = {
-  home, position, mechanisms, repricing, spread, ratings, timeline, structure, portfolio, recognition, capital, controls, decision, answer, glossary,
+  home, position, mechanisms, bondsloans, repricing, spread, ratings, timeline, structure, portfolio, recognition, capital, controls, decision, answer, glossary,
 };

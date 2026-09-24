@@ -2,7 +2,7 @@
 import { t, tr } from '../i18n.js';
 import * as store from '../state.js';
 import { h, card, paras, list, select, textField, button, reveal } from '../ui.js';
-import { tabHeader } from './common.js';
+import { tabHeader, guidedKeep } from './common.js';
 
 const REASONS = ['issuerRequest', 'avoidDowngrade', 'cost', 'sufficientOther', 'unknown'];
 const GRADES = ['g3', 'g4', 'g5', 'g6', 'g7', 'g8'];
@@ -53,7 +53,10 @@ export function render(root, ctx) {
       { cls: 'btn btn-primary', attrs: { disabled: !ok, 'data-fkey': 'rating-refresh' } });
   }));
 
+  const history = card(t('ratings.historyTitle'), h('p', null, t('ratings.history')));
+
   const q = card(t('ratings.qTitle'), h('p', null, t('ratings.q')), reveal(ctx, 'q', () => paras(tr('ratings.a'))));
 
-  root.append(...tabHeader('ratings'), h('div', { class: 'grid grid-2' }, h('div', { class: 'stack' }, scales, q), event));
+  guidedKeep(event);
+  root.append(...tabHeader('ratings'), h('div', { class: 'grid grid-2' }, h('div', { class: 'stack' }, scales, q), h('div', { class: 'stack' }, event, history)));
 }
