@@ -1,0 +1,50 @@
+/* ==========================================================================
+   Design tokens — the ONE file to edit to change the palette or fonts.
+   Palette derived from the public website icbc.com.cn (no public brand manual);
+   no logo or trademark is used. Red is the single accent, used with restraint.
+   Contrast on white: #BC0021 6.9:1, #8A0018 10.4:1, #313030 12.9:1, #545454 7.5:1 (AA for text).
+   #797979 (4.4:1) and #FA504B (3.1:1) are used only for borders, large text and highlights.
+   ========================================================================== */
+:root {
+  --red: #BC0021;          /* primary: header/nav, primary actions */
+  --red-light: #FA504B;    /* hover, highlights (never small text) */
+  --red-dark: #8A0018;     /* pressed states, alarm text */
+  --red-tint: #FBEAEC;     /* subtle highlight background */
+  --text: #313030;         /* body text */
+  --text-2: #545454;       /* secondary text */
+  --text-3: #797979;       /* tertiary: large text, borders, decorations only */
+  --border: #CCCCCC;
+  --panel: #EEEEEE;
+  --surface: #FFFFFF;
+  --amber: #8A5A00;        /* alarm "watch" text (AA on white) */
+  --amber-bg: #FFF4DB;
+  --ok: #2F6B3A;           /* "within threshold" text (AA on white) */
+  --ok-bg: #EAF4EC;
+  --alarm-bg: #FBEAEC;
+
+  /* Chart series (identity is always also given by direct labels / legends) */
+  --series-rates: #545454;     /* benchmark rates — the control, not credit */
+  --series-spread: #BC0021;    /* credit spread */
+  --series-liquidity: #E8918C; /* liquidity / exit — hatched */
+  --series-cost: #313030;      /* amortised cost / reference */
+  --series-bid: #8A0018;       /* executable bid */
+  --series-muted: #9A9A9A;
+
+  --font-latin: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --font-zh: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+  --font: var(--font-latin), var(--font-zh);
+  --mono: Consolas, "SFMono-Regular", Menlo, monospace;
+
+  --radius: 4px;
+  --gap: 16px;
+  --fs-base: 15px;
+  --panel-w: 280px;
+}
+
+html[data-presenter="true"] {
+  --fs-base: 22px;
+  --panel-w: 340px;
+  --text: #1A1A1A;
+  --text-2: #3A3A3A;
+  --border: #9A9A9A;
+}

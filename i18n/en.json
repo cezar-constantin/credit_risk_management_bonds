@@ -1,0 +1,1852 @@
+{
+  "app": {
+    "title": "Bond Credit Risk Case Lab",
+    "subtitle": "UZH Executive Education Finance · Cezar Chirila",
+    "footerCredit": "UZH Executive Education Finance · Cezar Chirila · runs offline, no data leaves this device"
+  },
+  "question": "What can cause a bond investment to lose money even when the issuer continues paying?",
+  "case": {
+    "issuer": "Huaxing Development Co., Ltd. (fictional composite)"
+  },
+  "disclaimer": {
+    "title": "Disclaimer.",
+    "text": "Educational use only. This application supports a University of Zurich Executive Education class. All issuers, positions, prices, spreads, financial statements, dates and scenarios are fictional teaching assumptions; simplified formulas are used for teaching, not for valuation, accounting or regulatory reporting. Nothing here is investment, accounting, legal or regulatory advice, and nothing represents the policies, data or views of ICBC or any other institution. Verify any figure against primary sources before use."
+  },
+  "units": {
+    "rmb": "RMB",
+    "m": "m",
+    "bn": "bn",
+    "yi": " 亿元",
+    "usdYi": " 亿美元",
+    "bp": " bp",
+    "bpShort": "bp",
+    "rmbM": "RMB m",
+    "years": " years",
+    "year": " year"
+  },
+  "ui": {
+    "skip": "Skip to content",
+    "mode": "Mode",
+    "instructor": "Instructor",
+    "participant": "Participant",
+    "presenter": "Presenter view",
+    "presenterHint": "Large type and high contrast for projection (shortcut P)",
+    "language": "Language",
+    "controlPanel": "Control panel",
+    "modules": "Modules",
+    "jumpToStop": "Jump to stop",
+    "stop": "Stop",
+    "context": "Case context",
+    "date": "Date",
+    "counterfactual": "Counterfactual (Jul 2026)",
+    "cfOnlyJul": "Counterfactuals apply to the Jul 2026 date.",
+    "lens": "Accounting lens",
+    "preset": "Preset",
+    "classDefaults": "Class defaults",
+    "freePlay": "Free play",
+    "resetClass": "Reset to class values",
+    "agenda": "Session plan (10:00–12:30)",
+    "kNext": "next reveal",
+    "kReset": "reset reveals on this tab",
+    "kPresenter": "presenter view",
+    "progress": "Your progress",
+    "progressText": "{done} of {total} modules visited — saved in this browser only.",
+    "fictional": "Fictional composite — teaching assumptions",
+    "fictionalLong": "Huaxing Development is a fictional composite; every value is a teaching assumption.",
+    "backToQuestion": "Back to the question",
+    "showWorkings": "Show workings",
+    "reveal": "Reveal",
+    "checkAnswer": "Check my answer",
+    "showHint": "Show hint",
+    "hideHint": "Hide hint",
+    "choose": "— choose —",
+    "go": "Go",
+    "yes": "Yes",
+    "no": "No",
+    "correct": "Matches the model answer",
+    "notQuite": "Differs from the model answer",
+    "illustrative": "Illustrative",
+    "about": "About this app (description)"
+  },
+  "tabs": {
+    "home": {
+      "title": "Home — the question",
+      "short": "Home",
+      "intro": "One fictional bond, four dated stops, every number computed live. We finish by answering the question explicitly.",
+      "back": "The question we answer by the end of the class: how a bond loses money while every coupon arrives on time."
+    },
+    "position": {
+      "title": "The position",
+      "short": "Position",
+      "intro": "The term sheet and FY2024 profile at purchase. Class defaults lock these values; Free play lets you change them within sane bounds and every screen recomputes.",
+      "back": "This is the position that will lose money without a missed payment — note what the purchase decision relied on."
+    },
+    "mechanisms": {
+      "title": "Six loss mechanisms while payments continue",
+      "short": "Mechanisms",
+      "intro": "Toggle each mechanism to see where it appears — economic value, P&L, OCI, capital, or only when realised on sale — under the accounting lens you choose.",
+      "back": "The answer has six candidate mechanisms; only one of them (benchmark rates) is not credit."
+    },
+    "repricing": {
+      "title": "Repricing lab — Stops 1 and 2",
+      "short": "Repricing",
+      "intro": "Stop 1 (Sep 2025): market repricing, no issuer news. Stop 2 (Mar 2026): one coupon received, spread 450 bp. Move benchmark, spread, bid–ask and horizon; compare the duration approximation with full DCF.",
+      "back": "Mechanisms 1–3: value falls through rates, spread and exit liquidity while the coupon is paid in full."
+    },
+    "spread": {
+      "title": "What a spread pays for",
+      "short": "Spread anatomy",
+      "intro": "A spread compensates expected loss, a credit-risk premium and a liquidity premium. Spread ÷ LGD is a simplified break-even, not a probability of default.",
+      "back": "Spread widening is a loss mechanism because the spread prices more than expected default loss."
+    },
+    "ratings": {
+      "title": "Ratings and evidence",
+      "short": "Ratings",
+      "intro": "National and global scales answer different questions and have no fixed mapping. A rating termination changes nothing by itself — until you record a reason and refresh the internal grade.",
+      "back": "A lost external rating is information to assess, not an event that decides for you."
+    },
+    "timeline": {
+      "title": "Timeline — Stop 3: deterioration while every coupon is paid",
+      "short": "Timeline",
+      "intro": "Reveal the dated facts one at a time and vote whether the investment thesis still stands. Ratios, missing information, support scoring and the July 2026 counterfactuals follow.",
+      "back": "Mechanisms 4–6: weaker expected cash flows, refinancing and support risk, and a possible distressed extension — all before any missed payment."
+    },
+    "structure": {
+      "title": "Structure and claims",
+      "short": "Structure",
+      "intro": "Three instruments, three different claims: the onshore parent MTN, the offshore SPV keepwell notes and a bank Tier-2 bond. Non-call is not default; write-down at non-viability is a contractual loss.",
+      "back": "Who owes you, and on what claim, decides how much of the issuer’s ability to pay reaches you."
+    },
+    "portfolio": {
+      "title": "Portfolio contrasts",
+      "short": "Portfolio",
+      "intro": "Five lines, four questions each. Pick the main mechanism and the control, then reveal the model answer. Spreads are shown against the benchmark in each line’s own currency.",
+      "back": "The same question — loss while paying — has a different dominant mechanism in each line."
+    },
+    "recognition": {
+      "title": "Recognition — April 2026 under three lenses",
+      "short": "Recognition",
+      "intro": "The same position through amortised cost, FVOCI and FVTPL; ECL scenarios; the SICR judgement; and China’s five-category classification alongside the IFRS 9 stage.",
+      "back": "Impairment charges are a loss while paying: the accounting lens decides where and when they appear."
+    },
+    "capital": {
+      "title": "Capital",
+      "short": "Capital",
+      "intro": "Illustrative standardised risk weights, the internal-ratings-based (IRB) formula versus the weighted approach, OCI flowing into CET1, and static G-SIB/TLAC facts.",
+      "back": "Greater capital pressure is the fifth part of the answer — even with no default."
+    },
+    "controls": {
+      "title": "Controls mapped to the case dates",
+      "short": "Controls",
+      "intro": "Monitoring → escalation → formal impairment assessment → execution, with the four functional lenses. The escalation rule is illustrative only.",
+      "back": "Losses while paying become larger when evidence is seen late or acted on slowly."
+    },
+    "decision": {
+      "title": "Decision — Stop 4 (Jun 2026)",
+      "short": "Decision",
+      "intro": "Compare executable sale proceeds with the probability-weighted holding value under costs and constraints, then write the decision with owner, dated triggers, escalation route and the counterfactual response both ways.",
+      "back": "The decision turns the loss analysis into action: realise a known loss now, or hold a distribution of outcomes."
+    },
+    "answer": {
+      "title": "The answer",
+      "short": "The answer",
+      "intro": "Five statements, each computed earlier in the app. Follow the links back to the screen where each number was produced.",
+      "back": "This screen is the answer."
+    },
+    "glossary": {
+      "title": "Glossary and acronyms",
+      "short": "Glossary",
+      "intro": "Bilingual terms and acronyms used in the class (Appendix A7 and A9). Search in either language.",
+      "back": "Shared vocabulary keeps the answer precise across two languages and consecutive interpretation."
+    }
+  },
+  "stops": {
+    "t0": {
+      "short": "Purchase (T0)"
+    },
+    "sep25": {
+      "short": "Stop 1 · market repricing"
+    },
+    "mar26": {
+      "short": "Stop 2 · first coupon"
+    },
+    "apr26": {
+      "short": "FY2025 results"
+    },
+    "jun26": {
+      "short": "Stops 3–4 · rating terminated"
+    },
+    "jul26": {
+      "short": "Counterfactuals"
+    }
+  },
+  "classStops": {
+    "s1": "Market repricing",
+    "d1": "Sep 2025, T+6m: benchmark +30 bp, spread 210 → 330 bp, bid–ask 5 → 40 bp; no issuer news.",
+    "s2": "Holding-period result",
+    "d2": "Mar 2026, T+12m: one coupon received, spread 450 bp, price 95.07; first decision.",
+    "s3": "Deterioration while paying",
+    "d3": "Dec 2025 → Jun 2026: sales, CFO, trust loans, FY2025 results, rating terminated; counterfactuals A and B.",
+    "s4": "The decision",
+    "d4": "Jun 2026: executable proceeds vs probability-weighted holding value; write the decision."
+  },
+  "agenda": {
+    "b1": "Opening question and poll",
+    "b2": "Stops 1–2: repricing and spread anatomy",
+    "b3": "Stop 3: evidence, timeline, structure",
+    "b4": "Break",
+    "b5": "Portfolio contrasts and recognition",
+    "b6": "Capital and controls",
+    "b7": "Stop 4: the decision",
+    "b8": "The answer and ZKB visit questions"
+  },
+  "timer": {
+    "inBlock": "{block} — {left} min left",
+    "before": "Class starts at {start}",
+    "after": "Session ended",
+    "rehearse": "Rehearse",
+    "realClock": "Real clock",
+    "rehearseHint": "Shift the clock so that now reads 10:00 (rehearsal)"
+  },
+  "cf": {
+    "none": "No counterfactual",
+    "A": "A · support",
+    "B": "B · extension"
+  },
+  "lens": {
+    "AC": {
+      "short": "AC",
+      "name": "Amortised cost"
+    },
+    "FVOCI": {
+      "short": "FVOCI",
+      "name": "Fair value through OCI"
+    },
+    "FVTPL": {
+      "short": "FVTPL",
+      "name": "Fair value through profit or loss"
+    }
+  },
+  "tiles": {
+    "label": "Live metrics for the selected date",
+    "date": "Date",
+    "yield": "Yield (mid)",
+    "benchmark": "Benchmark",
+    "spread": "Spread",
+    "vsPurchase": "vs purchase",
+    "mid": "Mid value (dirty, per 100)",
+    "bid": "Bid",
+    "bidAsk": "bid–ask",
+    "economic": "Economic change",
+    "vsAC": "mid vs amortised cost",
+    "realised": "Realised if sold",
+    "ifSold": "at the executable bid",
+    "ecl": "ECL allowance",
+    "stage": "Stage {n}",
+    "coupons": "Coupons received",
+    "allPaid": "every coupon paid in full"
+  },
+  "home": {
+    "pollTitle": "Opening poll",
+    "pollHow": "Ask for a show of hands for each option; the instructor enters hand counts (no devices needed). Reveal the verdicts one by one.",
+    "poll": {
+      "q": "A bond has paid every coupon on time. Which losses can already have occurred?",
+      "A": {
+        "text": "None — as long as coupons are paid, the investment has not lost money.",
+        "kind": "Wrong",
+        "why": "Value, accounting and capital can all deteriorate before any payment is missed. The rest of the class shows how."
+      },
+      "B": {
+        "text": "A fall in market value because government bond yields rose.",
+        "kind": "Rates, not credit",
+        "why": "A real loss of economic value, but it comes from the benchmark — the control in our case, not a credit loss."
+      },
+      "C": {
+        "text": "A fall in market value because the issuer’s credit spread widened.",
+        "kind": "Credit-related",
+        "why": "The market demands more compensation for this issuer; price falls although every coupon arrives."
+      },
+      "D": {
+        "text": "A lower price than expected when the bank tries to sell (exit discount).",
+        "kind": "Credit-related",
+        "why": "Bid–ask widens as credit deteriorates; the executable price is below mid and the loss is realised on sale."
+      },
+      "E": {
+        "text": "A higher expected-credit-loss allowance charged to profit.",
+        "kind": "Credit-related",
+        "why": "IFRS 9 / CAS 22 recognises expected, not incurred, losses: a Stage 2 move books lifetime ECL while payments continue."
+      },
+      "F": {
+        "text": "More capital consumed, or a restructuring that delays principal.",
+        "kind": "Credit-related",
+        "why": "Capital pressure and distressed extensions cut value without a formal default on the paid coupons."
+      }
+    },
+    "tallyFor": "Hand count for option {L}",
+    "pollTakeaway": "Five of six options describe losses that can occur while every coupon is paid; four of them are credit-related. The app walks the Huaxing position through each.",
+    "settings": "Settings",
+    "presetHelp": "Class defaults reproduce every figure of the class deck and lock the position. Free play lets you edit the position and all inputs; “Reset to class values” restores the deck.",
+    "stopsTitle": "Four stops",
+    "howTitle": "How to use",
+    "howInstructor": [
+      "Switch to Instructor, then press P (or the Presenter view button) for projection. → reveals the next item on the current tab, R resets that tab’s reveals.",
+      "Enter show-of-hands counts in the tally boxes. The timer shows the 10:00–12:30 blocks; “Rehearse” shifts the clock so that now reads 10:00. Use “Jump to stop” to move between the four stops."
+    ],
+    "howParticipant": [
+      "Work through the tabs in order at your own pace. Hints and “Check my answer” are available on the exercise screens.",
+      "Progress, answers and your decision are saved in this browser only (localStorage). Nothing is sent anywhere; the app works fully offline."
+    ],
+    "fictionalNote": "Huaxing Development Co., Ltd. is a fictional composite. Names of real institutions appear only in public precedents and regulatory facts, which should be verified against primary sources."
+  },
+  "position": {
+    "termSheet": "Term sheet",
+    "issuer": "Issuer",
+    "structure": "Structure",
+    "structureVal": "Onshore operating parent; direct issuance; no SPV",
+    "instrument": "Instrument",
+    "instrumentVal": "{coupon} medium-term note (MTN), senior unsecured, annual coupon, bullet",
+    "currency": "Currency",
+    "currencyVal": "RMB (onshore)",
+    "dates": "Issue → maturity",
+    "purchase": "Purchase price",
+    "atIssue": "bought at issue",
+    "nominal": "Nominal",
+    "benchmark": "Benchmark",
+    "benchmarkVal": "3-year China Government Bond at {b}",
+    "spread": "Spread at purchase",
+    "yield": "yield",
+    "support": "Shareholder support",
+    "supportVal": "No contractual support. Municipal SOE holds {own}% with {seats} board seats; {loan} shareholder loan in {date}.",
+    "businessModel": "Business model",
+    "businessModelVal": "Hold to collect → amortised cost (SPPI test passed)",
+    "funding": "Funding",
+    "fundingVal": "{f} p.a. (carry {carry})",
+    "original": "Original assessment",
+    "originalVal": "Scenario 12-month PD {pd}, LGD {lgd}, 12-month ECL {ecl}",
+    "profileTitle": "FY2024 profile (RMB bn)",
+    "metric": "Metric",
+    "fy2024": "FY2024",
+    "profileNote": "Teaching assumptions. Contracted sales −5% y/y; operating cash flow above net profit.",
+    "editTitle": "Edit the position (Free play)",
+    "locked": "Class defaults are active — the position is locked so that every screen reproduces the class deck. Switch to Free play to edit.",
+    "freeHelp": "Free play: edit within the bounds shown; every screen recomputes. The tie-out table below will show where you depart from the deck.",
+    "field": {
+      "coupon": "Coupon",
+      "tenor": "Tenor",
+      "nominal": "Nominal",
+      "benchmark": "Benchmark at purchase",
+      "spread": "Spread at purchase",
+      "funding": "Funding rate",
+      "pd12": "12-month PD (original)",
+      "lgd": "LGD"
+    },
+    "printSheet": "Print case fact sheet",
+    "factSheet": "Case fact sheet",
+    "tieTitle": "Tie-out to the class deck",
+    "tieHelp": "Every figure of the class deck, recomputed live by the engine. The same values are asserted by automated tests; any drift fails CI.",
+    "tieSummary": "{ok} of {total} figures reproduced",
+    "tieFigure": "Figure",
+    "tieDeck": "Deck",
+    "tieApp": "App",
+    "tieStatus": "Status",
+    "tieTab": "Screen",
+    "tieOk": "ties",
+    "tieDrift": "drift",
+    "tieFree": "free play",
+    "tieFormula": "PV = Σ CFᵢ / (1 + y)^tᵢ  (annual compounding, fractional exponents; dirty = PV of all remaining cash flows)\ny = benchmark + spread; bid yield = mid yield + bid–ask"
+  },
+  "fin": {
+    "revenue": "Revenue",
+    "salesGrowth": "Contracted sales, y/y",
+    "debt": "Total debt",
+    "debtEbitda": "Debt / EBITDA",
+    "ebitdaInterest": "EBITDA / interest",
+    "cashCover": "Unrestricted cash / short-term debt",
+    "ocfProfit": "Operating cash flow / net profit"
+  },
+  "impact": {
+    "ev": "Economic value",
+    "pnl": "P&L",
+    "oci": "OCI",
+    "capital": "Capital",
+    "realised": "Realised on sale"
+  },
+  "mech": {
+    "credit": "Credit",
+    "notCredit": "Not credit (control)",
+    "control": "No — the control",
+    "showWhere": "Show where it appears",
+    "whereLabel": "Where it appears",
+    "showAll": "Show all",
+    "hideAll": "Hide all",
+    "mechanism": "Mechanism",
+    "creditCol": "Credit?",
+    "matrixTitle": "Where each mechanism appears",
+    "matrixCaption": "Lens: {lens}",
+    "matrixNote": "Capital: through retained earnings (P&L), through CET1 for accumulated OCI, and through risk parameters. Liquidity loss is realised only if you sell (or is embedded in a fair value measured at an exit price).",
+    "rates": {
+      "name": "Benchmark rates",
+      "desc": "Government yields rise; every fixed-rate bond falls in value. This is the control: the same loss hits a government bond.",
+      "case": "Huaxing: benchmark +30 bp by Sep 2025 costs about RMB 0.83 m instantly — identical for any 3-year CGB of the same duration.",
+      "where": {
+        "AC": "Economic value only; not in P&L or OCI unless sold (interest-rate risk in the banking book is managed separately).",
+        "FVOCI": "Fair-value change goes to OCI and therefore CET1; recycled to P&L on sale.",
+        "FVTPL": "Straight through P&L."
+      }
+    },
+    "spread": {
+      "name": "Spread widening",
+      "desc": "The market demands more compensation for this issuer or sector. Price falls with spread duration × Δspread.",
+      "case": "Huaxing: 210 → 450 bp by Mar 2026 costs RMB 4.36 m of price while the coupon is paid.",
+      "where": {
+        "AC": "Economic value only; the carrying amount does not move until impairment or sale.",
+        "FVOCI": "OCI (and CET1); the credit part is also reflected through ECL in P&L.",
+        "FVTPL": "Straight through P&L."
+      }
+    },
+    "liquidity": {
+      "name": "Liquidity / exit discount",
+      "desc": "Bid–ask widens as credit deteriorates. The executable price is below mid; the gap is paid only when you sell.",
+      "case": "Huaxing: bid–ask 5 → 100 bp; in Jun 2026 selling costs RMB 1.44 m more than the mid value.",
+      "where": {
+        "AC": "Realised on sale only.",
+        "FVOCI": "Realised on sale; fair value may already sit at an exit price inside the bid–ask.",
+        "FVTPL": "Realised on sale; fair value may already sit at an exit price inside the bid–ask."
+      }
+    },
+    "ecl": {
+      "name": "Higher expected credit loss",
+      "desc": "IFRS 9 / CAS 22 recognise expected losses. A significant increase in credit risk moves the bond to Stage 2 and lifetime ECL.",
+      "case": "Huaxing: allowance 0.60 → 6.00; a 5.40 charge in April 2026 with every coupon paid.",
+      "where": {
+        "AC": "P&L (allowance reduces the carrying amount).",
+        "FVOCI": "P&L; the allowance is recognised in OCI, not against the carrying amount.",
+        "FVTPL": "Outside the impairment scope — already inside the fair-value change."
+      }
+    },
+    "refinancing": {
+      "name": "Refinancing, support or recovery change",
+      "desc": "Maturity walls, lost market access, weaker shareholder support or a lower expected recovery change PD and LGD before any default.",
+      "case": "Huaxing: RMB 12 bn due Sep 2026, cash cover 0.43×, rating terminated; support is not contractual.",
+      "where": {
+        "AC": "Through ECL (PD, LGD) in P&L; economic value through spread.",
+        "FVOCI": "ECL in P&L, the rest of the fair-value change in OCI.",
+        "FVTPL": "Through fair value in P&L."
+      }
+    },
+    "extension": {
+      "name": "Distressed extension",
+      "desc": "The issuer proposes to pay part and extend the rest. Coupons may continue, but cash arrives later and with more risk.",
+      "case": "Huaxing counterfactual B: 40% paid, 60% one year later at the same coupon — PV cost RMB 2.87 m at 8.80%, modification loss nil at the 3.60% EIR.",
+      "where": {
+        "AC": "Modification gain/loss at the original EIR in P&L, ECL, and restructured-asset classification.",
+        "FVOCI": "Modification and ECL in P&L; fair value in OCI.",
+        "FVTPL": "Fair value in P&L."
+      }
+    },
+    "noncallTitle": "Note: non-call is not default",
+    "noncall": [
+      "When a bank does not call a Tier-2 bond at its first call date, the bond continues — usually at a reset coupon — exactly as the contract allows. That is extension risk priced by the market, not a default.",
+      "Conversely, a write-down at the point of non-viability is a contractual loss of principal without a default event. Read the contract, not the headline."
+    ]
+  },
+  "lab": {
+    "controls": "Market inputs",
+    "preset": {
+      "t0": "T0 (purchase)",
+      "sep25": "Stop 1 · Sep 2025",
+      "mar26": "Stop 2 · Mar 2026"
+    },
+    "dBench": "Benchmark change (Δ vs 1.50%)",
+    "dSpread": "Spread change (Δ vs 210 bp)",
+    "bidAsk": "Bid–ask (in yield)",
+    "horizon": "Horizon since purchase",
+    "months": "{n} months",
+    "view": "Measure",
+    "instant": "Instantaneous",
+    "holding": "Holding period",
+    "priceBasis": "Price basis",
+    "clean": "Clean",
+    "dirty": "Dirty",
+    "hint": "Start with the T0 preset, move only the benchmark by +30 bp, then only the spread. Then load Stop 2 and read the holding-period table.",
+    "approxTitle": "Duration approximation vs full DCF",
+    "measure": "Measure",
+    "value": "Value",
+    "remaining": "Remaining life",
+    "mvBefore": "Value before shock (dirty)",
+    "macaulay": "Macaulay duration",
+    "modified": "Modified duration",
+    "dy": "Yield change Δy",
+    "approx": "Approximation −MV × D_mod × Δy",
+    "dcf": "Full DCF",
+    "gap": "DCF − approximation (convexity)",
+    "approxFormula": "Approximation: ΔV ≈ −MV × D_mod × Δy\nDCF: ΔV = PV(y₀ + Δy) − PV(y₀)\nD_mac = Σ tᵢ·PV(CFᵢ) / PV;  D_mod = D_mac / (1 + y₀)",
+    "approxNote": "The approximation overstates the loss for large shocks because price is convex in yield.",
+    "y0": "Purchase yield y₀",
+    "cashflows": "Remaining cash flows (amount @ years)",
+    "scale": "Scale (nominal / 100)",
+    "decompTitle": "Decomposition: rates / spread / liquidity (RMB m)",
+    "rates": "Benchmark rates",
+    "spreadEff": "Spread",
+    "liquidity": "Liquidity (exit)",
+    "realisedIfSold": "Total if sold at bid",
+    "decompRead": "Per 100: base {base} → mid {mid} → executable bid {bid}.",
+    "decompFormula": "Rates = P(y₀ + Δb) − P(y₀)\nSpread = P(y₀ + Δb + Δs) − P(y₀ + Δb)\nLiquidity = P(mid + bid–ask) − P(mid)",
+    "decompNote": "Order matters: the benchmark effect is computed first, then spread, then exit liquidity. The executable bid applies the full quoted bid–ask in yield.",
+    "yMid": "Mid yield",
+    "yBid": "Bid yield",
+    "base": "Value at y₀",
+    "afterRates": "After benchmark",
+    "mid": "Mid",
+    "bid": "Executable bid",
+    "pathTitle": "Price path over the bond’s life",
+    "pathAC": "At the purchase yield (amortised-cost path)",
+    "pathMid": "At the current mid yield",
+    "pathBid": "At the executable bid yield",
+    "pathACShort": "Purchase yield",
+    "pathMidShort": "Mid",
+    "pathBidShort": "Bid",
+    "xMonths": "Months since purchase",
+    "pathNote": "Dots mark the class stops at their own market levels. Pull to par: at a constant yield the clean price drifts back towards 100 as maturity approaches.",
+    "hpTitle": "Holding-period result (RMB m)",
+    "component": "Component",
+    "instantNote": "Instantaneous: no time passes, so no coupon, no accrual and no funding cost — only the repricing.",
+    "economicChange": "Economic change (mid vs purchase yield)",
+    "couponsRecv": "Coupons received",
+    "accrued": "Accrued interest",
+    "priceChange": "Clean price change",
+    "dirtyChange": "Dirty value change",
+    "gross": "Gross total return",
+    "funding": "Funding cost at {f}",
+    "funded": "Funded return",
+    "liquidityIfSold": "Memo: exit discount if sold now",
+    "cleanNote": "Clean basis: coupons + accrued + clean price change = gross total return.",
+    "dirtyNote": "Dirty basis: the value change already includes accrued interest.",
+    "hpFormula": "Gross = coupons received + accrued + (clean now − purchase price)\nFunded = gross − purchase price × funding rate × elapsed years",
+    "purchasePrice": "Purchase price",
+    "cleanNow": "Clean price now",
+    "dirtyNow": "Dirty value now",
+    "fundingRate": "Funding rate",
+    "elapsed": "Elapsed",
+    "exTitle": "Exercise — three shocks: vote first, then reveal",
+    "exQ": "At purchase (T0), which of these instantaneous shocks costs most on RMB 100 m — and which one is not credit at all?",
+    "shock": {
+      "spread120": "Huaxing spread +120 bp",
+      "spread50": "Huaxing spread +50 bp",
+      "bench30": "Benchmark CGB yield +30 bp"
+    },
+    "exTally": "Enter the show of hands for “costs most”.",
+    "voteFor": "Votes for {x}",
+    "myVote": "My vote: costs most",
+    "voteFirst": "Vote first — the reveal unlocks after a vote is recorded.",
+    "shockCol": "Shock",
+    "creditQ": "Credit?",
+    "exAnswer": "The +120 bp spread shock costs most. The +30 bp benchmark shock is not credit: an identical-duration government bond loses the same. Note how the duration approximation overstates each DCF loss.",
+    "exFormula": "ΔV ≈ −MV × D_mod × Δy  vs  ΔV = PV(y₀ + Δy) − PV(y₀)"
+  },
+  "spread": {
+    "inputs": "Inputs",
+    "spread": "Spread",
+    "pdPhys": "Physical (real-world) annual PD",
+    "lgd": "LGD",
+    "liq": "Liquidity premium",
+    "hint": "Hold the spread at 210 bp and raise the PD until the credit-risk premium disappears. Where is that point relative to the break-even PD?",
+    "anatomyTitle": "What the spread pays for",
+    "el": "Expected loss (PD × LGD)",
+    "crp": "Credit-risk premium",
+    "lp": "Liquidity premium",
+    "component": "Component",
+    "bpCol": "bp p.a.",
+    "total": "Spread",
+    "negative": "The components exceed the spread: at these inputs the bond does not even cover expected loss and liquidity.",
+    "anatFormula": "Spread = EL + credit-risk premium + liquidity premium\nEL = PD_physical × LGD; credit-risk premium = residual",
+    "beTitle": "Simplified break-even PD",
+    "beRead": "A spread of {spread} with LGD {lgd} breaks even at an annual default rate of about {pd}.",
+    "rnRead": "Risk-neutral PD (spread net of liquidity ÷ LGD) ≈ {rn}, against a physical PD of {phys}.",
+    "beCaveat": "Spread ÷ LGD is a simplified break-even, not a PD estimate: it ignores the liquidity premium, the risk premium, funding and the timing of default.",
+    "beFormula": "Break-even PD ≈ spread ÷ LGD\nRisk-neutral PD ≈ (spread − liquidity premium) ÷ LGD",
+    "pvsqTitle": "Physical vs risk-neutral PD",
+    "pvsq": [
+      "A physical (real-world) PD is what an analyst estimates will happen; it drives ECL.",
+      "A risk-neutral PD is the default rate implied by prices; it includes compensation for bearing risk and is therefore higher."
+    ],
+    "pvsqQ": "Which one belongs in an IFRS 9 ECL, and which one in a price?",
+    "pvsqA": [
+      "ECL uses an unbiased, probability-weighted estimate — physical PD, with forward-looking scenarios.",
+      "Prices embed risk-neutral PD. Using a market-implied PD in ECL overstates expected loss; ignoring market signals in SICR understates risk."
+    ],
+    "sizingTitle": "Sizing: one default vs a year of spread income",
+    "weight": "Position weight in the portfolio",
+    "restSpread": "Spread on the rest of the portfolio",
+    "measure": "Measure",
+    "ofPortfolio": "% of portfolio",
+    "lossIfDefault": "Loss if this position defaults",
+    "restIncome": "One year of spread income on the rest at {s}",
+    "years": "Years of spread income to recover",
+    "sizingRead": "A 1% position with LGD 60% costs 0.60% of the portfolio — more than a year of income at 40 bp (0.396%), less than half a year at 150 bp (1.485%).",
+    "sizingFormula": "Loss = weight × LGD\nIncome on the rest = (1 − weight) × spread\nYears = loss ÷ income"
+  },
+  "ratings": {
+    "scalesTitle": "National scale vs global scale",
+    "scales": [
+      "A national-scale rating ranks issuers relative to each other within one country; a global-scale rating compares default risk across countries.",
+      "Both are opinions with different reference sets, criteria and histories. There is no fixed mapping between them, and none is shown here."
+    ],
+    "national": "National scale (onshore)",
+    "global": "Global scale",
+    "nationalPoints": [
+      "Ranks credit risk within China’s onshore market",
+      "Ratings cluster at the top of the scale",
+      "Used in onshore issuance, eligibility and investment policies",
+      "Default statistics on a different reference set"
+    ],
+    "globalPoints": [
+      "Compares default risk across countries and sectors",
+      "Sovereign ceiling and country risk embedded",
+      "Wider dispersion of ratings",
+      "Longer cross-country default histories"
+    ],
+    "noMapping": "Do not translate AA+ (national) into any global grade. Treat each as evidence and ask what it adds.",
+    "eventTitle": "Event: rating terminated (Jun 2026)",
+    "eventBefore": "Current internal grade (illustrative internal scale):",
+    "fire": "Trigger the event: national-scale rating terminated at the issuer’s request",
+    "eventText": "Jun 2026: the national-scale rating of Huaxing is terminated at the issuer’s request. Spread 700 bp, bid–ask 100 bp.",
+    "nothingYet": "Nothing changes automatically. Record a reason and refresh the internal grade.",
+    "internalGrade": "Internal grade",
+    "stale": "stale — not yet reassessed",
+    "watchlist": "Watchlist",
+    "reason": "Assessed reason for the termination",
+    "note": "Rationale (at least 10 characters)",
+    "notePh": "What does the termination tell you? What information is now missing?",
+    "newGrade": "Refreshed internal grade",
+    "needReason": "Choose a reason, write a rationale and choose a grade to refresh.",
+    "refresh": "Record assessment and refresh grade",
+    "undo": "Undo (reset the event)",
+    "refreshedText": "Internal grade refreshed to {grade}; reason recorded: {reason}. The watchlist and SICR evidence on the Recognition tab now reflect this assessment.",
+    "reasons": {
+      "issuerRequest": "Issuer request — rating no longer needed for issuance",
+      "avoidDowngrade": "Likely to avoid a downgrade",
+      "cost": "Cost reduction",
+      "sufficientOther": "Other information is sufficient",
+      "unknown": "Unknown — information gap"
+    },
+    "grades": {
+      "g3": "Internal grade 3 — sound",
+      "g4": "Internal grade 4 — acceptable",
+      "g5": "Internal grade 5 — acceptable, monitor",
+      "g6": "Internal grade 6 — watch",
+      "g7": "Internal grade 7 — weak",
+      "g8": "Internal grade 8 — very weak"
+    },
+    "qTitle": "Discussion",
+    "q": "The rating agency did not downgrade. Why can the termination still be negative information?",
+    "a": [
+      "Termination at the issuer’s request removes an independent monitor at exactly the time monitoring matters; issuers rarely drop ratings they expect to be upgraded.",
+      "It is evidence to assess — with the sales, CFO, trust-loan and FY2025 facts — not a mechanical downgrade and not a reason to ignore the other evidence."
+    ]
+  },
+  "timeline": {
+    "factsTitle": "Dated facts",
+    "thesis": "Thesis still stands?",
+    "stillStands": "{pct}% say the thesis still stands",
+    "revealNext": "Reveal next fact ({date})",
+    "allRevealed": "All facts revealed. Every coupon has been paid.",
+    "progress": "{n} of {total} facts revealed",
+    "marketLine": "Market: spread {spread}, bid–ask {ba}",
+    "kinds": {
+      "market": "market",
+      "operating": "operating",
+      "governance": "governance",
+      "payment": "payment",
+      "funding": "funding",
+      "financials": "financials",
+      "rating": "rating",
+      "maturities": "maturities"
+    },
+    "facts": {
+      "f0": "Market repricing with no issuer news: benchmark +30 bp to 1.80%; developer spreads widen, Huaxing 210 → 330 bp; bid–ask in yield 5 → 40 bp.",
+      "f1": "Monthly contracted sales −31% y/y (sector −12%).",
+      "f2": "The CFO resigns.",
+      "f3": "Annual coupon of 3.60 paid in full and on time. Spread 450 bp; yield 6.30%; price 95.07.",
+      "f4": "Two project-company trust loans are extended — at project level, not the issuer’s bonds.",
+      "f5": "FY2025 results: revenue RMB 215 bn (−24%), total debt 310, debt/EBITDA 7.8×, EBITDA/interest 1.6×, unrestricted cash 42 vs short-term debt 98 (0.43×), operating cash flow −9 vs net profit +4.",
+      "f6": "National-scale rating terminated at the issuer’s request.",
+      "f7": "Maturity wall: RMB 12 bn onshore bond due September 2026; US$ 800 m keepwell notes of an offshore SPV (a different obligor) due December 2026."
+    },
+    "readings": {
+      "f0": "Market-wide: the control (rates) and sector spread move together; no issuer-specific evidence yet.",
+      "f1": "Sales fall far faster than the sector: issuer-specific cash generation is weakening.",
+      "f2": "Governance and information risk: who signs the next financial statements?",
+      "f3": "The coupon is paid — and the position is still down: price −4.93, funded return −3.33.",
+      "f4": "Project-level extensions are not a default on your bond, but they show refinancing pressure inside the group.",
+      "f5": "Cash cover below 1× and negative operating cash flow with a positive profit: earnings are not turning into cash.",
+      "f6": "Information to assess, not a rating action. See the Ratings tab.",
+      "f7": "Refinancing risk is now dated. The keepwell notes are owed by the SPV, not by the parent."
+    },
+    "ratiosTitle": "Ratios before and after",
+    "fy2025": "FY2025",
+    "alarmNote": "Alarm colouring (illustrative thresholds): red — debt/EBITDA ≥ 6.5×, EBITDA/interest < 2×, cash cover < 1×, operating cash flow negative; amber — watch zone.",
+    "missingTitle": "Missing-information checklist",
+    "missingIntro": "Tick what you would need before deciding. Missing information is itself evidence.",
+    "missingCount": "{n} of {total} items flagged as missing",
+    "missing": {
+      "projectDebt": "Project-level debt and guarantees given by the parent",
+      "restrictedCash": "Split of restricted vs unrestricted cash and escrowed pre-sale proceeds",
+      "maturityProfile": "Month-by-month maturity schedule, onshore and offshore",
+      "jvDebt": "Off-balance-sheet joint-venture debt",
+      "salesCollection": "Cash collection rate on contracted sales",
+      "landBank": "Encumbrance and valuation of the land bank",
+      "trustTerms": "Terms of the extended trust loans (rate, security, cross-default)",
+      "supportDocs": "Any documentation of shareholder support",
+      "crossDefault": "Cross-default and cross-acceleration clauses between onshore and offshore debt",
+      "auditOpinion": "Auditor’s opinion and any going-concern emphasis"
+    },
+    "supportTitle": "Support scoring",
+    "supportIntro": "Score non-contractual support from the 28% municipal-SOE shareholder. Support is a judgement, not a claim.",
+    "importance": "Importance to the supporter",
+    "importanceHint": "Strategic role, local employment, housing delivery",
+    "linkage": "Linkage",
+    "linkageHint": "Ownership 28%, two board seats, name, shared funding",
+    "capacity": "Capacity and willingness",
+    "capacityHint": "Fiscal capacity of the municipality; past behaviour (RMB 8 bn loan in Jan 2024)",
+    "supportScore": "Qualitative support:",
+    "supportFormula": "Score = average of the three dimensions (0–5)\nIf any dimension ≤ 1, support is at most “low”.",
+    "supportNote": "A score informs the probability of counterfactual A; it never replaces a legal claim.",
+    "levels": {
+      "strong": "Strong",
+      "moderate": "Moderate",
+      "limited": "Limited",
+      "low": "Low"
+    },
+    "levelText": {
+      "strong": "Support is likely and timely; still no legal claim for bondholders.",
+      "moderate": "Support is plausible but may be partial or late; price it as a probability, not a certainty.",
+      "limited": "Support may be selective (e.g. housing delivery, not bondholders).",
+      "low": "Do not rely on support in the base case."
+    },
+    "cfTitle": "Counterfactuals (Jul 2026)",
+    "cfIntro": "Choose a counterfactual: it drives spread → price in the tiles, the Decision tab and everywhere downstream.",
+    "cfA": [
+      "A registered guarantee plus a new RMB 8 bn shareholder loan.",
+      "Spread tightens to 350 bp."
+    ],
+    "cfB": [
+      "No support; the issuer proposes to extend the September bond: 40% paid at maturity, 60% one year later.",
+      "Spread widens to 900 bp."
+    ],
+    "cfCase": "Case",
+    "cfCaption": "Jul 2026 (1.667 years remaining), per RMB 100 m",
+    "remaining": "Remaining life",
+    "cfFormula": "Mid = PV of remaining cash flows at benchmark 1.80% + counterfactual spread\nEconomic change = mid − value at the 3.60% purchase yield",
+    "qTitle": "Discussion",
+    "q": "Every coupon was paid. At which date did the evidence justify escalation — and at which date did it justify changing the stage?",
+    "a": [
+      "Escalation: arguably by March 2026 (sales −31% vs sector −12%, CFO resignation, trust-loan extensions, spread 450 bp) — before the FY2025 results.",
+      "Stage change: by April 2026 the evidence of a significant increase in credit risk is strong (cash cover 0.43×, negative operating cash flow, spread 550 bp). Payment status alone would never have triggered it."
+    ],
+    "funnelTitle": "Issuer analysis funnel",
+    "funnel": [
+      "Sector and macro: developer sales −12% y/y, funding channels, policy.",
+      "Business: Huaxing contracted sales −31% y/y — far weaker than the sector.",
+      "Four ratios with operating cash flow: debt/EBITDA, EBITDA/interest, cash / short-term debt, operating cash flow vs net profit.",
+      "Liquidity and refinancing: dated maturities onshore and offshore, access to markets.",
+      "Support and structure: who owes you, on what claim, and who might support — by contract or by choice."
+    ],
+    "funnelNote": "Work from the outside in; stop and escalate when a layer contradicts the thesis."
+  },
+  "structure": {
+    "compareTitle": "Three instruments, three claims",
+    "feature": "Feature",
+    "rows": {
+      "obligor": "Obligor",
+      "currency": "Currency and law",
+      "claim": "Your claim",
+      "support": "Support mechanism",
+      "whilePaying": "What can go wrong while paying",
+      "watch": "What to watch"
+    },
+    "inst": {
+      "mtn": {
+        "name": "Huaxing parent MTN",
+        "obligor": "Huaxing Development Co., Ltd. (onshore operating parent)",
+        "currency": "RMB, PRC law",
+        "claim": "Senior unsecured claim on the parent, ranking with other senior unsecured creditors; structurally behind project-level secured debt",
+        "support": "None contractual; shareholder support is discretionary",
+        "whilePaying": "Spread widening, exit discount, ECL, distressed extension proposed through bondholder meeting",
+        "watch": "Parent cash vs short-term debt; project-level leakage; bondholder meeting terms"
+      },
+      "keepwell": {
+        "name": "Offshore SPV keepwell notes",
+        "obligor": "Offshore SPV (a different obligor); parent signs a keepwell deed",
+        "currency": "USD, English/Hong Kong law",
+        "claim": "Claim on the SPV; against the parent only a claim under the keepwell deed — not a guarantee",
+        "support": "Keepwell deed and, often, an equity purchase undertaking; cross-border approvals may be needed to perform",
+        "whilePaying": "SPV is paid from onshore flows that may be blocked; enforcement is uncertain; USD spreads move with offshore sentiment",
+        "watch": "Deed wording, registration and approvals, onshore assets reachable, cross-default links"
+      },
+      "tier2": {
+        "name": "Bank Tier-2 capital bond (10NC5)",
+        "obligor": "The issuing bank",
+        "currency": "RMB, PRC law",
+        "claim": "Subordinated to depositors and senior creditors; write-down or conversion at the point of non-viability",
+        "support": "Regulatory resolution framework rather than shareholder support",
+        "whilePaying": "Non-call at year 5 (extension); spread widening on capital concerns; write-down without a default",
+        "watch": "Issuer capital ratios vs triggers, regulator’s call approval, replacement issuance"
+      }
+    },
+    "compareNote": "The keepwell notes are not Huaxing’s debt: a keepwell is not a guarantee. The Tier-2 bond can lose principal by contract without any default.",
+    "quizTitle": "Default or not?",
+    "quizIntro": "Classify each event. Then reveal the model answer.",
+    "isDefault": "Your classification",
+    "yesDefault": "Default",
+    "notDefault": "Not a default",
+    "depends": "Depends on the documents",
+    "quiz": {
+      "q1": {
+        "q": "A bank does not call its Tier-2 bond at the first call date; the coupon continues at the reset rate.",
+        "a": "The call is the issuer’s option. The bond simply continues as documented; the market prices extension risk."
+      },
+      "q2": {
+        "q": "A bank’s Tier-2 bond is written down in full at the point of non-viability.",
+        "a": "A contractual loss-absorption feature, not an event of default — the investor still loses principal."
+      },
+      "q3": {
+        "q": "Two of Huaxing’s project companies extend trust loans; Huaxing’s MTN coupons are paid.",
+        "a": "Project-level extensions are not a default on the parent MTN unless the MTN documents contain a cross-default reaching those loans. Check the documents."
+      },
+      "q4": {
+        "q": "Huaxing fails to pay the MTN coupon and the grace period expires.",
+        "a": "A payment default on the bond."
+      },
+      "q5": {
+        "q": "The offshore SPV misses a payment and the parent does not provide funds under the keepwell deed.",
+        "a": "An SPV payment default on the notes; against the parent it is a possible breach of the deed, whose enforceability and damages depend on wording, law and facts."
+      }
+    },
+    "precTitle": "Precedent notes",
+    "prec": {
+      "founder": {
+        "title": "Founder keepwell litigation (Hong Kong)",
+        "text": [
+          "The Hong Kong court treated the keepwell deeds as enforceable and found the keepwell provider in breach.",
+          "On those facts, damages for the issuer/guarantor claimants were nominal: an enforceable deed did not deliver the economics of a guarantee."
+        ]
+      },
+      "baoshang": {
+        "title": "Baoshang Bank, 2020",
+        "text": [
+          "Tier-2 capital bonds were written down in full at the point of non-viability in 2020 — the first such write-down of a bank capital instrument in China."
+        ]
+      },
+      "noncall": {
+        "title": "A 2026 Tier-2 non-call",
+        "text": [
+          "In 2026 a Chinese bank Tier-2 bond was not called at its first call date; the coupon continued. Holders faced extension, not default — and marked-to-market losses."
+        ]
+      }
+    },
+    "precNote": "Summaries for teaching; verify the judgments and announcements in primary sources before relying on them."
+  },
+  "ccy": {
+    "CNY": "CNY",
+    "USD": "USD"
+  },
+  "bench": {
+    "cgb": "China Government Bond curve",
+    "ust": "US Treasury curve"
+  },
+  "portfolio": {
+    "questionsIntro": "For every line answer four questions:",
+    "ccyBench": "Currency: {ccy} · benchmark: {bench}",
+    "q": {
+      "mechanism": "Which mechanism can cause a loss while it keeps paying?",
+      "mechanismShort": "Mechanism",
+      "missing": "What information is missing?",
+      "missingShort": "Missing information",
+      "control": "Which control or limit addresses it?",
+      "controlShort": "Control",
+      "evidence": "What evidence would change the decision?",
+      "evidenceShort": "Evidence that changes the decision"
+    },
+    "notes": "Your notes",
+    "notesPh": "Missing information, evidence…",
+    "modelAnswer": "Reveal model answer",
+    "checkModel": "Check against the model answer",
+    "controls": {
+      "durationLimit": "Duration / interest-rate risk limit",
+      "spreadWatch": "Spread watch trigger",
+      "liquidityBuffer": "Position size vs market depth (exit test)",
+      "sicrReview": "SICR review and stage assessment",
+      "supportReview": "Support assessment with documented assumptions",
+      "structureReview": "Legal review of claim and structure",
+      "callMonitor": "Call-assumption monitoring",
+      "concentrationLimit": "Issuer / sector / region concentration limit",
+      "escalationRule": "Dated escalation rule",
+      "fxHedge": "Currency hedge and cross-currency limit"
+    },
+    "lines": {
+      "cgb": {
+        "name": "China Government Bond, 5 years",
+        "desc": "Sovereign benchmark, highly liquid.",
+        "mechanism": "Benchmark rates — a real loss of value, but not credit: this line is the control.",
+        "missing": "Nothing on credit; the funding and rate outlook.",
+        "control": "Duration and interest-rate risk limits.",
+        "evidence": "A change in the rate outlook or funding cost, not issuer news."
+      },
+      "t2": {
+        "name": "Big-six bank Tier-2, 10NC5",
+        "desc": "Subordinated capital bond; call expected at year 5.",
+        "mechanism": "Spread widening and extension if not called; write-down at non-viability.",
+        "missing": "Issuer’s call intention, capital headroom, regulator’s approval.",
+        "control": "Call-assumption monitoring; legal review of loss-absorption terms.",
+        "evidence": "Call approval or refusal; capital ratios near triggers."
+      },
+      "lgfv": {
+        "name": "District LGFV MTN",
+        "desc": "Local-government financing vehicle of a district.",
+        "mechanism": "Refinancing and support change; exit liquidity.",
+        "missing": "District fiscal data, hidden debt, documented support, debt-swap eligibility.",
+        "control": "Support assessment with documented assumptions; concentration limits by region.",
+        "evidence": "Inclusion in a debt-resolution programme, or a missed commercial payment by a peer."
+      },
+      "huaxing": {
+        "name": "Huaxing Development MTN (the case)",
+        "desc": "Onshore developer parent, senior unsecured.",
+        "mechanism": "Spread widening, higher ECL, refinancing and support risk.",
+        "missing": "Project-level debt, restricted cash, maturity schedule, support documentation.",
+        "control": "SICR review and a dated escalation rule.",
+        "evidence": "Counterfactual A (registered guarantee + loan) or B (extension proposal)."
+      },
+      "keepwell": {
+        "name": "USD keepwell note vs UST",
+        "desc": "Offshore SPV note; spread against US Treasuries, in USD.",
+        "mechanism": "Structure (keepwell is not a guarantee), refinancing, USD spread moves.",
+        "missing": "Deed enforceability, cross-border approvals, onshore assets reachable.",
+        "control": "Legal structure review; FX hedge and cross-currency limits.",
+        "evidence": "Parent performing under the deed, or a court decision on enforcement."
+      }
+    },
+    "refTitle": "Nine-line reference list",
+    "refCols": {
+      "line": "Line",
+      "ccy": "Currency",
+      "bench": "Benchmark",
+      "mech": "Dominant mechanism while paying",
+      "control": "Key control"
+    },
+    "ref": {
+      "r1": {
+        "name": "China Government Bond 10y",
+        "mech": "Benchmark rates (control)",
+        "control": "Duration limit"
+      },
+      "r2": {
+        "name": "Policy-bank bond 5y",
+        "mech": "Rates; small spread to CGB",
+        "control": "Duration limit"
+      },
+      "r3": {
+        "name": "Provincial government special bond",
+        "mech": "Rates; liquidity",
+        "control": "Duration and liquidity limits"
+      },
+      "r4": {
+        "name": "Big-six bank Tier-2 10NC5",
+        "mech": "Spread; non-call extension; write-down",
+        "control": "Call monitoring, legal review"
+      },
+      "r5": {
+        "name": "Joint-stock bank perpetual (AT1)",
+        "mech": "Coupon cancellation; non-call; write-down",
+        "control": "Legal review, concentration"
+      },
+      "r6": {
+        "name": "Central SOE MTN",
+        "mech": "Spread; support assumptions",
+        "control": "Support assessment"
+      },
+      "r7": {
+        "name": "District LGFV MTN",
+        "mech": "Refinancing; support; liquidity",
+        "control": "Regional concentration limit"
+      },
+      "r8": {
+        "name": "USD keepwell note (offshore SPV)",
+        "mech": "Structure; refinancing; USD spread",
+        "control": "Legal review; FX hedge"
+      },
+      "r9": {
+        "name": "US Treasury 5y",
+        "mech": "USD rates (control); FX",
+        "control": "Duration and FX limits"
+      }
+    },
+    "ccyNote": "Spreads are measured against the benchmark of each line’s own currency. Never compare a USD spread over US Treasuries with a CNY spread over CGBs."
+  },
+  "recog": {
+    "scenTitle": "ECL scenario inputs",
+    "scenIntro": "Up to three scenarios, probability-weighted (weights are normalised). Class default: one scenario, 12-month PD 6%, lifetime PD 10%, LGD 60%.",
+    "scen0": "Scenario 1 (base)",
+    "scen1": "Scenario 2 (upside)",
+    "scen2": "Scenario 3 (downside)",
+    "weight": "Weight",
+    "lgd": "LGD",
+    "pd12": "12-month PD",
+    "pdLife": "Lifetime PD",
+    "discount": "Lifetime ECL",
+    "undiscounted": "Undiscounted",
+    "discounted": "Discounted 1 year at EIR",
+    "sicrTitle": "SICR judgement and evidence",
+    "sicrIntro": "Has credit risk increased significantly since initial recognition? Tick the evidence available in April 2026.",
+    "evidence": {
+      "spread": "Spread 210 → 550 bp since purchase",
+      "rating": "Rating withdrawn / internal grade downgraded",
+      "financials": "FY2025: cash cover 0.43×, negative operating cash flow",
+      "watchlist": "On the internal watchlist",
+      "dpd30": "More than 30 days past due (rebuttable presumption)"
+    },
+    "evidenceCount": "{n} of 5 evidence items ticked. The stage is a judgement: the 30-days-past-due presumption is a backstop, not the test.",
+    "presumption": "More than 30 days past due: SICR is presumed (rebuttable).",
+    "stageJudgement": "Stage judgement",
+    "stage1": "Stage 1 (12-month ECL)",
+    "stage2": "Stage 2 (lifetime ECL)",
+    "hint": "Compare the charge under Stage 1 and Stage 2. The difference is the cost of the SICR judgement.",
+    "poci": "POCI note: a bond bought already credit-impaired (e.g. a newly purchased distressed Huaxing bond) is “purchased or originated credit-impaired”: no Day-1 allowance, a credit-adjusted EIR, and later changes in lifetime ECL go through P&L.",
+    "eclTitle": "ECL (RMB m)",
+    "measure": "Measure",
+    "amount": "Amount",
+    "ecl12": "12-month ECL",
+    "eclLife": "Lifetime ECL",
+    "prevAllowance": "Allowance before (12-month at T0)",
+    "allowance": "Required allowance (Stage {n})",
+    "allowanceShort": "Required allowance",
+    "charge": "Charge to P&L",
+    "altCharge": "Charge if Stage {n} instead",
+    "eclFormula": "ECL = Σ wₛ × PDₛ × LGDₛ × EAD\nLifetime (discounted) = PD_life × LGD × EAD ÷ (1 + EIR)\nCharge = required allowance − allowance before",
+    "ead": "EAD (nominal)",
+    "eir": "EIR",
+    "lensTitle": "The same position through three lenses (15 Apr 2026, RMB m)",
+    "line": "Line",
+    "lensCaption": "Gross amortised cost {gross} (dirty, incl. accrued) · fair value {fv} (mid) · lens selected: {lens}",
+    "carrying": "Carrying amount",
+    "pnl": "P&L (period)",
+    "oci": "OCI (cumulative)",
+    "equity": "Equity effect (cumulative)",
+    "eclWhere": "Where ECL appears",
+    "eclAC": "P&L; reduces carrying amount",
+    "eclFVOCI": "P&L; allowance in OCI",
+    "eclFVTPL": "Outside impairment scope",
+    "lensRead": "Same bond, same date, three different pictures: AC shows only the ECL charge; FVOCI adds the non-credit fair-value change in OCI; FVTPL shows the whole economic change in P&L.",
+    "lensFormula": "AC carrying = gross amortised cost − allowance\nFVOCI carrying = fair value; OCI = fair value − gross amortised cost + allowance\nFVTPL P&L = fair value − gross amortised cost",
+    "lensNote": "Interest income at the EIR is excluded to isolate the credit and fair-value effects (teaching simplification).",
+    "gross": "Gross amortised cost",
+    "fv": "Fair value (mid)",
+    "classTitle": "Classification: business model + SPPI",
+    "classText": [
+      "Under IFRS 9 / CAS 22 the measurement lens is set at purchase by the business model and the SPPI (solely payments of principal and interest) test — not by later performance.",
+      "ECL applies to amortised cost and FVOCI; FVTPL assets are outside the impairment scope."
+    ],
+    "bm": "Business model",
+    "sppi": "SPPI test",
+    "result": "Measurement",
+    "bmHold": "Hold to collect",
+    "bmBoth": "Hold to collect and sell",
+    "bmOther": "Other (trading, fair-value managed)",
+    "bmAny": "Any",
+    "sppiPass": "Passed",
+    "sppiAny": "Passed or failed",
+    "sppiFail": "Failed",
+    "fc": {
+      "title": "China five-category classification vs IFRS 9 stage",
+      "intro": [
+        "Scope: the 2023 Measures for the Risk Classification of Financial Assets cover financial assets bearing credit risk, including bonds held in the banking book; trading-book assets are excluded.",
+        "The two systems answer different questions: the IFRS stage measures change in credit risk since purchase; the five categories measure the current risk of the asset."
+      ],
+      "dpd": "Days past due",
+      "days": "{n} days",
+      "eclRatio": "ECL / gross carrying amount",
+      "npShare": "Share of this debtor’s exposures at the bank already non-performing",
+      "impaired": "Credit-impaired",
+      "restructured": "Restructured (debtor in financial difficulty)",
+      "adverse": "Other factors that may affect repayment (watchlist)",
+      "useCase": "Use the ECL ratio of the case",
+      "category": "Five-category result",
+      "stage": "IFRS 9 stage",
+      "npl": "Non-performing",
+      "performing": "Performing",
+      "cats": {
+        "normal": "Normal",
+        "specialMention": "Special mention",
+        "substandard": "Substandard",
+        "doubtful": "Doubtful",
+        "loss": "Loss"
+      },
+      "stageReason": {
+        "impaired": "credit-impaired",
+        "dpd90": "more than 90 days past due",
+        "sicr": "significant increase in credit risk (judgement)",
+        "dpd30": "more than 30 days past due (presumption)",
+        "none": "no significant increase"
+      },
+      "rulesFired": "Rules applied:",
+      "noRule": "none — normal",
+      "rules": {
+        "dpdAny": "any amount past due → at least special mention",
+        "adverse": "adverse factors → at least special mention",
+        "restructured": "restructured asset → at least special mention, with an observation period before any upgrade",
+        "dpd90": "more than 90 days past due → at least substandard",
+        "impaired": "credit-impaired → at least substandard",
+        "debtor10": "≥ 10% of the debtor’s exposures non-performing → all its exposures at least substandard",
+        "dpd270": "more than 270 days past due → at least doubtful",
+        "ecl50": "credit-impaired and ECL ≥ 50% → at least doubtful",
+        "dpd360": "more than 360 days past due → loss",
+        "ecl90": "ECL ≥ 90% → loss"
+      },
+      "whyDiffer": "Why they differ here: the bond is in Stage 2 because risk rose sharply since purchase, but it is current and not credit-impaired — the five categories can still read “normal” unless adverse factors are recorded.",
+      "whyGeneral": "Credit-impaired assets are Stage 3 and at least substandard; Stage 2 has no automatic five-category equivalent.",
+      "formula": "Category = the most severe floor among the rules triggered (teaching summary of the 2023 Measures)",
+      "source": "Teaching summary; check the text of the 2023 Measures and internal policy before use.",
+      "group": "Group members are assessed individually: problems at Huaxing’s project companies or its offshore SPV are evidence for the parent, not an automatic downgrade of the parent’s exposures."
+    },
+    "qTitle": "Discussion",
+    "q": "Which lens shows the April 2026 loss most completely — and which one hides it until sale?",
+    "a": [
+      "FVTPL shows the whole economic change (−6.41) in P&L. FVOCI shows the same equity effect split between P&L (ECL) and OCI.",
+      "Amortised cost shows only the ECL charge (−5.40); the spread and liquidity loss stay hidden until the bond is sold."
+    ]
+  },
+  "capital": {
+    "rwTitle": "Standardised risk weights (weighted approach)",
+    "exposure": "Exposure",
+    "rw": "Risk weight",
+    "ref": "Reference (to verify)",
+    "rwRows": {
+      "cgb": "China central government bonds",
+      "pbc": "People’s Bank of China",
+      "policyBank": "Policy banks",
+      "localGeneral": "Local government general bonds",
+      "localSpecial": "Local government special bonds",
+      "bankA": "Domestic commercial bank, grade A (general)",
+      "bankB": "Domestic commercial bank, grade B",
+      "bankTier2": "Bank Tier-2 / other capital instruments held",
+      "corpIG": "Investment-grade corporate",
+      "corpGeneral": "General corporate",
+      "corpSub": "Subordinated debt of corporates"
+    },
+    "rwRef": {
+      "cgb": "Capital Rules (2023), Annex 2",
+      "pbc": "Capital Rules (2023), Annex 2",
+      "policyBank": "Capital Rules (2023), Annex 2",
+      "localGeneral": "Capital Rules (2023), Annex 2",
+      "localSpecial": "Capital Rules (2023), Annex 2",
+      "bankA": "Capital Rules (2023), Annex 2",
+      "bankB": "Capital Rules (2023), Annex 2",
+      "bankTier2": "Capital Rules (2023), Annex 2",
+      "corpIG": "Capital Rules (2023), Annex 2",
+      "corpGeneral": "Capital Rules (2023), Annex 2",
+      "corpSub": "Capital Rules (2023), Annex 2"
+    },
+    "rwNote": "Illustrative weights under the NFRA Capital Rules for Commercial Banks (effective 1 Jan 2024). Article and paragraph numbers must be checked against the official text; conditions (maturity, grading, eligibility) are omitted.",
+    "approachTitle": "IRB vs weighted approach",
+    "approach": "Approach",
+    "weighted": "Weighted (standardised)",
+    "irb": "Internal ratings-based (IRB)",
+    "rwClass": "Exposure class",
+    "pd": "PD",
+    "lgd": "LGD",
+    "maturity": "Effective maturity M",
+    "ratio": "Capital ratio applied",
+    "measure": "Measure",
+    "value": "Value",
+    "ead": "Exposure (EAD)",
+    "rwa": "Risk-weighted assets",
+    "capitalReq": "Capital at {r}",
+    "weightedFormula": "RWA = EAD × risk weight\nCapital = RWA × ratio",
+    "irbFormula": "K = LGD × [N((G(PD) + √R·G(0.999)) / √(1 − R)) − PD] × (1 + (M − 2.5)·b) / (1 − 1.5·b)\nR = 0.12·w + 0.24·(1 − w), w = (1 − e^(−50·PD)) / (1 − e^(−50))\nb = (0.11852 − 0.05478·ln PD)²;  RW = 12.5 × K",
+    "irbNote": "Basel corporate IRB formula without SME adjustment, floors or scaling — illustrative. Under IRB the April 2026 PD increase raises capital; under the weighted approach the weight does not move with the issuer’s deterioration.",
+    "ociTitle": "OCI into CET1 (April 2026)",
+    "ociText": "Accumulated OCI is part of CET1. Under FVOCI, the fair-value loss reaches capital before any sale; under amortised cost only the ECL does.",
+    "cet1Effect": "CET1 effect (before tax)",
+    "ofWhichOci": "of which OCI",
+    "ociCaption": "Cumulative equity effect by lens, RMB m",
+    "ociFormula": "CET1 effect = P&L effect (retained earnings) + accumulated OCI",
+    "ociNote": "Before tax, before any regulatory adjustments; illustrative.",
+    "gsibTitle": "Static facts: G-SIB and TLAC",
+    "gsibFacts": [
+      "G-SIB bucket 3 applies from 1 January 2027 (higher loss-absorbency requirement per the FSB list; verify the current list).",
+      "TLAC: minimum 16% of RWA from 1 January 2025, rising to 18% from 1 January 2028; leverage-ratio TLAC 6% then 6.75%.",
+      "Bank Tier-2 and TLAC-eligible holdings of other banks attract high risk weights and deductions — relevant for the Tier-2 line in the portfolio."
+    ],
+    "gsibNote": "Static regulatory facts for context only; verify against primary sources.",
+    "notTitle": "What capital does not do",
+    "nots": [
+      "Capital does not prevent losses — it absorbs them after they occur.",
+      "A 0% risk weight does not mean zero risk: government bonds still lose value when rates rise, and liquidity can still disappear.",
+      "A capital charge is not a limit and not a price: it does not replace credit judgement, concentration limits or the decision to hold or sell."
+    ],
+    "qTitle": "Discussion",
+    "q": "Under the weighted approach, Huaxing’s risk weight did not change between 2025 and June 2026. Does that mean capital pressure did not change?",
+    "a": [
+      "No. Capital fell through the ECL charge (retained earnings) and, under FVOCI, through OCI in CET1.",
+      "Under IRB the higher PD would also raise RWA. And a realised loss on sale reduces capital immediately."
+    ]
+  },
+  "controls": {
+    "stepsTitle": "Four steps mapped to the case dates",
+    "steps": {
+      "monitoring": {
+        "name": "1 · Monitoring",
+        "text": "Spread and bid–ask move (Sep 2025) and monthly sales fall far faster than the sector (Dec 2025). Monitoring must see issuer-specific evidence, not only payments."
+      },
+      "escalation": {
+        "name": "2 · Escalation",
+        "text": "CFO resignation (Feb 2026), trust-loan extensions and spread 450 bp (Mar 2026): escalate to the credit committee with a dated agenda."
+      },
+      "impairment": {
+        "name": "3 · Formal impairment assessment",
+        "text": "FY2025 results (Apr 2026): SICR assessment, Stage 2, lifetime ECL, five-category review, documented."
+      },
+      "execution": {
+        "name": "4 · Execution",
+        "text": "Rating terminated and maturity wall (Jun 2026): decide — hold, reduce, hedge or exit — with owner, triggers and counterfactual response (Jul 2026)."
+      }
+    },
+    "dates": {
+      "sep25": "Sep 2025",
+      "dec25": "Dec 2025",
+      "feb26": "Feb 2026",
+      "mar26": "Mar 2026",
+      "apr26": "Apr 2026",
+      "jun26": "Jun 2026",
+      "jul26": "Jul 2026"
+    },
+    "ruleTitle": "Illustrative escalation rule",
+    "notPolicy": "Illustrative only — neither ICBC policy nor regulation",
+    "ruleText": "Escalate to the credit committee within five working days when at least the chosen number of signals is present at a date. Edit the thresholds and see when the rule would have fired.",
+    "rule": {
+      "spreadLevel": "Spread level ≥",
+      "spreadWidening": "Widening since purchase ≥",
+      "priceFloor": "Clean price below",
+      "cashCover": "Cash / short-term debt below",
+      "minHits": "Signals required"
+    },
+    "date": "Date",
+    "cols": {
+      "spreadLevel": "Spread level",
+      "widening": "Widening",
+      "price": "Clean price",
+      "cover": "Cash cover",
+      "event": "Qualitative red flag",
+      "hits": "Signals"
+    },
+    "na": "n/a",
+    "escalate": "escalate",
+    "firstTrigger": "With these thresholds the rule first fires in {date}.",
+    "noTrigger": "With these thresholds the rule never fires on the case dates.",
+    "ruleFormula": "Signals = count of {spread ≥ level, spread − 210 ≥ widening, clean price < floor, cash cover < threshold, qualitative red flag}\nEscalate when signals ≥ required",
+    "ruleNote": "Dec 2025 has no market observation in the case; red flags: sales (Dec 2025), CFO and trust loans (Mar 2026), FY2025 results (Apr 2026), rating termination (Jun 2026).",
+    "lensesTitle": "Four functional lenses",
+    "function": "Function",
+    "responsibility": "Responsibility",
+    "inCase": "In the Huaxing case",
+    "lenses": {
+      "investment": {
+        "name": "Investment (front office)",
+        "role": "Owns the position and the hold/sell decision; proposes actions with economics.",
+        "case": "Prepares the Jun 2026 decision: proceeds vs hold value, break-even probability, hedge feasibility."
+      },
+      "risk": {
+        "name": "Risk management",
+        "role": "Independent assessment, limits, internal grade, SICR and ECL inputs; challenges the front office.",
+        "case": "Refreshes the internal grade after the rating termination; runs the escalation rule; sets ECL scenarios."
+      },
+      "audit": {
+        "name": "Internal audit",
+        "role": "Tests whether controls operated on time and were documented.",
+        "case": "Checks that escalation happened when the rule fired and that the stage judgement is evidenced."
+      },
+      "operations": {
+        "name": "Operations / finance",
+        "role": "Valuation, accounting entries, regulatory reporting, settlement.",
+        "case": "Books ECL, OCI and any modification loss; reports the five-category result; executes any sale at the bid."
+      }
+    },
+    "qTitle": "Discussion",
+    "q": "Which control failure turns a loss while paying into a larger loss?",
+    "a": [
+      "Waiting for a missed payment. Every signal in the case arrived while coupons were paid; a control keyed to payment status would escalate only after the exit price has collapsed.",
+      "Controls should be dated, evidence-based and owned — with a named escalation route."
+    ]
+  },
+  "decision": {
+    "ladderTitle": "Value ladder (per 100 nominal)",
+    "l": {
+      "acGross": "Amortised cost (gross, dirty)",
+      "acNet": "Amortised cost net of allowance",
+      "mid": "Mid (fair value)",
+      "bid": "Executable bid (sale proceeds)",
+      "holdA": "Hold → A (Jul 2026)",
+      "holdB": "Hold → B (Jul 2026)",
+      "expected": "Expected hold (P(A) {p}, net of costs)",
+      "expectedShort": "Expected hold value",
+      "legendAC": "Amortised cost",
+      "legendHold": "Hold outcomes",
+      "bidMarker": "sale proceeds"
+    },
+    "ladderNote": "Jun 2026 values at 1.75 years; counterfactual values in Jul 2026 at 1.667 years, as in the class deck. Bars start at 85 to show differences.",
+    "probTitle": "Proceeds vs probability-weighted holding value",
+    "pA": "Probability of counterfactual A (support)",
+    "capitalCost": "Cost of capital while holding",
+    "liquidityCost": "Liquidity cost while holding",
+    "measure": "Measure",
+    "value": "Value",
+    "saleProceeds": "Sale proceeds now (executable bid)",
+    "holdA": "Value if A",
+    "holdB": "Value if B",
+    "costs": "Capital and liquidity costs",
+    "expectedHold": "Expected holding value",
+    "breakEvenP": "Break-even probability of A",
+    "breakEven": "break-even",
+    "beAria": "Break-even probability {p}; current probability {cur}",
+    "readHold": "On these inputs holding is worth more than selling: the probability of A exceeds the break-even of {p}.",
+    "readSell": "On these inputs selling is worth more than holding: the probability of A is below the break-even of {p}.",
+    "probNote": "Before capital and liquidity costs the break-even is about 8%. Add the costs of holding a Stage 2 exposure and funding it, and the bar rises. Liquidity needs and limits may force a sale whatever the probabilities say.",
+    "beFormula": "Hold value = p·V_A + (1 − p)·V_B − capital cost − liquidity cost\nBreak-even p* = (sale proceeds + costs − V_B) ÷ (V_A − V_B)",
+    "extTitle": "Extension branch: PV cost vs modification loss",
+    "extIntro": "If B happens, part of the principal is paid late. Compare the economic cost (at the market rate) with the accounting modification loss (at the original EIR).",
+    "ext": {
+      "paidShare": "Share of principal paid at maturity",
+      "delay": "Delay of the rest",
+      "coupon": "Coupon on the delayed part",
+      "rate": "Market discount rate",
+      "eir": "Original EIR",
+      "delayed": "Delayed principal",
+      "pvMarket": "PV of delayed cash flows at market rate",
+      "pvCost": "Economic PV cost",
+      "pvEir": "PV of delayed cash flows at original EIR",
+      "modLoss": "Modification loss (P&L)",
+      "read": "With the coupon equal to the EIR, the accounting modification loss is nil although the economic cost is not: the loss shows up in fair value, ECL and classification (restructured asset) instead.",
+      "formula": "PV cost = delayed principal − Σ CFₖ / (1 + market rate)^k\nModification loss = delayed principal − Σ CFₖ / (1 + EIR)^k\n(values at the original payment date)",
+      "note": "Cash flows listed per RMB 100 m nominal."
+    },
+    "hedgeTitle": "Hedge feasibility",
+    "hedge": [
+      "Rates: an interest-rate swap or CGB futures can hedge the benchmark part — the control — but not the credit.",
+      "Credit: single-name credit protection on an onshore developer (e.g. credit risk mitigation warrants) is thin and expensive when needed; a sector proxy leaves basis risk.",
+      "In June 2026 a hedge is mostly a way to buy time, not to remove the Huaxing credit risk. Selling is the only complete hedge."
+    ],
+    "formTitle": "Decision record",
+    "formIntro": "Write the decision as you would for the credit committee. The form checks completeness; print it or export JSON.",
+    "f": {
+      "action": "Decision",
+      "sellShare": "Share to sell (if reduce)",
+      "sellShareHint": "Only used for “reduce”.",
+      "rationale": "Rationale (at least 30 characters)",
+      "rationalePh": "Economics, liquidity needs, constraints, evidence…",
+      "owner": "Named owner",
+      "ownerPh": "Name and function",
+      "triggers": "Dated triggers",
+      "triggersHelp": "Each trigger needs a number, a date and a consequence.",
+      "metric": "Metric",
+      "op": "Condition",
+      "number": "Number",
+      "date": "By date",
+      "consequence": "Consequence",
+      "consequencePh": "e.g. sell the remaining position within 5 days",
+      "remove": "Remove",
+      "add": "Add trigger",
+      "escalation": "Escalation route",
+      "escalationPh": "Who is informed, who decides, by when",
+      "responseA": "Response if counterfactual A (support)",
+      "responseAPh": "What you do if the guarantee and loan arrive",
+      "responseB": "Response if counterfactual B (extension)",
+      "responseBPh": "What you do if the extension is proposed"
+    },
+    "actions": {
+      "hold": "Hold",
+      "reduce": "Reduce",
+      "hedge": "Hedge",
+      "exit": "Exit"
+    },
+    "metrics": {
+      "spread": "Spread (bp)",
+      "price": "Price (per 100)",
+      "cashCover": "Cash / short-term debt",
+      "event": "Event: extension proposal",
+      "date": "Date reached"
+    },
+    "complete": "Complete — ready for committee.",
+    "incomplete": "Incomplete — see the checklist.",
+    "v": {
+      "action": "Decision chosen",
+      "sellShare": "Share to sell between 0 and 100%",
+      "rationale": "Rationale of at least 30 characters",
+      "owner": "Named owner",
+      "trigger": "At least one trigger with number, date and consequence",
+      "escalation": "Escalation route",
+      "responseA": "Response to counterfactual A",
+      "responseB": "Response to counterfactual B"
+    },
+    "print": "Print / save as PDF",
+    "exportJson": "Export JSON",
+    "importJson": "Import JSON",
+    "replayTitle": "Replay the decision",
+    "replay": "Replay against",
+    "replayNone": "Not yet",
+    "replayHelp": "Replay your recorded decision against counterfactual A or B to see the outcome and which triggers fire.",
+    "replayNeedsAction": "Choose a decision first.",
+    "r": {
+      "scenario": "Scenario",
+      "sold": "Share sold in Jun 2026",
+      "outcome": "Outcome value (RMB m)",
+      "vsSellAll": "vs selling everything in Jun 2026",
+      "vsHoldAll": "vs holding everything",
+      "triggers": "Triggers that fire",
+      "noTriggers": "None of your triggers fires in this scenario — is that intended?",
+      "response": "Your recorded response",
+      "noResponse": "(no response recorded)",
+      "lessonA": "In A, selling in June realised the worst price. A good decision can still look wrong afterwards — judge it by the information and the process at the time.",
+      "lessonB": "In B, holding costs more than the June sale, and the extension adds a PV cost with no accounting modification loss. Did your triggers get you out early enough?"
+    },
+    "toAnswer": "Go to the answer →",
+    "printEcon": "Sale proceeds {sale}; value if A {a}; value if B {b}; P(A) {p}; expected hold value {hold}; break-even probability {be}."
+  },
+  "answer": {
+    "shortTitle": "Short answer",
+    "short": [
+      "A bond can lose money while the issuer keeps paying because its value, its accounting and its capital all depend on expected future cash flows and on the price at which it can be sold — not only on payments already received.",
+      "In the Huaxing case every coupon was paid; the position still lost value in five distinct ways."
+    ],
+    "fiveTitle": "Five statements",
+    "computedIn": "Computed in:",
+    "s1": {
+      "title": "Falling economic value",
+      "text": "Benchmark and spread moves cut the price while coupons were paid: {mar} of price by Mar 2026 and an economic change of {jun} by Jun 2026. The benchmark part is rates, not credit."
+    },
+    "s2": {
+      "title": "Weaker expected cash flows",
+      "text": "Sales, cash cover, operating cash flow and the maturity wall lowered the expected cash flows: under B the value falls to {b}, under A it recovers to {a} — before any missed payment."
+    },
+    "s3": {
+      "title": "Impairment charges",
+      "text": "Significant increase in credit risk moved the bond to Stage 2: an ECL charge of {ecl} through P&L, and under FVOCI a total equity effect of {oci}."
+    },
+    "s4": {
+      "title": "Constrained exit liquidity",
+      "text": "Bid–ask widened from 5 to 100 bp: in Jun 2026 the exit discount alone is {bid}, and the loss realised on sale would be {realised}."
+    },
+    "s5": {
+      "title": "Greater capital pressure",
+      "text": "ECL and OCI reduce CET1; under IRB the higher PD raises risk-weighted assets; a realised loss reduces capital at once — all while the issuer pays."
+    },
+    "notTitle": "What the answer is not",
+    "nots": [
+      "Not “the bond has not lost money because it has not defaulted”.",
+      "Not “all losses are credit losses” — benchmark rates are the control.",
+      "Not “the accounting lens changes the economics” — it changes where and when the loss is shown.",
+      "Not “a rating tells us when to act” — evidence and dated triggers do."
+    ],
+    "zkbTitle": "Questions for the ZKB visit",
+    "zkbIntro": "Take these to the afternoon visit and compare the answers with the Huaxing case.",
+    "zkb": [
+      "How do you separate rate risk from credit risk in the bond book — and who owns each?",
+      "Which signals, other than payment status, put a bond on your watchlist? How are they dated and documented?",
+      "How do you decide a significant increase in credit risk for bonds — and how much weight do market spreads carry?",
+      "How do you measure exit liquidity: at mid, at bid, or with a position-size adjustment?",
+      "When has a hold-or-sell decision been made against the model — and how was it documented?",
+      "How do you treat keepwell, guarantee and other support structures in limits and in LGD?"
+    ]
+  },
+  "glossary": {
+    "search": "Search",
+    "searchPh": "Type a term in English or Chinese…",
+    "count": "{n} of {total} terms",
+    "termsTitle": "Glossary (Appendix A7)",
+    "acrTitle": "Acronyms (Appendix A9)",
+    "colTerm": "Term",
+    "colOther": "Other language",
+    "colDef": "Definition",
+    "source": "Compiled for this class from the terminology of the class materials; verify official translations of regulatory terms in the source texts.",
+    "items": {
+      "pd": {
+        "term": "Probability of default (PD)",
+        "def": "Probability that the obligor defaults within a horizon (12 months or lifetime)."
+      },
+      "lgd": {
+        "term": "Loss given default (LGD)",
+        "def": "Share of the exposure lost if default occurs, after recoveries."
+      },
+      "ead": {
+        "term": "Exposure at default (EAD)",
+        "def": "Amount exposed at the time of default."
+      },
+      "ecl": {
+        "term": "Expected credit loss (ECL)",
+        "def": "Probability-weighted estimate of credit losses; PD × LGD × EAD in its simplest form."
+      },
+      "sicr": {
+        "term": "Significant increase in credit risk (SICR)",
+        "def": "The IFRS 9 test that moves an asset from Stage 1 to Stage 2 and lifetime ECL."
+      },
+      "stage": {
+        "term": "Stages 1 / 2 / 3",
+        "def": "IFRS 9 impairment stages: 12-month ECL, lifetime ECL, credit-impaired."
+      },
+      "ac": {
+        "term": "Amortised cost",
+        "def": "Measurement at the effective interest rate less the loss allowance."
+      },
+      "fvoci": {
+        "term": "Fair value through other comprehensive income (FVOCI)",
+        "def": "Fair value on the balance sheet; fair-value changes in OCI; ECL in P&L."
+      },
+      "fvtpl": {
+        "term": "Fair value through profit or loss (FVTPL)",
+        "def": "Fair-value changes in P&L; outside the impairment scope."
+      },
+      "eir": {
+        "term": "Effective interest rate (EIR)",
+        "def": "Rate that discounts expected cash flows to the initial carrying amount."
+      },
+      "sppi": {
+        "term": "SPPI test",
+        "def": "Test whether contractual cash flows are solely payments of principal and interest."
+      },
+      "businessModel": {
+        "term": "Business model",
+        "def": "How a portfolio is managed: hold to collect, hold to collect and sell, or other."
+      },
+      "poci": {
+        "term": "Purchased or originated credit-impaired (POCI)",
+        "def": "An asset credit-impaired at purchase; credit-adjusted EIR and no Day-1 allowance."
+      },
+      "modification": {
+        "term": "Modification gain or loss",
+        "def": "Change in the gross carrying amount when contractual cash flows are renegotiated, discounted at the original EIR."
+      },
+      "fiveCat": {
+        "term": "Five-category classification",
+        "def": "China’s risk classification of financial assets: normal, special mention, substandard, doubtful, loss."
+      },
+      "specialMention": {
+        "term": "Special mention",
+        "def": "Five-category grade for assets with factors that may adversely affect repayment."
+      },
+      "npl": {
+        "term": "Non-performing asset",
+        "def": "Assets classified substandard, doubtful or loss."
+      },
+      "restructured": {
+        "term": "Restructured asset",
+        "def": "An asset whose terms were changed because the debtor is in financial difficulty; subject to an observation period."
+      },
+      "spread": {
+        "term": "Credit spread",
+        "def": "Yield above the benchmark government bond of the same currency and maturity."
+      },
+      "spreadDuration": {
+        "term": "Spread duration",
+        "def": "Price sensitivity to a change in spread; close to modified duration for a fixed-rate bond."
+      },
+      "modDuration": {
+        "term": "Modified duration",
+        "def": "Macaulay duration ÷ (1 + y): percentage price change for a small yield change."
+      },
+      "convexity": {
+        "term": "Convexity",
+        "def": "Curvature of price in yield; makes the duration approximation overstate losses for large shocks."
+      },
+      "bidAsk": {
+        "term": "Bid–ask spread",
+        "def": "Difference between the price at which dealers buy and sell; widens as credit and liquidity deteriorate."
+      },
+      "executable": {
+        "term": "Executable price",
+        "def": "The price at which a trade can actually be done now, for this size."
+      },
+      "economicValue": {
+        "term": "Economic value",
+        "def": "Present value of expected cash flows at current market yields."
+      },
+      "realisedLoss": {
+        "term": "Realised loss",
+        "def": "A loss crystallised by a sale or settlement."
+      },
+      "refinancing": {
+        "term": "Refinancing risk",
+        "def": "Risk that maturing debt cannot be repaid with new funding on acceptable terms."
+      },
+      "distressed": {
+        "term": "Distressed restructuring / extension",
+        "def": "Changing payment terms because the debtor is in financial difficulty, e.g. paying 40% and delaying 60%."
+      },
+      "keepwell": {
+        "term": "Keepwell deed",
+        "def": "An undertaking by a parent to keep an SPV solvent and liquid; not a guarantee of payment."
+      },
+      "guarantee": {
+        "term": "Guarantee",
+        "def": "A direct, enforceable promise by the guarantor to pay if the obligor does not."
+      },
+      "spv": {
+        "term": "Special purpose vehicle (SPV)",
+        "def": "A separate entity, often offshore, that issues debt; it is a different obligor from the parent."
+      },
+      "noncall": {
+        "term": "Non-call",
+        "def": "The issuer does not exercise a call option; the bond continues. Not a default."
+      },
+      "pwd": {
+        "term": "Write-down at the point of non-viability",
+        "def": "Contractual reduction of a capital instrument’s principal when the issuing bank is non-viable."
+      },
+      "tier2": {
+        "term": "Tier-2 capital",
+        "def": "Subordinated bank capital that absorbs losses in resolution."
+      },
+      "cet1": {
+        "term": "Common equity Tier 1 (CET1)",
+        "def": "Highest-quality bank capital; includes retained earnings and accumulated OCI."
+      },
+      "rwa": {
+        "term": "Risk-weighted assets (RWA)",
+        "def": "Exposures weighted by risk; the denominator of capital ratios."
+      },
+      "irb": {
+        "term": "Internal ratings-based approach (IRB)",
+        "def": "Capital approach using the bank’s own PD (and possibly LGD) estimates."
+      },
+      "weightedApproach": {
+        "term": "Weighted approach",
+        "def": "The standardised approach to credit risk with prescribed risk weights."
+      },
+      "tlac": {
+        "term": "Total loss-absorbing capacity (TLAC)",
+        "def": "Capital and eligible debt that G-SIBs must hold for resolution."
+      },
+      "gsib": {
+        "term": "Global systemically important bank (G-SIB)",
+        "def": "Bank designated by the FSB; subject to higher loss-absorbency requirements by bucket."
+      },
+      "lgfv": {
+        "term": "Local government financing vehicle (LGFV)",
+        "def": "An entity that finances local infrastructure; support from the government is not a legal guarantee."
+      },
+      "nationalScale": {
+        "term": "National-scale rating",
+        "def": "A rating that ranks credit risk within one country."
+      },
+      "breakEvenPD": {
+        "term": "Break-even PD",
+        "def": "Spread ÷ LGD: the annual default rate at which spread income just covers losses (simplified)."
+      },
+      "riskNeutral": {
+        "term": "Risk-neutral PD",
+        "def": "Default probability implied by market prices; includes a risk premium."
+      },
+      "carry": {
+        "term": "Carry",
+        "def": "Yield of the asset less the cost of funding it."
+      },
+      "fundedReturn": {
+        "term": "Funded return",
+        "def": "Total return after deducting the funding cost of the position."
+      },
+      "watchlist": {
+        "term": "Watchlist",
+        "def": "Internal list of exposures under enhanced monitoring."
+      },
+      "escalation": {
+        "term": "Escalation",
+        "def": "Formal referral of an issue to a higher decision body with a dated agenda."
+      }
+    },
+    "acronyms": {
+      "AC": "Amortised cost",
+      "AT1": "Additional Tier 1 capital",
+      "bp": "Basis point (0.01%)",
+      "CAS_22": "Chinese Accounting Standard 22 — recognition and measurement of financial instruments",
+      "CET1": "Common equity Tier 1",
+      "CFO": "Chief financial officer",
+      "CGB": "China Government Bond",
+      "CRMW": "Credit risk mitigation warrant",
+      "DCF": "Discounted cash flow",
+      "EAD": "Exposure at default",
+      "EBITDA": "Earnings before interest, taxes, depreciation and amortisation",
+      "ECL": "Expected credit loss",
+      "EIR": "Effective interest rate",
+      "FSB": "Financial Stability Board",
+      "FVOCI": "Fair value through other comprehensive income",
+      "FVTPL": "Fair value through profit or loss",
+      "FY": "Financial year",
+      "G_SIB": "Global systemically important bank",
+      "IFRS_9": "International Financial Reporting Standard 9 — Financial Instruments",
+      "IRB": "Internal ratings-based approach",
+      "LGD": "Loss given default",
+      "LGFV": "Local government financing vehicle",
+      "MTN": "Medium-term note",
+      "NC": "Non-call (e.g. 10NC5)",
+      "NFRA": "National Financial Regulatory Administration",
+      "OCI": "Other comprehensive income",
+      "P&L": "Profit and loss",
+      "PD": "Probability of default",
+      "POCI": "Purchased or originated credit-impaired",
+      "RWA": "Risk-weighted assets",
+      "SICR": "Significant increase in credit risk",
+      "SOE": "State-owned enterprise",
+      "SPPI": "Solely payments of principal and interest",
+      "SPV": "Special purpose vehicle",
+      "TLAC": "Total loss-absorbing capacity",
+      "UST": "US Treasury",
+      "ZKB": "Zürcher Kantonalbank"
+    }
+  },
+  "tie": {
+    "t0price": "T0 price, 3 years at 3.60%",
+    "t0mac": "T0 Macaulay duration (years)",
+    "t0mod": "T0 modified duration",
+    "sh120a": "Spread +120 bp — approximation (RMB m)",
+    "sh120d": "Spread +120 bp — DCF (RMB m)",
+    "sh50a": "Spread +50 bp — approximation (RMB m)",
+    "sh50d": "Spread +50 bp — DCF (RMB m)",
+    "sh30a": "Benchmark +30 bp — approximation (RMB m)",
+    "sh30d": "Benchmark +30 bp — DCF (RMB m)",
+    "m26b": "Mar 2026 price at 3.90%",
+    "m26p": "Mar 2026 price at 6.30%",
+    "m26be": "Mar 2026 benchmark effect (RMB m)",
+    "m26se": "Mar 2026 spread effect (RMB m)",
+    "m26te": "Mar 2026 total price effect (RMB m)",
+    "m26c": "Mar 2026 coupon received (RMB m)",
+    "m26g": "Mar 2026 gross total return (RMB m)",
+    "m26f": "Mar 2026 funded return (RMB m)",
+    "m26bid": "Mar 2026 executable bid at +40 bp",
+    "a26ac": "Apr 2026 dirty value at 3.60% (RMB m)",
+    "a26acc": "Apr 2026 accrued interest (RMB m)",
+    "a26mid": "Apr 2026 mid at 7.30% (RMB m)",
+    "a26eco": "Apr 2026 economic change (RMB m)",
+    "a26bid": "Apr 2026 executable bid at +60 bp (RMB m)",
+    "a26rea": "Apr 2026 realised if sold (RMB m)",
+    "e0": "12-month ECL at T0 (RMB m)",
+    "e12": "12-month ECL, Apr 2026 (RMB m)",
+    "elt": "Lifetime ECL, Apr 2026 (RMB m)",
+    "eltd": "Lifetime ECL discounted one year (RMB m)",
+    "es2": "Stage 2 charge (RMB m)",
+    "es1": "Stage 1 alternative charge (RMB m)",
+    "rac": "AC carrying amount (RMB m)",
+    "racp": "AC P&L (RMB m)",
+    "rfo": "FVOCI carrying amount (RMB m)",
+    "rfop": "FVOCI P&L (RMB m)",
+    "rfoo": "FVOCI cumulative OCI (RMB m)",
+    "rfoe": "FVOCI equity effect (RMB m)",
+    "rftp": "FVTPL P&L (RMB m)",
+    "j26ac": "Jun 2026 dirty value at 3.60% (RMB m)",
+    "j26mid": "Jun 2026 mid at 8.80% (RMB m)",
+    "j26eco": "Jun 2026 economic change (RMB m)",
+    "j26bid": "Jun 2026 executable bid at +100 bp (RMB m)",
+    "j26rea": "Jun 2026 realised if sold (RMB m)",
+    "jlA": "Jul 2026 counterfactual A at 5.30%",
+    "jlB": "Jul 2026 counterfactual B at 10.80%",
+    "jlbe": "Break-even probability of A",
+    "xpv": "Extension: PV cost at 8.80% (RMB m)",
+    "xml": "Extension: modification loss at 3.60% EIR (RMB m)",
+    "bepd": "Break-even PD = 210 bp ÷ 60%",
+    "szl": "Sizing: loss from a 1% position defaulting",
+    "szr40": "Sizing: a year of income on the rest at 40 bp",
+    "szr150": "Sizing: a year of income on the rest at 150 bp"
+  },
+  "desc": {
+    "purposeTitle": "Purpose",
+    "purpose": [
+      "An interactive companion to the UZH Executive Education class Credit Risk Management in Bond Investment (ICBC senior managers and experts, 30 October 2026, 10:00–12:30, consecutive interpretation). It runs the whole class use case and stays available to participants afterwards.",
+      "One fictional position — a 3.60% RMB 100 m senior unsecured MTN of Huaxing Development Co., Ltd., bought at issue on 15 March 2025 — is followed through four dated stops. Every number is computed live by a tested engine and the app ends by answering the class question explicitly."
+    ],
+    "questionTitle": "The question",
+    "modulesTitle": "Modules",
+    "colModule": "Module",
+    "colDoes": "What it does",
+    "colInputs": "Inputs",
+    "colOutputs": "Outputs",
+    "modules": {
+      "home": {
+        "inputs": "Language, mode, preset; poll hand counts",
+        "outputs": "Poll verdicts A–F; the four stops"
+      },
+      "position": {
+        "inputs": "Coupon, tenor, nominal, benchmark, spread, funding, PD, LGD (Free play)",
+        "outputs": "Term sheet, FY2024 profile, fact sheet print, tie-out of every class figure"
+      },
+      "mechanisms": {
+        "inputs": "Mechanism toggles, accounting lens",
+        "outputs": "Where each loss appears: economic value, P&L, OCI, capital, realised; credit or not"
+      },
+      "repricing": {
+        "inputs": "Benchmark Δ, spread Δ, bid–ask, horizon, instantaneous/holding, clean/dirty, votes",
+        "outputs": "Duration approximation vs DCF, rates/spread/liquidity decomposition, price path, holding-period and funded return"
+      },
+      "spread": {
+        "inputs": "Spread, physical PD, LGD, liquidity premium, position weight, rest-of-portfolio spread",
+        "outputs": "Spread anatomy, break-even PD, risk-neutral PD, sizing"
+      },
+      "ratings": {
+        "inputs": "Rating-termination event, reason, rationale, refreshed internal grade",
+        "outputs": "Internal grade and watchlist status (feeds SICR evidence)"
+      },
+      "timeline": {
+        "inputs": "Fact reveals, thesis votes, missing-information checklist, support scores, counterfactual A/B",
+        "outputs": "Ratios with alarm colours, qualitative support, spread → price under A/B"
+      },
+      "structure": {
+        "inputs": "Default-or-not classifications",
+        "outputs": "Obligor, claim and risks of the parent MTN, keepwell SPV notes and bank Tier-2; precedent notes"
+      },
+      "portfolio": {
+        "inputs": "Mechanism and control picks per line, notes",
+        "outputs": "Model answers to four questions for five lines; nine-line reference list"
+      },
+      "recognition": {
+        "inputs": "ECL scenarios, discounting, SICR evidence and stage, five-category inputs",
+        "outputs": "AC/FVOCI/FVTPL carrying, P&L, OCI, equity; ECL; five-category result vs IFRS stage"
+      },
+      "capital": {
+        "inputs": "Approach (weighted/IRB), exposure class, PD, LGD, maturity, capital ratio",
+        "outputs": "Risk weight, RWA, capital; OCI into CET1; G-SIB/TLAC facts"
+      },
+      "controls": {
+        "inputs": "Escalation-rule thresholds (illustrative)",
+        "outputs": "Signals per date and first trigger date; four steps and functional lenses"
+      },
+      "decision": {
+        "inputs": "Probability of A, capital and liquidity costs, extension terms, decision form",
+        "outputs": "Value ladder, break-even probability, PV cost vs modification loss, validated decision (print/PDF, JSON), replay vs A/B"
+      },
+      "answer": {
+        "inputs": "—",
+        "outputs": "Five statements with live numbers and links back; ZKB visit questions"
+      },
+      "glossary": {
+        "inputs": "Search text",
+        "outputs": "Bilingual glossary and acronyms"
+      }
+    },
+    "inputsTitle": "Inputs",
+    "inputs": [
+      "Case data in data/case.json (fictional teaching assumptions).",
+      "Presets: Class defaults (locked, reproduces the deck) and Free play (every input editable within bounds).",
+      "Instructor tallies and participant answers, stored only in the browser."
+    ],
+    "outputsTitle": "Outputs",
+    "outputs": [
+      "Live metric tiles for the selected date and counterfactual.",
+      "Every calculation with “Show workings”: formula and inputs.",
+      "Printable case fact sheet and decision record; decision export/import as JSON."
+    ],
+    "runTitle": "Running offline and hosted",
+    "run": [
+      "app/index.html is a single self-contained file: open it from file:// with no internet.",
+      "The same file is deployed to GitHub Pages and to the portfolio path /risk-intelligence/bond-credit-risk-case-lab/app/."
+    ],
+    "privacyTitle": "Privacy",
+    "privacy": "No backend, no accounts, no analytics and no network calls. State stays in this browser’s localStorage.",
+    "disclaimerTitle": "Disclaimer"
+  }
+}

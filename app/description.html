@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<title>Bond Credit Risk Case Lab — Description</title>
+<meta name="description" content="Description of the Bond Credit Risk Case Lab: purpose, modules, inputs, outputs and disclaimer.">
+<style>
+/* ==========================================================================
+   Design tokens — the ONE file to edit to change the palette or fonts.
+   Palette derived from the public website icbc.com.cn (no public brand manual);
+   no logo or trademark is used. Red is the single accent, used with restraint.
+   Contrast on white: #BC0021 6.9:1, #8A0018 10.4:1, #313030 12.9:1, #545454 7.5:1 (AA for text).
+   #797979 (4.4:1) and #FA504B (3.1:1) are used only for borders, large text and highlights.
+   ========================================================================== */
+:root {
+  --red: #BC0021;          /* primary: header/nav, primary actions */
+  --red-light: #FA504B;    /* hover, highlights (never small text) */
+  --red-dark: #8A0018;     /* pressed states, alarm text */
+  --red-tint: #FBEAEC;     /* subtle highlight background */
+  --text: #313030;         /* body text */
+  --text-2: #545454;       /* secondary text */
+  --text-3: #797979;       /* tertiary: large text, borders, decorations only */
+  --border: #CCCCCC;
+  --panel: #EEEEEE;
+  --surface: #FFFFFF;
+  --amber: #8A5A00;        /* alarm "watch" text (AA on white) */
+  --amber-bg: #FFF4DB;
+  --ok: #2F6B3A;           /* "within threshold" text (AA on white) */
+  --ok-bg: #EAF4EC;
+  --alarm-bg: #FBEAEC;
+
+  /* Chart series (identity is always also given by direct labels / legends) */
+  --series-rates: #545454;     /* benchmark rates — the control, not credit */
+  --series-spread: #BC0021;    /* credit spread */
+  --series-liquidity: #E8918C; /* liquidity / exit — hatched */
+  --series-cost: #313030;      /* amortised cost / reference */
+  --series-bid: #8A0018;       /* executable bid */
+  --series-muted: #9A9A9A;
+
+  --font-latin: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  --font-zh: "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
+  --font: var(--font-latin), var(--font-zh);
+  --mono: Consolas, "SFMono-Regular", Menlo, monospace;
+
+  --radius: 4px;
+  --gap: 16px;
+  --fs-base: 15px;
+  --panel-w: 280px;
+}
+
+html[data-presenter="true"] {
+  --fs-base: 22px;
+  --panel-w: 340px;
+  --text: #1A1A1A;
+  --text-2: #3A3A3A;
+  --border: #9A9A9A;
+}
+
+/* Bond Credit Risk Case Lab — layout and components (light theme). */
+*, *::before, *::after { box-sizing: border-box; }
+html { font-size: var(--fs-base); -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--panel); color: var(--text);
+  font-family: var(--font); line-height: 1.5;
+}
+html[lang="zh-Hans"] body { font-family: var(--font-zh), var(--font-latin); line-height: 1.7; }
+/* Chinese typography: strict line breaking, no mid-word breaks for Latin, punctuation kept in place */
+:lang(zh) { line-break: strict; word-break: normal; overflow-wrap: anywhere; text-align: start; hanging-punctuation: allow-end; }
+.num, table.data td.num, .metric-value, output, input[type="number"] { font-variant-numeric: tabular-nums lining-nums; }
+h1, h2, h3, h4 { line-height: 1.25; margin: 0 0 .5em; }
+h2 { font-size: 1.45rem; }
+h3 { font-size: 1.1rem; }
+p { margin: 0 0 .75em; }
+a { color: var(--red); }
+a:hover { color: var(--red-dark); }
+:focus-visible { outline: 3px solid var(--red-light); outline-offset: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip-link { position: absolute; left: -999px; top: 0; background: var(--surface); padding: 8px 12px; z-index: 100; }
+.skip-link:focus { left: 8px; }
+
+/* ---- Header ------------------------------------------------------------------------------- */
+.topbar {
+  background: var(--red); color: #fff; display: flex; flex-wrap: wrap; align-items: center;
+  gap: 8px 16px; padding: 10px 16px; position: sticky; top: 0; z-index: 20;
+}
+.topbar .brand { display: flex; flex-direction: column; min-width: 0; flex: 1 1 320px; }
+.topbar .brand-title { font-size: 1.15rem; font-weight: 700; margin: 0; }
+.topbar .brand-sub { font-size: .85rem; opacity: .95; }
+.topbar .tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.topbar .tools label, .topbar .tools .field-label { color: #fff; font-size: .8rem; }
+.topbar select, .topbar .btn-top {
+  background: #fff; color: var(--text); border: 1px solid #fff; border-radius: var(--radius);
+  padding: 4px 8px; font: inherit; font-size: .85rem; min-height: 32px;
+}
+.topbar .btn-top[aria-pressed="true"] { background: var(--red-dark); color: #fff; border-color: #fff; }
+.topbar .field { margin: 0; flex-direction: row; align-items: center; gap: 6px; }
+.topbar .segmented { background: rgba(255,255,255,.15); }
+.topbar .seg-item label { color: #fff; }
+.topbar .seg-item input:checked + label { background: #fff; color: var(--red-dark); }
+.timer { background: var(--red-dark); color: #fff; padding: 4px 10px; border-radius: var(--radius); font-size: .85rem; }
+.timer strong { font-variant-numeric: tabular-nums; }
+
+/* ---- Layout -------------------------------------------------------------------------------- */
+.layout { display: grid; grid-template-columns: var(--panel-w) minmax(0, 1fr); gap: 0; min-height: calc(100vh - 60px); }
+.panel { background: var(--surface); border-right: 1px solid var(--border); padding: 16px; overflow-y: auto; }
+.panel h2 { font-size: 1rem; color: var(--text-2); text-transform: none; margin-top: 1em; }
+.panel .stop-nav { display: grid; gap: 6px; }
+.main { padding: 16px 20px 0; min-width: 0; display: flex; flex-direction: column; }
+@media (max-width: 1000px) {
+  .layout { grid-template-columns: 1fr; }
+  .panel { border-right: 0; border-bottom: 1px solid var(--border); }
+  .panel-inner { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+}
+
+/* ---- Tiles --------------------------------------------------------------------------------- */
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 12px; }
+@media (min-width: 1600px) { .tiles { grid-template-columns: repeat(8, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.metric { background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--border); border-radius: var(--radius); padding: 8px 10px; }
+.metric-label { font-size: .78rem; color: var(--text-2); }
+.metric-value { font-size: 1.25rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.metric-sub { font-size: .75rem; color: var(--text-2); }
+.metric.tone-red { border-top-color: var(--red); }
+.metric.tone-red .metric-value { color: var(--red-dark); }
+.metric.tone-amber { border-top-color: #C98A00; }
+.metric.tone-ok { border-top-color: var(--ok); }
+
+/* ---- Tabs ---------------------------------------------------------------------------------- */
+.tablist { display: flex; flex-wrap: wrap; gap: 2px; border-bottom: 2px solid var(--red); margin-bottom: 0; }
+.tab {
+  background: var(--surface); border: 1px solid var(--border); border-bottom: 0; border-radius: var(--radius) var(--radius) 0 0;
+  padding: 6px 10px; font: inherit; font-size: .85rem; color: var(--text); cursor: pointer; min-height: 36px;
+}
+.tab:hover { border-color: var(--red-light); }
+.tab[aria-selected="true"] { background: var(--red); color: #fff; border-color: var(--red); font-weight: 700; }
+.tab .tab-n { color: var(--text-2); margin-right: 4px; font-variant-numeric: tabular-nums; }
+.tab[aria-selected="true"] .tab-n { color: #fff; }
+.tab.visited:not([aria-selected="true"])::after { content: "✓"; color: var(--ok); margin-left: 4px; font-size: .8em; }
+.tabpanel { background: var(--surface); border: 1px solid var(--border); border-top: 0; padding: 16px 20px 24px; flex: 1; }
+.tab-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: baseline; }
+.tab-intro { color: var(--text-2); max-width: 80ch; }
+
+/* ---- Back to the question ----------------------------------------------------------------- */
+.back-strip {
+  display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; background: var(--red-tint);
+  border-left: 4px solid var(--red); padding: 8px 12px; margin: 0 0 16px; border-radius: 0 var(--radius) var(--radius) 0;
+}
+.back-label { font-weight: 700; color: var(--red-dark); white-space: nowrap; }
+
+/* ---- Grid & cards -------------------------------------------------------------------------- */
+.grid { display: grid; gap: var(--gap); }
+.grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); }
+.grid-4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 100px), 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
+.grid-side { grid-template-columns: minmax(240px, 320px) minmax(0, 1fr); }
+@media (max-width: 800px) { .grid-side { grid-template-columns: 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; min-width: 0; }
+.card-title { font-size: 1rem; color: var(--text); border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+.card.accent { border-left: 4px solid var(--red); }
+.muted { color: var(--text-2); }
+.small { font-size: .85rem; }
+.note { font-size: .85rem; color: var(--text-2); border-left: 3px solid var(--border); padding-left: 8px; }
+.label-illustrative { display: inline-block; font-size: .78rem; font-weight: 700; color: var(--red-dark); border: 1px solid var(--red-dark); border-radius: 3px; padding: 1px 6px; }
+.badge { display: inline-block; font-size: .75rem; font-weight: 700; border-radius: 3px; padding: 2px 8px; }
+.badge-fictional { background: #fff; color: var(--red-dark); border: 1px solid #fff; }
+.main .badge-fictional { border-color: var(--red-dark); }
+.pill { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: .78rem; font-weight: 700; border: 1px solid currentColor; }
+.pill.red { color: var(--red-dark); background: var(--alarm-bg); }
+.pill.amber { color: var(--amber); background: var(--amber-bg); }
+.pill.ok { color: var(--ok); background: var(--ok-bg); }
+.pill.neutral { color: var(--text-2); background: var(--panel); }
+.stack > * + * { margin-top: 12px; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.spacer { flex: 1; }
+
+/* ---- Forms --------------------------------------------------------------------------------- */
+.field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px; min-width: 0; }
+.field label, .field-label { font-size: .85rem; color: var(--text); font-weight: 600; }
+.field-head { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.slider-value { font-weight: 700; color: var(--red-dark); white-space: nowrap; }
+.field-hint { font-size: .78rem; color: var(--text-2); }
+input[type="range"] { width: 100%; accent-color: var(--red); min-height: 28px; }
+input[type="number"], input[type="text"], input[type="date"], textarea, select {
+  font: inherit; font-size: .95rem; padding: 6px 8px; border: 1px solid var(--text-3); border-radius: var(--radius);
+  background: #fff; color: var(--text); min-height: 36px; width: 100%;
+}
+input:disabled, select:disabled, textarea:disabled { background: var(--panel); color: var(--text-2); }
+.input-suffix { display: flex; align-items: center; gap: 6px; }
+.suffix { color: var(--text-2); font-size: .85rem; white-space: nowrap; }
+.field-check { flex-direction: row; align-items: center; gap: 8px; }
+.field-check input { width: 20px; height: 20px; accent-color: var(--red); }
+.field-check label { font-weight: 400; }
+.req { color: var(--red-dark); }
+.segmented { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--panel); }
+.seg-item { position: relative; }
+.seg-item input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.seg-item label { display: block; padding: 5px 10px; cursor: pointer; font-size: .85rem; font-weight: 600; color: var(--text); min-height: 32px; }
+.seg-item input:checked + label { background: var(--red); color: #fff; }
+.seg-item input:focus-visible + label { outline: 3px solid var(--red-light); outline-offset: -3px; }
+.seg-item input:disabled + label { cursor: not-allowed; opacity: .7; }
+
+.btn {
+  font: inherit; font-size: .9rem; font-weight: 600; border-radius: var(--radius); padding: 6px 12px; min-height: 36px;
+  border: 1px solid var(--red); background: #fff; color: var(--red); cursor: pointer;
+}
+.btn:hover { border-color: var(--red-light); background: var(--red-tint); }
+.btn:active { background: var(--red-dark); color: #fff; }
+.btn-primary { background: var(--red); color: #fff; }
+.btn-primary:hover { background: var(--red-dark); color: #fff; }
+.btn-reveal { border-style: dashed; }
+.btn-link { border: 0; background: none; color: var(--red); padding: 2px 0; min-height: 0; text-decoration: underline; }
+.btn-small { padding: 2px 8px; min-height: 28px; font-size: .8rem; }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+
+/* ---- Tables -------------------------------------------------------------------------------- */
+.table-wrap { overflow-x: auto; max-width: 100%; }
+table.data { border-collapse: collapse; width: 100%; font-size: .9rem; }
+table.data caption { text-align: left; font-weight: 700; padding: 4px 0; }
+table.data th, table.data td { border-bottom: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; }
+table.data thead th { background: var(--panel); font-size: .8rem; color: var(--text); }
+table.data td.num, table.data th.num { text-align: right; }
+table.data tr.total th, table.data tr.total td { font-weight: 700; border-top: 2px solid var(--text); }
+table.data tr.hl th, table.data tr.hl td { background: var(--red-tint); }
+td.cell-red { color: var(--red-dark); font-weight: 700; background: var(--alarm-bg); }
+td.cell-amber { color: var(--amber); font-weight: 700; background: var(--amber-bg); }
+td.cell-ok { color: var(--ok); }
+.check-ok { color: var(--ok); font-weight: 700; }
+.check-bad { color: var(--red-dark); font-weight: 700; }
+
+/* ---- Workings / reveal / hints ------------------------------------------------------------ */
+.workings { margin-top: 8px; font-size: .85rem; }
+.workings summary { cursor: pointer; color: var(--red); font-weight: 600; }
+.workings-body { background: var(--panel); border-radius: var(--radius); padding: 8px 10px; margin-top: 6px; }
+.formula { font-family: var(--mono); white-space: pre-wrap; margin: 0 0 6px; font-size: .85rem; }
+.workings-inputs th { text-align: left; font-weight: 400; padding-right: 12px; color: var(--text-2); }
+.workings-inputs td { text-align: right; }
+.workings-note { margin: 6px 0 0; color: var(--text-2); }
+.revealed { border-left: 4px solid var(--ok); background: var(--ok-bg); padding: 8px 12px; border-radius: 0 var(--radius) var(--radius) 0; }
+.revealed.wrong { border-left-color: var(--red); background: var(--alarm-bg); }
+.reveal-slot { margin: 8px 0; }
+.hint { margin: 6px 0; }
+.hint-text { background: var(--amber-bg); padding: 6px 10px; border-radius: var(--radius); font-size: .9rem; }
+
+/* ---- Poll / votes ------------------------------------------------------------------------- */
+.poll-list { display: grid; gap: 8px; }
+.poll-item { display: grid; grid-template-columns: 2.2em minmax(0, 1fr) auto; gap: 8px; align-items: start; border: 1px solid var(--border); border-radius: var(--radius); padding: 8px 10px; background: #fff; }
+.poll-letter { font-weight: 700; font-size: 1.2rem; color: var(--red); }
+.tally { display: inline-flex; align-items: center; gap: 4px; }
+.tally input { width: 4.5em; min-height: 32px; }
+.vote-bar { height: 8px; background: var(--panel); border-radius: 4px; overflow: hidden; margin-top: 4px; }
+.vote-bar > span { display: block; height: 100%; background: var(--red); }
+
+/* ---- Timeline ----------------------------------------------------------------------------- */
+.timeline { list-style: none; margin: 0; padding: 0; border-left: 3px solid var(--border); }
+.timeline li { position: relative; padding: 0 0 14px 18px; }
+.timeline li::before { content: ""; position: absolute; left: -8px; top: 6px; width: 13px; height: 13px; border-radius: 50%; background: #fff; border: 3px solid var(--red); }
+.timeline .t-date { font-weight: 700; color: var(--red-dark); }
+.timeline .t-kind { font-size: .75rem; color: var(--text-2); margin-left: 6px; }
+
+/* ---- Charts ------------------------------------------------------------------------------- */
+.chart { width: 100%; height: auto; display: block; font-family: var(--font); }
+.chart .grid { stroke: #E3E3E3; stroke-width: 1; }
+.chart .axis { stroke: var(--text-3); stroke-width: 1; }
+.chart .tick, .chart .axis-label { fill: var(--text-2); font-size: 11px; }
+.chart .line { fill: none; stroke-width: 2; stroke-linejoin: round; }
+.chart .end-label, .chart .bar-label { fill: var(--text); font-size: 13px; }
+.chart .bar-value { fill: var(--text); font-size: 13px; font-weight: 700; }
+.chart .marker { fill: var(--red); stroke: #fff; stroke-width: 2; }
+.chart .marker-label { fill: var(--text); font-size: 11px; font-weight: 700; }
+.chart .vline { stroke: var(--red-dark); stroke-dasharray: 4 3; stroke-width: 1.5; }
+.chart .vline-label { fill: var(--red-dark); font-size: 11px; font-weight: 700; }
+.chart .crosshair { stroke: var(--text-3); stroke-width: 1; }
+.chart .tip-bg { fill: #fff; stroke: var(--border); }
+.chart .tip { fill: var(--text); font-size: 12px; }
+.chart .hatch-bg { fill: var(--series-liquidity); }
+.chart .hatch-line { stroke: var(--red-dark); stroke-width: 1.5; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: .85rem; margin: 4px 0 8px; padding: 0; list-style: none; }
+.legend li { display: inline-flex; gap: 6px; align-items: center; }
+.swatch { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+.swatch.line { height: 3px; border-radius: 0; }
+.swatch.hatch { background: repeating-linear-gradient(45deg, var(--series-liquidity) 0 3px, var(--red-dark) 3px 4px); }
+
+/* ---- Footer ------------------------------------------------------------------------------- */
+.footer { font-size: .78rem; color: var(--text-2); padding: 12px 0 20px; }
+.footer p { margin: 0 0 4px; max-width: 120ch; }
+
+/* ---- Misc components ---------------------------------------------------------------------- */
+.kv { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 16px; margin: 0; }
+.kv dt { color: var(--text-2); }
+.kv dd { margin: 0; font-weight: 600; }
+.statements { counter-reset: st; list-style: none; padding: 0; }
+.statements li { counter-increment: st; border: 1px solid var(--border); border-left: 4px solid var(--red); border-radius: var(--radius); padding: 10px 12px 10px 44px; margin-bottom: 8px; position: relative; background: #fff; }
+.statements li::before { content: counter(st); position: absolute; left: 12px; top: 8px; font-weight: 700; font-size: 1.3rem; color: var(--red); }
+.question-hero { font-size: 1.6rem; font-weight: 700; color: var(--text); border-left: 6px solid var(--red); padding: 8px 16px; margin: 8px 0 16px; background: #fff; }
+.progress { height: 6px; background: var(--panel); border-radius: 3px; overflow: hidden; }
+.progress > span { display: block; height: 100%; background: var(--red); }
+.glossary-list { display: grid; gap: 6px; }
+.gloss-item { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 2fr); gap: 12px; border-bottom: 1px solid var(--border); padding: 6px 0; }
+@media (max-width: 800px) { .gloss-item { grid-template-columns: 1fr; gap: 2px; } }
+.mech-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 12px; }
+.mech { border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; background: #fff; }
+.mech[data-on="true"] { border-color: var(--red); box-shadow: inset 4px 0 0 var(--red); }
+.impact-row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.impact { font-size: .75rem; padding: 2px 6px; border-radius: 3px; border: 1px solid var(--border); color: var(--text-2); }
+.impact.on { background: var(--red); border-color: var(--red); color: #fff; }
+.ladder-marker { color: var(--red-dark); font-weight: 700; }
+.validation { list-style: none; padding: 0; margin: 8px 0; }
+.validation li::before { content: "✗ "; color: var(--red-dark); font-weight: 700; }
+.validation li.ok::before { content: "✓ "; color: var(--ok); }
+.trigger-row { display: grid; grid-template-columns: 170px 90px 120px 170px minmax(0, 1fr) auto; gap: 8px; align-items: end; margin-bottom: 8px; border-bottom: 1px dashed var(--border); }
+.trigger-row .field { margin-bottom: 8px; }
+.trigger-row > .btn { margin-bottom: 8px; }
+@media (max-width: 1100px) { .trigger-row { grid-template-columns: 1fr 1fr 1fr; } }
+.prob-bar { margin: 8px 0 16px; }
+.print-only { display: none; }
+
+/* ---- Presenter mode ------------------------------------------------------------------------ */
+html[data-presenter="true"] .tab { font-size: .75rem; padding: 6px 8px; }
+html[data-presenter="true"] .metric-value { font-size: 1.5rem; }
+html[data-presenter="true"] .chart .tick, html[data-presenter="true"] .chart .axis-label { font-size: 14px; }
+html[data-presenter="true"] .chart .end-label, html[data-presenter="true"] .chart .bar-label,
+html[data-presenter="true"] .chart .bar-value, html[data-presenter="true"] .chart .marker-label { font-size: 15px; }
+html[data-presenter="true"] .panel { font-size: .8rem; }
+html[data-presenter="true"] .tabpanel { border-width: 2px; }
+html[data-presenter="true"] .footer { font-size: .6rem; }
+html[data-presenter="true"] .field-hint, html[data-presenter="true"] .note { font-size: .8rem; }
+.instructor-only { display: none; }
+html[data-mode="instructor"] .instructor-only { display: revert; }
+.shortcut-help { font-size: .78rem; color: var(--text-2); }
+kbd { font-family: var(--mono); border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 3px; padding: 0 4px; background: #fff; }
+
+.doc { max-width: 1000px; margin: 0 auto; padding: 16px 20px 40px; background: var(--surface); }
+.doc h2 { margin-top: 1.4em; border-bottom: 2px solid var(--red); padding-bottom: 4px; }
+.doc table.data td, .doc table.data th { font-size: .9rem; }
+.doc [data-lang] { display: none; }
+html[lang="en"] .doc [data-lang="en"], html[lang="zh-Hans"] .doc [data-lang="zh"] { display: block; }
+.lang-switch { margin-left: auto; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <p class="brand-title" style="margin:0">Bond Credit Risk Case Lab — <span data-t="descTitle">Description</span></p>
+    <div class="brand-sub">UZH Executive Education Finance · Cezar Chirila <span class="badge badge-fictional" data-t="fictional">Fictional composite — teaching assumptions</span></div>
+  </div>
+  <div class="tools lang-switch">
+    <a class="btn-top" href="index.html" data-t="open">Open the app</a>
+    <button type="button" class="btn-top" id="lang-btn">简体中文</button>
+  </div>
+</header>
+<main class="doc" id="main">
+<section data-lang="en" lang="en">
+<h1>Bond Credit Risk Case Lab</h1>
+<p class="question-hero">What can cause a bond investment to lose money even when the issuer continues paying?</p>
+<h2>Purpose</h2><p>An interactive companion to the UZH Executive Education class Credit Risk Management in Bond Investment (ICBC senior managers and experts, 30 October 2026, 10:00–12:30, consecutive interpretation). It runs the whole class use case and stays available to participants afterwards.</p><p>One fictional position — a 3.60% RMB 100 m senior unsecured MTN of Huaxing Development Co., Ltd., bought at issue on 15 March 2025 — is followed through four dated stops. Every number is computed live by a tested engine and the app ends by answering the class question explicitly.</p>
+<h2>Modules</h2>
+<div class="table-wrap"><table class="data"><thead><tr><th scope="col">Module</th><th scope="col">What it does</th><th scope="col">Inputs</th><th scope="col">Outputs</th></tr></thead><tbody><tr><th scope="row">0 · Home</th><td>One fictional bond, four dated stops, every number computed live. We finish by answering the question explicitly.</td><td>Language, mode, preset; poll hand counts</td><td>Poll verdicts A–F; the four stops</td></tr><tr><th scope="row">1 · Position</th><td>The term sheet and FY2024 profile at purchase. Class defaults lock these values; Free play lets you change them within sane bounds and every screen recomputes.</td><td>Coupon, tenor, nominal, benchmark, spread, funding, PD, LGD (Free play)</td><td>Term sheet, FY2024 profile, fact sheet print, tie-out of every class figure</td></tr><tr><th scope="row">2 · Mechanisms</th><td>Toggle each mechanism to see where it appears — economic value, P&amp;L, OCI, capital, or only when realised on sale — under the accounting lens you choose.</td><td>Mechanism toggles, accounting lens</td><td>Where each loss appears: economic value, P&amp;L, OCI, capital, realised; credit or not</td></tr><tr><th scope="row">3 · Repricing</th><td>Stop 1 (Sep 2025): market repricing, no issuer news. Stop 2 (Mar 2026): one coupon received, spread 450 bp. Move benchmark, spread, bid–ask and horizon; compare the duration approximation with full DCF.</td><td>Benchmark Δ, spread Δ, bid–ask, horizon, instantaneous/holding, clean/dirty, votes</td><td>Duration approximation vs DCF, rates/spread/liquidity decomposition, price path, holding-period and funded return</td></tr><tr><th scope="row">4 · Spread anatomy</th><td>A spread compensates expected loss, a credit-risk premium and a liquidity premium. Spread ÷ LGD is a simplified break-even, not a probability of default.</td><td>Spread, physical PD, LGD, liquidity premium, position weight, rest-of-portfolio spread</td><td>Spread anatomy, break-even PD, risk-neutral PD, sizing</td></tr><tr><th scope="row">5 · Ratings</th><td>National and global scales answer different questions and have no fixed mapping. A rating termination changes nothing by itself — until you record a reason and refresh the internal grade.</td><td>Rating-termination event, reason, rationale, refreshed internal grade</td><td>Internal grade and watchlist status (feeds SICR evidence)</td></tr><tr><th scope="row">6 · Timeline</th><td>Reveal the dated facts one at a time and vote whether the investment thesis still stands. Ratios, missing information, support scoring and the July 2026 counterfactuals follow.</td><td>Fact reveals, thesis votes, missing-information checklist, support scores, counterfactual A/B</td><td>Ratios with alarm colours, qualitative support, spread → price under A/B</td></tr><tr><th scope="row">7 · Structure</th><td>Three instruments, three different claims: the onshore parent MTN, the offshore SPV keepwell notes and a bank Tier-2 bond. Non-call is not default; write-down at non-viability is a contractual loss.</td><td>Default-or-not classifications</td><td>Obligor, claim and risks of the parent MTN, keepwell SPV notes and bank Tier-2; precedent notes</td></tr><tr><th scope="row">8 · Portfolio</th><td>Five lines, four questions each. Pick the main mechanism and the control, then reveal the model answer. Spreads are shown against the benchmark in each line’s own currency.</td><td>Mechanism and control picks per line, notes</td><td>Model answers to four questions for five lines; nine-line reference list</td></tr><tr><th scope="row">9 · Recognition</th><td>The same position through amortised cost, FVOCI and FVTPL; ECL scenarios; the SICR judgement; and China’s five-category classification alongside the IFRS 9 stage.</td><td>ECL scenarios, discounting, SICR evidence and stage, five-category inputs</td><td>AC/FVOCI/FVTPL carrying, P&amp;L, OCI, equity; ECL; five-category result vs IFRS stage</td></tr><tr><th scope="row">10 · Capital</th><td>Illustrative standardised risk weights, the internal-ratings-based (IRB) formula versus the weighted approach, OCI flowing into CET1, and static G-SIB/TLAC facts.</td><td>Approach (weighted/IRB), exposure class, PD, LGD, maturity, capital ratio</td><td>Risk weight, RWA, capital; OCI into CET1; G-SIB/TLAC facts</td></tr><tr><th scope="row">11 · Controls</th><td>Monitoring → escalation → formal impairment assessment → execution, with the four functional lenses. The escalation rule is illustrative only.</td><td>Escalation-rule thresholds (illustrative)</td><td>Signals per date and first trigger date; four steps and functional lenses</td></tr><tr><th scope="row">12 · Decision</th><td>Compare executable sale proceeds with the probability-weighted holding value under costs and constraints, then write the decision with owner, dated triggers, escalation route and the counterfactual response both ways.</td><td>Probability of A, capital and liquidity costs, extension terms, decision form</td><td>Value ladder, break-even probability, PV cost vs modification loss, validated decision (print/PDF, JSON), replay vs A/B</td></tr><tr><th scope="row">13 · The answer</th><td>Five statements, each computed earlier in the app. Follow the links back to the screen where each number was produced.</td><td>—</td><td>Five statements with live numbers and links back; ZKB visit questions</td></tr><tr><th scope="row">14 · Glossary</th><td>Bilingual terms and acronyms used in the class (Appendix A7 and A9). Search in either language.</td><td>Search text</td><td>Bilingual glossary and acronyms</td></tr></tbody></table></div>
+<h2>Inputs</h2><ul><li>Case data in data/case.json (fictional teaching assumptions).</li><li>Presets: Class defaults (locked, reproduces the deck) and Free play (every input editable within bounds).</li><li>Instructor tallies and participant answers, stored only in the browser.</li></ul>
+<h2>Outputs</h2><ul><li>Live metric tiles for the selected date and counterfactual.</li><li>Every calculation with “Show workings”: formula and inputs.</li><li>Printable case fact sheet and decision record; decision export/import as JSON.</li></ul>
+<h2>Running offline and hosted</h2><ul><li>app/index.html is a single self-contained file: open it from file:// with no internet.</li><li>The same file is deployed to GitHub Pages and to the portfolio path /risk-intelligence/bond-credit-risk-case-lab/app/.</li></ul>
+<h2>Privacy</h2><p>No backend, no accounts, no analytics and no network calls. State stays in this browser’s localStorage.</p>
+<h2>Disclaimer</h2><p><strong>Educational use only. This application supports a University of Zurich Executive Education class. All issuers, positions, prices, spreads, financial statements, dates and scenarios are fictional teaching assumptions; simplified formulas are used for teaching, not for valuation, accounting or regulatory reporting. Nothing here is investment, accounting, legal or regulatory advice, and nothing represents the policies, data or views of ICBC or any other institution. Verify any figure against primary sources before use.</strong></p>
+</section>
+</main>
+<script>
+(function () {
+  var T = { en: { descTitle: 'Description', fictional: 'Fictional composite — teaching assumptions', open: 'Open the app', other: '简体中文' },
+            zh: { descTitle: '说明', fictional: '虚构综合案例——教学假设', open: '打开应用', other: 'English' } };
+  function apply(l) {
+    document.documentElement.lang = l === 'zh' ? 'zh-Hans' : 'en';
+    document.querySelectorAll('[data-t]').forEach(function (el) { el.textContent = T[l][el.getAttribute('data-t')]; });
+    document.getElementById('lang-btn').textContent = T[l].other;
+    document.title = 'Bond Credit Risk Case Lab — ' + T[l].descTitle;
+  }
+  var lang = 'en';
+  try { var s = JSON.parse(localStorage.getItem('bcrcl-state-v1') || '{}'); if (s.lang === 'zh') lang = 'zh'; } catch (e) {}
+  apply(lang);
+  document.getElementById('lang-btn').addEventListener('click', function () {
+    lang = lang === 'en' ? 'zh' : 'en';
+    apply(lang);
+    try { var s = JSON.parse(localStorage.getItem('bcrcl-state-v1') || '{}'); s.lang = lang; localStorage.setItem('bcrcl-state-v1', JSON.stringify(s)); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>

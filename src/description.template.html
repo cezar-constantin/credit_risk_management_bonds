@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<title>Bond Credit Risk Case Lab — Description</title>
+<meta name="description" content="Description of the Bond Credit Risk Case Lab: purpose, modules, inputs, outputs and disclaimer.">
+<style>
+/*__CSS__*/
+.doc { max-width: 1000px; margin: 0 auto; padding: 16px 20px 40px; background: var(--surface); }
+.doc h2 { margin-top: 1.4em; border-bottom: 2px solid var(--red); padding-bottom: 4px; }
+.doc table.data td, .doc table.data th { font-size: .9rem; }
+.doc [data-lang] { display: none; }
+html[lang="en"] .doc [data-lang="en"], html[lang="zh-Hans"] .doc [data-lang="zh"] { display: block; }
+.lang-switch { margin-left: auto; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <p class="brand-title" style="margin:0">Bond Credit Risk Case Lab — <span data-t="descTitle">Description</span></p>
+    <div class="brand-sub">UZH Executive Education Finance · Cezar Chirila <span class="badge badge-fictional" data-t="fictional">Fictional composite — teaching assumptions</span></div>
+  </div>
+  <div class="tools lang-switch">
+    <a class="btn-top" href="index.html" data-t="open">Open the app</a>
+    <button type="button" class="btn-top" id="lang-btn">简体中文</button>
+  </div>
+</header>
+<main class="doc" id="main">
+/*__BODY__*/
+</main>
+<script>
+(function () {
+  var T = { en: { descTitle: 'Description', fictional: 'Fictional composite — teaching assumptions', open: 'Open the app', other: '简体中文' },
+            zh: { descTitle: '说明', fictional: '虚构综合案例——教学假设', open: '打开应用', other: 'English' } };
+  function apply(l) {
+    document.documentElement.lang = l === 'zh' ? 'zh-Hans' : 'en';
+    document.querySelectorAll('[data-t]').forEach(function (el) { el.textContent = T[l][el.getAttribute('data-t')]; });
+    document.getElementById('lang-btn').textContent = T[l].other;
+    document.title = 'Bond Credit Risk Case Lab — ' + T[l].descTitle;
+  }
+  var lang = 'en';
+  try { var s = JSON.parse(localStorage.getItem('bcrcl-state-v1') || '{}'); if (s.lang === 'zh') lang = 'zh'; } catch (e) {}
+  apply(lang);
+  document.getElementById('lang-btn').addEventListener('click', function () {
+    lang = lang === 'en' ? 'zh' : 'en';
+    apply(lang);
+    try { var s = JSON.parse(localStorage.getItem('bcrcl-state-v1') || '{}'); s.lang = lang; localStorage.setItem('bcrcl-state-v1', JSON.stringify(s)); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>

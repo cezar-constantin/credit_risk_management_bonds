@@ -1,0 +1,16 @@
+/* Print: the decision form and the case fact sheet print on white, without navigation. */
+@media print {
+  @page { margin: 14mm; }
+  html { font-size: 11pt; }
+  body { background: #fff; }
+  .topbar, .panel, .tablist, .tiles, .no-print, .btn, .workings, .reveal-slot .btn, .hint, .back-strip { display: none !important; }
+  .layout { display: block; }
+  .main, .tabpanel { padding: 0; border: 0; }
+  .card { break-inside: avoid; border-color: #999; }
+  .print-only { display: block !important; }
+  html[data-print="decision"] .tabpanel > :not(.print-decision) { display: none !important; }
+  html[data-print="factsheet"] .tabpanel > :not(.print-factsheet) { display: none !important; }
+  .footer { display: block; font-size: 8pt; border-top: 1px solid #999; margin-top: 12pt; }
+  a { color: #000; text-decoration: none; }
+  input, textarea, select { border: 0; border-bottom: 1px solid #999; }
+}
