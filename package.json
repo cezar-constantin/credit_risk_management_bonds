@@ -1,0 +1,19 @@
+{
+  "name": "bond-credit-risk-case-lab",
+  "version": "1.0.0",
+  "description": "Bond Credit Risk Case Lab — interactive companion app for the UZH Executive Education class Credit Risk Management in Bond Investment.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "author": "Cezar Chirila",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "check:i18n": "node scripts/check-i18n.mjs",
+    "build": "node scripts/build.mjs",
+    "check": "npm run check:i18n && npm test && npm run build",
+    "screenshots": "node scripts/screenshots.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

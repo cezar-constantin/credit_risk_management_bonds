@@ -1,0 +1,206 @@
+{
+  "meta": {
+    "name": "Huaxing Development Co., Ltd.",
+    "fictional": true,
+    "classDate": "2026-10-30",
+    "classStart": "10:00",
+    "classEnd": "12:30"
+  },
+  "position": {
+    "coupon": 3.6,
+    "tenor": 3,
+    "nominal": 100,
+    "benchmark": 1.5,
+    "spread": 210,
+    "funding": 2.0,
+    "pd12": 1.0,
+    "lgd": 60
+  },
+  "positionFixed": {
+    "issueDate": "2025-03-15",
+    "maturityDate": "2028-03-15",
+    "ownership": 28,
+    "boardSeats": 2,
+    "shareholderLoanBn": 8,
+    "shareholderLoanDate": "2024-01-15"
+  },
+  "bounds": {
+    "coupon": [0.5, 10, 0.05],
+    "tenor": [1, 10, 1],
+    "nominal": [10, 1000, 10],
+    "benchmark": [0, 6, 0.05],
+    "spread": [0, 1000, 5],
+    "funding": [0, 8, 0.05],
+    "pd12": [0, 30, 0.1],
+    "lgd": [5, 100, 1]
+  },
+  "financials": {
+    "fy2024": { "revenue": 283, "salesGrowth": -5, "debt": 300, "debtEbitda": 5.2, "ebitdaInterest": 3.1, "cash": 75, "std": 70, "ocf": 12, "netProfit": 10 },
+    "fy2025": { "revenue": 215, "revenueGrowth": -24, "debt": 310, "debtEbitda": 7.8, "ebitdaInterest": 1.6, "cash": 42, "std": 98, "ocf": -9, "netProfit": 4 }
+  },
+  "alarms": {
+    "debtEbitda": { "amber": 5, "red": 6.5, "direction": "above" },
+    "ebitdaInterest": { "amber": 2.5, "red": 2, "direction": "below" },
+    "cashCover": { "amber": 1.2, "red": 1, "direction": "below" },
+    "ocfVsProfit": { "amber": 1, "red": 0, "direction": "below" }
+  },
+  "stops": [
+    { "id": "t0", "date": "2025-03-15", "months": 0, "dBenchmark": 0, "dSpread": 0, "bidAsk": 5, "ecl": { "stage": 1, "pd12": null, "pdLife": null } },
+    { "id": "sep25", "date": "2025-09-15", "months": 6, "dBenchmark": 30, "dSpread": 120, "bidAsk": 40, "ecl": { "stage": 1, "pd12": null, "pdLife": null } },
+    { "id": "mar26", "date": "2026-03-15", "months": 12, "dBenchmark": 30, "dSpread": 240, "bidAsk": 40, "ecl": { "stage": 1, "pd12": null, "pdLife": null } },
+    { "id": "apr26", "date": "2026-04-15", "months": 13, "dBenchmark": 30, "dSpread": 340, "bidAsk": 60, "ecl": { "stage": 2, "pd12": 6, "pdLife": 10 } },
+    { "id": "jun26", "date": "2026-06-15", "months": 15, "dBenchmark": 30, "dSpread": 490, "bidAsk": 100, "ecl": { "stage": 2, "pd12": 6, "pdLife": 10 } },
+    { "id": "jul26", "date": "2026-07-15", "months": 16, "dBenchmark": 30, "dSpread": 490, "bidAsk": 100, "ecl": { "stage": 2, "pd12": 6, "pdLife": 10 },
+      "counterfactuals": {
+        "A": { "dSpread": 140, "bidAsk": 40 },
+        "B": { "dSpread": 690, "bidAsk": 150 }
+      }
+    }
+  ],
+  "classStops": [
+    { "n": 1, "stop": "sep25", "tab": "repricing" },
+    { "n": 2, "stop": "mar26", "tab": "repricing" },
+    { "n": 3, "stop": "jun26", "tab": "timeline" },
+    { "n": 4, "stop": "jun26", "tab": "decision" }
+  ],
+  "shocks": [
+    { "id": "spread120", "kind": "spread", "bp": 120 },
+    { "id": "spread50", "kind": "spread", "bp": 50 },
+    { "id": "bench30", "kind": "benchmark", "bp": 30 }
+  ],
+  "ecl": { "pd12": 6, "pdLife": 10, "lgd": 60 },
+  "extension": { "paidShare": 40, "delayYears": 1 },
+  "sizing": { "weight": 1, "lgd": 60, "restSpreads": [40, 150] },
+  "spreadAnatomy": { "pdPhysical": 1.0, "liquidityPremium": 40 },
+  "timeline": [
+    { "id": "f0", "date": "2025-09-15", "kind": "market", "spread": 330, "bidAsk": 40 },
+    { "id": "f1", "date": "2025-12-15", "kind": "operating" },
+    { "id": "f2", "date": "2026-02-10", "kind": "governance" },
+    { "id": "f3", "date": "2026-03-15", "kind": "payment" },
+    { "id": "f4", "date": "2026-03-20", "kind": "funding" },
+    { "id": "f5", "date": "2026-04-28", "kind": "financials", "spread": 550, "bidAsk": 60 },
+    { "id": "f6", "date": "2026-06-12", "kind": "rating", "spread": 700, "bidAsk": 100 },
+    { "id": "f7", "date": "2026-06-15", "kind": "maturities" }
+  ],
+  "escalation": {
+    "rule": { "spreadLevel": 500, "spreadWidening": 250, "priceFloor": 95, "cashCover": 1.0, "minHits": 2 },
+    "observations": [
+      { "id": "sep25", "stop": "sep25", "cashCover": 1.07, "event": false },
+      { "id": "dec25", "stop": null, "cashCover": 1.07, "event": true },
+      { "id": "mar26", "stop": "mar26", "cashCover": 1.07, "event": true },
+      { "id": "apr26", "stop": "apr26", "cashCover": 0.43, "event": true },
+      { "id": "jun26", "stop": "jun26", "cashCover": 0.43, "event": true }
+    ]
+  },
+  "controlSteps": [
+    { "id": "monitoring", "dates": ["sep25", "dec25"] },
+    { "id": "escalation", "dates": ["feb26", "mar26"] },
+    { "id": "impairment", "dates": ["apr26"] },
+    { "id": "execution", "dates": ["jun26", "jul26"] }
+  ],
+  "mechanisms": [
+    { "id": "rates", "credit": false, "where": { "AC": ["ev", "realised"], "FVOCI": ["ev", "oci", "capital", "realised"], "FVTPL": ["ev", "pnl", "capital", "realised"] } },
+    { "id": "spread", "credit": true, "where": { "AC": ["ev", "realised"], "FVOCI": ["ev", "oci", "capital", "realised"], "FVTPL": ["ev", "pnl", "capital", "realised"] } },
+    { "id": "liquidity", "credit": true, "where": { "AC": ["ev", "realised"], "FVOCI": ["ev", "realised"], "FVTPL": ["ev", "realised"] } },
+    { "id": "ecl", "credit": true, "where": { "AC": ["ev", "pnl", "capital"], "FVOCI": ["ev", "pnl", "capital"], "FVTPL": ["ev", "pnl", "capital"] } },
+    { "id": "refinancing", "credit": true, "where": { "AC": ["ev", "pnl", "capital", "realised"], "FVOCI": ["ev", "pnl", "oci", "capital", "realised"], "FVTPL": ["ev", "pnl", "capital", "realised"] } },
+    { "id": "extension", "credit": true, "where": { "AC": ["ev", "pnl", "capital", "realised"], "FVOCI": ["ev", "pnl", "oci", "capital", "realised"], "FVTPL": ["ev", "pnl", "capital", "realised"] } }
+  ],
+  "impacts": ["ev", "pnl", "oci", "capital", "realised"],
+  "portfolio": [
+    { "id": "cgb", "currency": "CNY", "benchmark": "cgb", "mechanism": ["rates"], "control": ["durationLimit"] },
+    { "id": "t2", "currency": "CNY", "benchmark": "cgb", "mechanism": ["spread", "extension"], "control": ["callMonitor", "structureReview"] },
+    { "id": "lgfv", "currency": "CNY", "benchmark": "cgb", "mechanism": ["refinancing", "liquidity"], "control": ["supportReview", "concentrationLimit"] },
+    { "id": "huaxing", "currency": "CNY", "benchmark": "cgb", "mechanism": ["spread", "ecl", "refinancing"], "control": ["sicrReview", "escalationRule"] },
+    { "id": "keepwell", "currency": "USD", "benchmark": "ust", "mechanism": ["refinancing", "spread"], "control": ["structureReview", "fxHedge"] }
+  ],
+  "portfolioControls": ["durationLimit", "spreadWatch", "liquidityBuffer", "sicrReview", "supportReview", "structureReview", "callMonitor", "concentrationLimit", "escalationRule", "fxHedge"],
+  "referenceList": [
+    { "id": "r1", "currency": "CNY", "benchmark": "cgb" },
+    { "id": "r2", "currency": "CNY", "benchmark": "cgb" },
+    { "id": "r3", "currency": "CNY", "benchmark": "cgb" },
+    { "id": "r4", "currency": "CNY", "benchmark": "cgb" },
+    { "id": "r5", "currency": "CNY", "benchmark": "cgb" },
+    { "id": "r6", "currency": "CNY", "benchmark": "cgb" },
+    { "id": "r7", "currency": "CNY", "benchmark": "cgb" },
+    { "id": "r8", "currency": "USD", "benchmark": "ust" },
+    { "id": "r9", "currency": "USD", "benchmark": "ust" }
+  ],
+  "riskWeights": [
+    { "id": "cgb", "rw": 0 },
+    { "id": "pbc", "rw": 0 },
+    { "id": "policyBank", "rw": 0 },
+    { "id": "localGeneral", "rw": 10 },
+    { "id": "localSpecial", "rw": 20 },
+    { "id": "bankA", "rw": 40 },
+    { "id": "bankB", "rw": 75 },
+    { "id": "bankTier2", "rw": 150 },
+    { "id": "corpIG", "rw": 75 },
+    { "id": "corpGeneral", "rw": 100 },
+    { "id": "corpSub", "rw": 150 }
+  ],
+  "capital": { "ratio": 10.5, "maturity": 1.75, "gsibBucket": 3, "gsibFrom": "2027-01-01", "tlac2025": 16, "tlac2028": 18 },
+  "agenda": [
+    { "id": "b1", "start": "10:00", "end": "10:10", "tabs": ["home", "mechanisms"] },
+    { "id": "b2", "start": "10:10", "end": "10:40", "tabs": ["position", "repricing", "spread"] },
+    { "id": "b3", "start": "10:40", "end": "11:10", "tabs": ["ratings", "timeline", "structure"] },
+    { "id": "b4", "start": "11:10", "end": "11:20", "tabs": [] },
+    { "id": "b5", "start": "11:20", "end": "11:45", "tabs": ["portfolio", "recognition"] },
+    { "id": "b6", "start": "11:45", "end": "12:00", "tabs": ["capital", "controls"] },
+    { "id": "b7", "start": "12:00", "end": "12:20", "tabs": ["decision"] },
+    { "id": "b8", "start": "12:20", "end": "12:30", "tabs": ["answer"] }
+  ],
+  "tieOut": [
+    { "id": "t0price", "path": "t0.price", "expected": 100.0, "dp": 2, "tab": "position" },
+    { "id": "t0mac", "path": "t0.macaulay", "expected": 2.9, "dp": 2, "tab": "repricing" },
+    { "id": "t0mod", "path": "t0.modified", "expected": 2.8, "dp": 2, "tab": "repricing" },
+    { "id": "sh120a", "path": "shocks.0.approx", "expected": -3.36, "dp": 2, "tab": "repricing" },
+    { "id": "sh120d", "path": "shocks.0.dcf", "expected": -3.28, "dp": 2, "tab": "repricing" },
+    { "id": "sh50a", "path": "shocks.1.approx", "expected": -1.40, "dp": 2, "tab": "repricing" },
+    { "id": "sh50d", "path": "shocks.1.dcf", "expected": -1.38, "dp": 2, "tab": "repricing" },
+    { "id": "sh30a", "path": "shocks.2.approx", "expected": -0.84, "dp": 2, "tab": "repricing" },
+    { "id": "sh30d", "path": "shocks.2.dcf", "expected": -0.83, "dp": 2, "tab": "repricing" },
+    { "id": "m26b", "path": "mar26.priceAfterBenchmark", "expected": 99.43, "dp": 2, "tab": "repricing" },
+    { "id": "m26p", "path": "mar26.price", "expected": 95.07, "dp": 2, "tab": "repricing" },
+    { "id": "m26be", "path": "mar26.benchmarkEffect", "expected": -0.57, "dp": 2, "tab": "repricing" },
+    { "id": "m26se", "path": "mar26.spreadEffect", "expected": -4.36, "dp": 2, "tab": "repricing" },
+    { "id": "m26te", "path": "mar26.totalPriceEffect", "expected": -4.93, "dp": 2, "tab": "repricing" },
+    { "id": "m26c", "path": "mar26.coupon", "expected": 3.60, "dp": 2, "tab": "repricing" },
+    { "id": "m26g", "path": "mar26.gross", "expected": -1.33, "dp": 2, "tab": "repricing" },
+    { "id": "m26f", "path": "mar26.funded", "expected": -3.33, "dp": 2, "tab": "repricing" },
+    { "id": "m26bid", "path": "mar26.bid", "expected": 94.35, "dp": 2, "tol": 0.05, "approx": true, "tab": "repricing" },
+    { "id": "a26ac", "path": "apr26.amortisedCost", "expected": 100.30, "dp": 2, "tab": "recognition" },
+    { "id": "a26acc", "path": "apr26.accrued", "expected": 0.30, "dp": 2, "tab": "recognition" },
+    { "id": "a26mid", "path": "apr26.mid", "expected": 93.89, "dp": 2, "tab": "recognition" },
+    { "id": "a26eco", "path": "apr26.economic", "expected": -6.41, "dp": 2, "tab": "recognition" },
+    { "id": "a26bid", "path": "apr26.bid", "expected": 92.91, "dp": 2, "tab": "recognition" },
+    { "id": "a26rea", "path": "apr26.realised", "expected": -7.39, "dp": 2, "tab": "recognition" },
+    { "id": "e0", "path": "ecl.t0", "expected": 0.60, "dp": 2, "tab": "recognition" },
+    { "id": "e12", "path": "ecl.apr12", "expected": 3.60, "dp": 2, "tab": "recognition" },
+    { "id": "elt", "path": "ecl.aprLifetime", "expected": 6.00, "dp": 2, "tab": "recognition" },
+    { "id": "eltd", "path": "ecl.aprLifetimeDiscounted", "expected": 5.79, "dp": 2, "tab": "recognition" },
+    { "id": "es2", "path": "ecl.stage2Charge", "expected": 5.40, "dp": 2, "tab": "recognition" },
+    { "id": "es1", "path": "ecl.stage1Charge", "expected": 3.00, "dp": 2, "tab": "recognition" },
+    { "id": "rac", "path": "recognition.ac.carrying", "expected": 94.30, "dp": 2, "tab": "recognition" },
+    { "id": "racp", "path": "recognition.ac.pnlPeriod", "expected": -5.40, "dp": 2, "tab": "recognition" },
+    { "id": "rfo", "path": "recognition.fvoci.carrying", "expected": 93.89, "dp": 2, "tab": "recognition" },
+    { "id": "rfop", "path": "recognition.fvoci.pnlPeriod", "expected": -5.40, "dp": 2, "tab": "recognition" },
+    { "id": "rfoo", "path": "recognition.fvoci.ociCumulative", "expected": -0.41, "dp": 2, "tab": "recognition" },
+    { "id": "rfoe", "path": "recognition.fvoci.equityCumulative", "expected": -6.41, "dp": 2, "tab": "recognition" },
+    { "id": "rftp", "path": "recognition.fvtpl.pnlPeriod", "expected": -6.41, "dp": 2, "tab": "recognition" },
+    { "id": "j26ac", "path": "jun26.amortisedCost", "expected": 100.89, "dp": 2, "tab": "decision" },
+    { "id": "j26mid", "path": "jun26.mid", "expected": 92.76, "dp": 2, "tab": "decision" },
+    { "id": "j26eco", "path": "jun26.economic", "expected": -8.12, "dp": 2, "tab": "decision" },
+    { "id": "j26bid", "path": "jun26.bid", "expected": 91.32, "dp": 2, "tab": "decision" },
+    { "id": "j26rea", "path": "jun26.realised", "expected": -9.57, "dp": 2, "tab": "decision" },
+    { "id": "jlA", "path": "jul26.A", "expected": 98.53, "dp": 2, "tab": "decision" },
+    { "id": "jlB", "path": "jul26.B", "expected": 90.68, "dp": 2, "tab": "decision" },
+    { "id": "jlbe", "path": "jul26.breakEven", "expected": 0.08, "dp": 2, "tol": 0.005, "approx": true, "pct": true, "tab": "decision" },
+    { "id": "xpv", "path": "extension.pvCost", "expected": 2.87, "dp": 2, "tab": "decision" },
+    { "id": "xml", "path": "extension.modificationLoss", "expected": 0.00, "dp": 2, "tab": "decision" },
+    { "id": "bepd", "path": "spread.breakEvenPD", "expected": 0.035, "dp": 3, "pct": true, "tab": "spread" },
+    { "id": "szl", "path": "spread.sizingLoss", "expected": 0.006, "dp": 4, "pct": true, "tab": "spread" },
+    { "id": "szr40", "path": "spread.restIncome.0", "expected": 0.00396, "dp": 5, "pct": true, "tab": "spread" },
+    { "id": "szr150", "path": "spread.restIncome.1", "expected": 0.01485, "dp": 5, "pct": true, "tab": "spread" }
+  ]
+}
