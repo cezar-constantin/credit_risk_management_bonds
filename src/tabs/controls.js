@@ -26,7 +26,7 @@ export function render(root, ctx) {
       h('div', null, h('span', { class: 't-date' }, t(`controls.steps.${s.id}.name`)), h('span', { class: 't-kind' }, s.dates.map((d) => t(`controls.dates.${d}`)).join(' · '))),
       h('p', { class: 'small' }, t(`controls.steps.${s.id}.text`))))));
 
-  const ruleInputs = h('div', { class: 'grid grid-2' },
+  const ruleInputs = h('div', { class: 'grid grid-fields' },
     numberField({ path: 'controls.rule.spreadLevel', label: t('controls.rule.spreadLevel'), min: 0, max: 2000, step: 10, suffix: t('units.bpShort') }),
     numberField({ path: 'controls.rule.spreadWidening', label: t('controls.rule.spreadWidening'), min: 0, max: 2000, step: 10, suffix: t('units.bpShort') }),
     numberField({ path: 'controls.rule.priceFloor', label: t('controls.rule.priceFloor'), min: 50, max: 110, step: 0.5 }),
@@ -41,7 +41,7 @@ export function render(root, ctx) {
       const r = store.get().controls.rule;
       const obs = observations();
       const res = evaluateEscalation(r, obs, position().spread);
-      const mark = (b) => (b ? '●' : '–');
+      const mark = (b) => (b ? '●' : '○');
       return [
         table([t('controls.date'), t('controls.cols.spreadLevel'), t('controls.cols.widening'), t('controls.cols.price'), t('controls.cols.cover'), t('controls.cols.event'), t('controls.cols.hits')],
           res.rows.map((row, i) => ({
@@ -54,6 +54,7 @@ export function render(root, ctx) {
               mark(row.hits.event),
               `${row.count}${row.triggered ? ` → ${t('controls.escalate')}` : ''}`],
           })), { numericCols: [6] }),
+        h('p', { class: 'small muted' }, t('controls.legend')),
         h('p', null, h('strong', null, res.firstTrigger ? t('controls.firstTrigger', { date: t(`controls.dates.${res.firstTrigger}`) }) : t('controls.noTrigger'))),
         workings('ctl-rule', t('controls.ruleFormula'), [[t('controls.rule.spreadLevel'), fmt.bp(r.spreadLevel)], [t('controls.rule.spreadWidening'), fmt.bp(r.spreadWidening)], [t('controls.rule.priceFloor'), fmt.price(r.priceFloor)], [t('controls.rule.cashCover'), fmt.times(r.cashCover, 2)], [t('controls.rule.minHits'), r.minHits]], t('controls.ruleNote')),
       ];

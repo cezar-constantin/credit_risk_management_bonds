@@ -70,9 +70,9 @@ export function render(root, ctx) {
           [t('spread.lossIfDefault'), fmt.pct(z.loss, 3)],
           [t('spread.restIncome', { s: fmt.bp(s.restSpread) }), fmt.pct(z.restIncome, 3)],
           { cls: 'hl', cells: [t('spread.years'), Number.isFinite(z.yearsToRecover) ? fmt.num(z.yearsToRecover, 2) : '∞'] },
-          [t('spread.restIncome', { s: fmt.bp(40) }), fmt.pct(z40.restIncome, 3)],
-          [t('spread.restIncome', { s: fmt.bp(150) }), fmt.pct(z150.restIncome, 3)],
-        ], { numericCols: [1] }),
+          s.restSpread !== 40 ? [t('spread.restIncome', { s: fmt.bp(40) }), fmt.pct(z40.restIncome, 3)] : null,
+          s.restSpread !== 150 ? [t('spread.restIncome', { s: fmt.bp(150) }), fmt.pct(z150.restIncome, 3)] : null,
+        ].filter(Boolean), { numericCols: [1] }),
         h('p', { class: 'small' }, t('spread.sizingRead')),
         workings('sp-size', t('spread.sizingFormula'), [[t('spread.weight'), fmt.pctRaw(s.weight, 2)], [t('spread.lgd'), fmt.pctRaw(s.sizeLgd, 0)], [t('spread.restSpread'), fmt.bp(s.restSpread)]]),
       ];

@@ -89,7 +89,7 @@ a:hover { color: var(--red-dark); }
 .topbar .brand-title { font-size: 1.15rem; font-weight: 700; margin: 0; }
 .topbar .brand-sub { font-size: .85rem; opacity: .95; }
 .topbar .tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.topbar .tools label, .topbar .tools .field-label { color: #fff; font-size: .8rem; }
+.topbar .tools label, .topbar .tools .field-label { color: #fff; font-size: .8rem; white-space: nowrap; }
 .topbar select, .topbar .btn-top {
   background: #fff; color: var(--text); border: 1px solid #fff; border-radius: var(--radius);
   padding: 4px 8px; font: inherit; font-size: .85rem; min-height: 32px;
@@ -152,6 +152,7 @@ a:hover { color: var(--red-dark); }
 /* ---- Grid & cards -------------------------------------------------------------------------- */
 .grid { display: grid; gap: var(--gap); }
 .grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); }
+.grid-fields { grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); }
 .grid-4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 100px), 1fr)); }
 .grid-3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
 .grid-side { grid-template-columns: minmax(240px, 320px) minmax(0, 1fr); }
@@ -330,6 +331,7 @@ html[data-presenter="true"] .field-hint, html[data-presenter="true"] .note { fon
 html[data-mode="instructor"] .instructor-only { display: revert; }
 .shortcut-help { font-size: .78rem; color: var(--text-2); }
 kbd { font-family: var(--mono); border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 3px; padding: 0 4px; background: #fff; }
+.tabpanel:focus { outline: none; }
 
 .doc { max-width: 1000px; margin: 0 auto; padding: 16px 20px 40px; background: var(--surface); }
 .doc h2 { margin-top: 1.4em; border-bottom: 2px solid var(--red); padding-bottom: 4px; }
@@ -362,6 +364,17 @@ html[lang="en"] .doc [data-lang="en"], html[lang="zh-Hans"] .doc [data-lang="zh"
 <h2>Running offline and hosted</h2><ul><li>app/index.html is a single self-contained file: open it from file:// with no internet.</li><li>The same file is deployed to GitHub Pages and to the portfolio path /risk-intelligence/bond-credit-risk-case-lab/app/.</li></ul>
 <h2>Privacy</h2><p>No backend, no accounts, no analytics and no network calls. State stays in this browser’s localStorage.</p>
 <h2>Disclaimer</h2><p><strong>Educational use only. This application supports a University of Zurich Executive Education class. All issuers, positions, prices, spreads, financial statements, dates and scenarios are fictional teaching assumptions; simplified formulas are used for teaching, not for valuation, accounting or regulatory reporting. Nothing here is investment, accounting, legal or regulatory advice, and nothing represents the policies, data or views of ICBC or any other institution. Verify any figure against primary sources before use.</strong></p>
+</section><section data-lang="zh" lang="zh-Hans">
+<h1>债券信用风险案例实验室</h1>
+<p class="question-hero">即使发行人持续付息，债券投资为何仍可能亏损？</p>
+<h2>用途</h2><p>苏黎世大学高管教育课程“债券投资中的信用风险管理”的互动配套工具（面向中国工商银行高级管理人员和专家，2026年10月30日，10:00–12:30，交替传译）。它贯穿整个课堂案例，课后学员仍可继续使用。</p><p>本应用跟踪一个虚构头寸——华兴发展有限公司发行的票面利率3.60%、面值1亿元的优先无担保中期票据，于2025年3月15日在发行时买入——历经四个带日期的节点。所有数字均由经过测试的计算引擎实时计算，应用最后明确回答课程的核心问题。</p>
+<h2>模块</h2>
+<div class="table-wrap"><table class="data"><thead><tr><th scope="col">模块</th><th scope="col">功能</th><th scope="col">输入</th><th scope="col">输出</th></tr></thead><tbody><tr><th scope="row">0 · 首页</th><td>一只虚构债券，四个时间节点，所有数字实时计算。课程最后我们将明确回答这一问题。</td><td>语言、模式、预设；投票举手人数</td><td>投票选项A–F的结论；四个节点</td></tr><tr><th scope="row">1 · 头寸</th><td>买入时的条款概要和2024财年概况。“课堂默认值”锁定这些数值；“自由模式”允许在合理范围内修改，所有页面随之重新计算。</td><td>票面利率、期限、面值、基准收益率、信用利差、资金成本、违约概率、违约损失率（自由模式）</td><td>条款概要、2024财年概况、案例概况表打印、所有课堂数字的核对</td></tr><tr><th scope="row">2 · 损失机制</th><td>逐一切换各机制，查看在所选会计视角下它体现在何处——经济价值、当期损益、其他综合收益、资本，或仅在出售时实现。</td><td>各机制开关、会计视角</td><td>各类损失的体现位置：经济价值、当期损益、其他综合收益、资本、出售时实现；是否属于信用风险</td></tr><tr><th scope="row">3 · 重新定价</th><td>节点1（2025年9月）：市场重新定价，无发行人消息。节点2（2026年3月）：已收到一期票息，利差450个基点。调整基准利率、利差、买卖价差和持有期；比较久期近似与完整现金流折现结果。</td><td>基准收益率变动、利差变动、买卖价差、持有期、瞬时冲击/持有期、净价/全价、投票</td><td>久期近似与现金流折现对比、利率/利差/流动性分解、价格路径、持有期收益和扣除资金成本后的收益</td></tr><tr><th scope="row">4 · 利差构成</th><td>信用利差补偿预期损失、信用风险溢价和流动性溢价。利差 ÷ 违约损失率是简化的盈亏平衡值，而非违约概率。</td><td>信用利差、现实世界违约概率、违约损失率、流动性溢价、头寸权重、组合其余部分利差</td><td>利差构成、盈亏平衡违约概率、风险中性违约概率、规模测算</td></tr><tr><th scope="row">5 · 评级</th><td>国内评级和国际评级回答的是不同问题，二者之间没有固定映射。评级终止本身不会改变任何东西——直到您记录原因并更新内部评级。</td><td>评级终止事件、原因、理由、更新后的内部评级</td><td>内部评级和关注名单状态（作为信用风险显著增加的证据）</td></tr><tr><th scope="row">6 · 时间线</th><td>逐条显示带日期的事实，并投票判断投资逻辑是否依然成立。随后是财务比率、缺失信息、支持评分和2026年7月的反事实情景。</td><td>逐条显示事实、投资逻辑投票、缺失信息清单、支持评分、反事实情景A/B</td><td>带预警着色的财务比率、定性支持、情景A/B下的利差 → 价格</td></tr><tr><th scope="row">7 · 结构</th><td>三种工具，三种不同的债权：境内母公司中期票据、境外特殊目的载体维好协议票据和银行二级资本债。不赎回不等于违约；无法生存触发事件时的减记是合同约定的损失。</td><td>是否违约的分类</td><td>母公司中期票据、特殊目的载体维好协议票据和银行二级资本债的债务人、债权和风险；先例说明</td></tr><tr><th scope="row">8 · 组合</th><td>五条持仓，每条四个问题。选择主要损失机制和相应控制措施，然后显示参考答案。各条持仓的利差均相对于其自身币种的基准收益率计算。</td><td>每条持仓选择的机制和控制措施、笔记</td><td>五条持仓四个问题的参考答案；九条持仓参考清单</td></tr><tr><th scope="row">9 · 确认计量</th><td>同一头寸分别按摊余成本、FVOCI和FVTPL计量；预期信用损失情景；信用风险显著增加的判断；以及中国五级分类与IFRS 9阶段的对照。</td><td>预期信用损失情景、折现、信用风险显著增加证据与阶段、五级分类输入</td><td>摊余成本/FVOCI/FVTPL下的账面价值、当期损益、其他综合收益、权益；预期信用损失；五级分类结果与IFRS阶段对照</td></tr><tr><th scope="row">10 · 资本</th><td>示意性的标准法风险权重、内部评级法公式与权重法对比、其他综合收益计入核心一级资本，以及全球系统重要性银行/总损失吸收能力的静态事实。</td><td>方法（权重法/内部评级法）、风险暴露类别、违约概率、违约损失率、期限、资本充足率</td><td>风险权重、风险加权资产、资本；其他综合收益计入核心一级资本；全球系统重要性银行/总损失吸收能力事实</td></tr><tr><th scope="row">11 · 控制</th><td>监测 → 升级报告 → 正式减值评估 → 执行，以及四个职能视角。升级规则仅为示意。</td><td>升级报告规则阈值（示意）</td><td>各日期的信号数及首次触发日期；四个步骤和职能视角</td></tr><tr><th scope="row">12 · 决策</th><td>在考虑成本和约束的前提下，比较可成交的出售所得与概率加权的持有价值，然后写出决策，包括责任人、带日期的触发条件、升级路径以及对两种反事实情景的应对。</td><td>情景A的概率、资本和流动性成本、展期条款、决策表单</td><td>价值阶梯、盈亏平衡概率、现值成本与修改损失对比、经校验的决策（打印/PDF、JSON）、在情景A/B下回放</td></tr><tr><th scope="row">13 · 答案</th><td>五个结论，每个都已在前面的页面中计算得出。点击链接可返回产生各数字的页面。</td><td>—</td><td>附实时数字和回链的五个结论；苏黎世州银行参访问题</td></tr><tr><th scope="row">14 · 术语表</th><td>课程使用的双语术语和缩略语（附录A7和A9）。可用任一语言搜索。</td><td>搜索文本</td><td>双语术语表和缩略语</td></tr></tbody></table></div>
+<h2>输入</h2><ul><li>案例数据位于 data/case.json（虚构的教学假设）。</li><li>预设：“课堂默认值”（锁定，复现课堂讲义）和“自由模式”（所有输入均可在范围内编辑）。</li><li>讲师计票和学员答案，仅保存在浏览器中。</li></ul>
+<h2>输出</h2><ul><li>所选日期和反事实情景的实时指标卡。</li><li>每项计算均可通过“显示计算过程”查看公式和输入。</li><li>可打印的案例概况表和决策记录；决策可导出/导入为JSON。</li></ul>
+<h2>离线运行与在线托管</h2><ul><li>app/index.html 是一个独立的单文件：无需联网，直接通过 file:// 打开即可。</li><li>同一文件部署在 GitHub Pages 以及作品集路径 /risk-intelligence/bond-credit-risk-case-lab/app/ 下。</li></ul>
+<h2>隐私</h2><p>无后端、无账户、无数据分析、无网络请求。状态仅保存在本浏览器的 localStorage 中。</p>
+<h2>免责声明</h2><p><strong>仅供教学使用。本应用为苏黎世大学高管教育课程配套工具。所有发行人、头寸、价格、利差、财务报表、日期和情景均为虚构的教学假设；所用公式为教学简化，不适用于估值、会计或监管报告。本应用不构成投资、会计、法律或监管建议，也不代表中国工商银行或任何其他机构的政策、数据或观点。使用前请以原始资料核实任何数字。</strong></p>
 </section>
 </main>
 <script>

@@ -29,7 +29,7 @@ a:hover { color: var(--red-dark); }
 .topbar .brand-title { font-size: 1.15rem; font-weight: 700; margin: 0; }
 .topbar .brand-sub { font-size: .85rem; opacity: .95; }
 .topbar .tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.topbar .tools label, .topbar .tools .field-label { color: #fff; font-size: .8rem; }
+.topbar .tools label, .topbar .tools .field-label { color: #fff; font-size: .8rem; white-space: nowrap; }
 .topbar select, .topbar .btn-top {
   background: #fff; color: var(--text); border: 1px solid #fff; border-radius: var(--radius);
   padding: 4px 8px; font: inherit; font-size: .85rem; min-height: 32px;
@@ -92,6 +92,7 @@ a:hover { color: var(--red-dark); }
 /* ---- Grid & cards -------------------------------------------------------------------------- */
 .grid { display: grid; gap: var(--gap); }
 .grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); }
+.grid-fields { grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); }
 .grid-4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 100px), 1fr)); }
 .grid-3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
 .grid-side { grid-template-columns: minmax(240px, 320px) minmax(0, 1fr); }
@@ -270,3 +271,4 @@ html[data-presenter="true"] .field-hint, html[data-presenter="true"] .note { fon
 html[data-mode="instructor"] .instructor-only { display: revert; }
 .shortcut-help { font-size: .78rem; color: var(--text-2); }
 kbd { font-family: var(--mono); border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 3px; padding: 0 4px; background: #fff; }
+.tabpanel:focus { outline: none; }

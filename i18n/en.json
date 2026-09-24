@@ -22,7 +22,8 @@
     "bpShort": "bp",
     "rmbM": "RMB m",
     "years": " years",
-    "year": " year"
+    "year": " year",
+    "wan": " × RMB 10,000"
   },
   "ui": {
     "skip": "Skip to content",
@@ -1276,7 +1277,8 @@
     "a": [
       "Waiting for a missed payment. Every signal in the case arrived while coupons were paid; a control keyed to payment status would escalate only after the exit price has collapsed.",
       "Controls should be dated, evidence-based and owned — with a named escalation route."
-    ]
+    ],
+    "legend": "● signal present · ○ not present"
   },
   "decision": {
     "ladderTitle": "Value ladder (per 100 nominal)",

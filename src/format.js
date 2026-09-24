@@ -21,8 +21,14 @@ export function signed(x, dp = 2) {
 /** Money given in RMB m. */
 export function money(m, dp = 2, { sign = false } = {}) {
   if (getLang() === 'zh') {
-    const v = m / 100;
-    return `${sign ? signed(v, dp + 2) : num(v, dp + 2)}${t('units.yi')}`;
+    // Chinese convention: 亿元 from 1 亿 (= RMB 100 m) upwards, 万元 below (RMB 1 m = 100 万元).
+    if (Math.abs(m) >= 100) {
+      const v = m / 100;
+      return `${sign ? signed(v, dp + 2) : num(v, dp + 2)}${t('units.yi')}`;
+    }
+    const w = m * 100;
+    const wdp = Math.max(0, dp - 2);
+    return `${sign ? signed(w, wdp) : num(w, wdp)}${t('units.wan')}`;
   }
   return `${t('units.rmb')}\u00a0${sign ? signed(m, dp) : num(m, dp)}\u00a0${t('units.m')}`;
 }

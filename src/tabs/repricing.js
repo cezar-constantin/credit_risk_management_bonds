@@ -197,10 +197,11 @@ export function render(root, ctx) {
   root.append(
     ...tabHeader('repricing'),
     h('div', { class: 'grid grid-side' },
-      h('div', { class: 'stack' }, controls, exercise),
+      h('div', { class: 'stack' }, controls),
       h('div', { class: 'stack' },
         h('div', { class: 'grid grid-2' }, approxCard, hpCard),
         decompCard,
         pathCard)),
+    h('div', { style: { marginTop: '16px' } }, exercise),
   );
 }
