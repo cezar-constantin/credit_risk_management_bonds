@@ -2079,7 +2079,9 @@ function lineChart({ series, markers = [], vline, title, xLabel, yLabel, fmtX = 
  * Each bar is directly labelled with its value; zero line drawn.
  */
 function barChart({ items, title, fmt = (v) => v.toFixed(2), width = 640, rowH = 34, domain, marker, base = 0 }) {
-  const m = { t: 8, r: 120, b: 8, l: 190 };
+  // Label column sized to the longest label (CJK glyphs are about twice as wide as Latin).
+  const textW = (x) => [...x].reduce((a, ch) => a + (ch.charCodeAt(0) > 0x2e80 ? 13 : 7), 0);
+  const m = { t: 8, r: 120, b: 8, l: Math.min(320, Math.max(120, Math.max(...items.map((i) => textW(i.label))) + 16)) };
   const height = m.t + m.b + rowH * items.length + (marker ? 18 : 0);
   const W = width - m.l - m.r;
   const vals = items.map((i) => i.value).concat(domain || [], marker ? [marker.value] : []);
@@ -3277,7 +3279,7 @@ function render(root, ctx, { goTab }) {
   buildTriggers();
 
   const importInput = h('input', {
-    type: 'file', accept: 'application/json,.json', class: 'sr-only', id: 'decision-import',
+    type: 'file', accept: 'application/json,.json', class: 'sr-only', id: 'decision-import', tabindex: '-1', 'aria-hidden': 'true',
     onChange: (e) => {
       const f = e.target.files && e.target.files[0];
       if (!f) return;
@@ -3336,7 +3338,7 @@ function render(root, ctx, { goTab }) {
     h('div', { class: 'row no-print' },
       button(t('decision.print'), printForm, { cls: 'btn btn-primary' }),
       button(t('decision.exportJson'), exportJson, { cls: 'btn' }),
-      h('label', { for: 'decision-import', class: 'btn', tabindex: '0', role: 'button', onKeydown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); importInput.click(); } } }, t('decision.importJson')),
+      button(t('decision.importJson'), () => importInput.click(), { cls: 'btn' }),
       importInput));
 
   // ---- Replay ---------------------------------------------------------------------------------

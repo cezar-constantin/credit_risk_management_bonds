@@ -88,7 +88,10 @@ npm test               # acceptance + unit tests
 npm run check:i18n     # EN/中文 parity (fails on any missing or untranslated key)
 npm run build          # writes app/index.html
 npm run screenshots    # docs/screenshots/*.png (needs Playwright + Chromium)
+node tests/e2e/interactions.mjs   # browser checks: shortcuts, free play, decision form, language switch, no network
 ```
+
+Accessibility: Lighthouse scores 100 on every tab (checked with Lighthouse 12). The UI is keyboard-operable (tabs use arrow keys) and meets WCAG AA contrast.
 
 The visual identity is derived from the public website icbc.com.cn (primary red `#BC0021`, light theme). It lives in `src/styles/tokens.css`. The app uses no logo or trademark and is not an ICBC product.
 

@@ -125,7 +125,9 @@ export function lineChart({ series, markers = [], vline, title, xLabel, yLabel, 
  * Each bar is directly labelled with its value; zero line drawn.
  */
 export function barChart({ items, title, fmt = (v) => v.toFixed(2), width = 640, rowH = 34, domain, marker, base = 0 }) {
-  const m = { t: 8, r: 120, b: 8, l: 190 };
+  // Label column sized to the longest label (CJK glyphs are about twice as wide as Latin).
+  const textW = (x) => [...x].reduce((a, ch) => a + (ch.charCodeAt(0) > 0x2e80 ? 13 : 7), 0);
+  const m = { t: 8, r: 120, b: 8, l: Math.min(320, Math.max(120, Math.max(...items.map((i) => textW(i.label))) + 16)) };
   const height = m.t + m.b + rowH * items.length + (marker ? 18 : 0);
   const W = width - m.l - m.r;
   const vals = items.map((i) => i.value).concat(domain || [], marker ? [marker.value] : []);

@@ -164,7 +164,7 @@ export function render(root, ctx, { goTab }) {
   buildTriggers();
 
   const importInput = h('input', {
-    type: 'file', accept: 'application/json,.json', class: 'sr-only', id: 'decision-import',
+    type: 'file', accept: 'application/json,.json', class: 'sr-only', id: 'decision-import', tabindex: '-1', 'aria-hidden': 'true',
     onChange: (e) => {
       const f = e.target.files && e.target.files[0];
       if (!f) return;
@@ -223,7 +223,7 @@ export function render(root, ctx, { goTab }) {
     h('div', { class: 'row no-print' },
       button(t('decision.print'), printForm, { cls: 'btn btn-primary' }),
       button(t('decision.exportJson'), exportJson, { cls: 'btn' }),
-      h('label', { for: 'decision-import', class: 'btn', tabindex: '0', role: 'button', onKeydown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); importInput.click(); } } }, t('decision.importJson')),
+      button(t('decision.importJson'), () => importInput.click(), { cls: 'btn' }),
       importInput));
 
   // ---- Replay ---------------------------------------------------------------------------------
