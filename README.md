@@ -3,6 +3,7 @@
 **UZH Executive Education Finance · Cezar Chirila**
 
 **▶ Open the dashboard / 打开应用: https://cezar-constantin.github.io/credit_risk_management_bonds/**
+· [Focus view / 专注视图](https://cezar-constantin.github.io/credit_risk_management_bonds/focus.html)
 · [Module description / 模块说明](https://cezar-constantin.github.io/credit_risk_management_bonds/description.html)
 
 [English](#english) · [中文](#中文)
@@ -37,6 +38,13 @@ Fifteen tabs: Home · Position · Mechanisms · Repricing lab · Spread anatomy 
 ### Open it online
 
 The app is published on GitHub Pages at **https://cezar-constantin.github.io/credit_risk_management_bonds/**. It works on any laptop or tablet browser, and participants can use it straight away. Every push to `main` redeploys it.
+
+### Two views: standard and focus
+
+The app comes as two files with identical content, numbers and features. Both share progress in the same browser, and the header button switches between them.
+
+- `app/index.html`: the **standard view**.
+- `app/focus.html`: the **focus view**, with a lower visual load. It uses the same palette but only three font sizes (13 / 15 / 22 px; 18 / 22 / 32 px in presenter view), one quiet strip of tiles, one underlined row of tabs, and cards separated by space instead of borders. Colour is kept for actions and alarms only. `tests/e2e/font-audit.mjs` checks the three-size rule on every tab, in both languages and both layouts.
 
 ### Run it offline (instructor laptop)
 
@@ -74,7 +82,8 @@ Choose **Participant**. Work through the tabs at your own pace. Hints and **Chec
 ### Repository layout
 
 ```
-app/index.html          single-file build artefact (runs from file://)
+app/index.html          single-file build artefact, standard view (runs from file://)
+app/focus.html          same app, focus view (lower visual load, three font sizes)
 app/description.html    module description page (purpose, modules, inputs, outputs, disclaimer)
 src/                    UI source: shell, components, tabs, styles (tokens.css = palette)
 engine/                 pricing, ECL, classification, decision maths (pure ES modules)
@@ -95,7 +104,8 @@ npm test               # acceptance + unit tests
 npm run check:i18n     # EN/中文 parity (fails on any missing or untranslated key)
 npm run build          # writes app/index.html
 npm run screenshots    # docs/screenshots/*.png (needs Playwright + Chromium)
-node tests/e2e/interactions.mjs   # browser checks: shortcuts, free play, decision form, language switch, no network
+node tests/e2e/interactions.mjs [app/focus.html]   # browser checks: shortcuts, free play, decision form, language switch, no network
+node tests/e2e/font-audit.mjs app/focus.html 3       # the focus view uses at most three font sizes
 ```
 
 Accessibility: Lighthouse scores 100 on every tab (checked with Lighthouse 12). The UI is keyboard-operable (tabs use arrow keys) and meets WCAG AA contrast.
@@ -128,6 +138,10 @@ The visual identity is derived from the public website icbc.com.cn (primary red 
 ### 在线打开
 
 应用发布在 GitHub Pages：**https://cezar-constantin.github.io/credit_risk_management_bonds/** ，可在任何笔记本电脑或平板浏览器中直接使用。每次推送到 `main` 都会自动重新部署。
+
+### 两种视图：标准视图与专注视图
+
+两个文件的内容、数字和功能完全相同，在同一浏览器中共享进度，页眉按钮可随时切换：`app/index.html` 为**标准视图**；`app/focus.html` 为**专注视图**，视觉负担更低。专注视图配色不变，全程只使用三种字号（13 / 15 / 22 像素；演示视图为 18 / 22 / 32 像素），指标卡合并为一条，标签页为单行下划线样式，以留白代替边框，红色仅用于操作与警示。
 
 ### 离线运行（讲师笔记本电脑）
 

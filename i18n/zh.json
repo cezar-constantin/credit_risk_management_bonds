@@ -67,7 +67,10 @@
     "correct": "与参考答案一致",
     "notQuite": "与参考答案不同",
     "illustrative": "示意",
-    "about": "关于本应用（说明）"
+    "about": "关于本应用（说明）",
+    "focusView": "专注视图",
+    "standardView": "标准视图",
+    "viewHint": "内容与数字相同；在标准布局与更简洁的专注布局之间切换"
   },
   "tabs": {
     "home": {

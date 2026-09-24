@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0 — 2026-09-24
+
+- New **focus view** (`app/focus.html`), built from the same source with an extra stylesheet (`src/styles/focus.css`). It has identical content, numbers and features, the same palette, a lower visual load and exactly three font sizes. The header button switches between the standard and focus views.
+- `tests/e2e/font-audit.mjs` measures rendered font sizes (chart text included) on every tab, in both languages, in the normal and presenter layouts.
+- Trigger rows stack to one column on narrow screens.
+
 ## 1.0.0 — 2026-09-24
 
 First release for the class of 30 October 2026.

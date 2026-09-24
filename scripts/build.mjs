@@ -94,13 +94,18 @@ const pkg = JSON.parse(read('package.json'));
 const safeJson = (o) => JSON.stringify(o).replace(/</g, '\\u003c');
 
 const template = read('src/index.template.html');
-const html = template
-  .replace('/*__CSS__*/', () => css)
-  .replace('/*__DATA__*/', () => `window.__CASE__ = ${safeJson(caseData)};\nwindow.__I18N__ = ${safeJson(i18n)};\nwindow.__VERSION__ = ${JSON.stringify(pkg.version)};`)
+// Two views of the same app: the standard view and the focus view (lower visual load, three font sizes).
+// Only the stylesheet and a variant flag differ; code, data and strings are identical.
+const page = (variant, extraCss) => template
+  .replace('<html lang="en">', variant === 'focus' ? '<html lang="en" class="focus">' : '<html lang="en">')
+  .replace('/*__CSS__*/', () => css + (extraCss ? `\n${extraCss}` : ''))
+  .replace('/*__DATA__*/', () => `window.__CASE__ = ${safeJson(caseData)};\nwindow.__I18N__ = ${safeJson(i18n)};\nwindow.__VERSION__ = ${JSON.stringify(pkg.version)};\nwindow.__VARIANT__ = ${JSON.stringify(variant)};`)
   .replace('/*__JS__*/', () => `"use strict";\n${bundled}`);
+const html = page('standard');
 
 mkdirSync(resolve(root, 'app'), { recursive: true });
 writeFileSync(resolve(root, 'app/index.html'), html);
+writeFileSync(resolve(root, 'app/focus.html'), page('focus', read('src/styles/focus.css')));
 
 // ---- app/description.html: generated from the same translation files --------------------------
 const esc = (x) => String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -129,4 +134,4 @@ const desc = read('src/description.template.html')
   .replace('/*__CSS__*/', () => [read('src/styles/tokens.css'), read('src/styles/app.css')].join('\n'))
   .replace('/*__BODY__*/', () => descBody('en') + descBody('zh'));
 writeFileSync(resolve(root, 'app/description.html'), desc);
-console.log(`app/index.html + app/description.html written (${(html.length / 1024).toFixed(1)} KiB, ${order.length} modules)`);
+console.log(`app/index.html + app/focus.html + app/description.html written (${(html.length / 1024).toFixed(1)} KiB, ${order.length} modules)`);

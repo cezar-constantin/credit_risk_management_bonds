@@ -67,7 +67,10 @@
     "correct": "Matches the model answer",
     "notQuite": "Differs from the model answer",
     "illustrative": "Illustrative",
-    "about": "About this app (description)"
+    "about": "About this app (description)",
+    "focusView": "Focus view",
+    "standardView": "Standard view",
+    "viewHint": "Same content and numbers; switch between the standard and the calmer focus layout"
   },
   "tabs": {
     "home": {

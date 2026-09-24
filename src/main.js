@@ -1,5 +1,5 @@
 // App shell: header, left control panel, live metric tiles, tabs, footer, instructor tools.
-import { CASE, VERSION } from './data.js';
+import { CASE, VERSION, VARIANT } from './data.js';
 import { t, setLang } from './i18n.js';
 import * as store from './state.js';
 import * as fmt from './format.js';
@@ -41,7 +41,10 @@ function header() {
         type: 'button', class: 'btn-top', 'aria-pressed': String(Boolean(s.presenter)), title: t('ui.presenterHint'),
         onClick: () => store.set('presenter', !store.get().presenter),
       }, t('ui.presenter')) : null,
-      select({ path: 'lang', label: t('ui.language'), options: [{ value: 'en', label: 'English' }, { value: 'zh', label: '简体中文' }] })));
+      select({ path: 'lang', label: t('ui.language'), options: [{ value: 'en', label: 'English' }, { value: 'zh', label: '简体中文' }] }),
+      // Switch between the two views of the same app; state is shared through localStorage.
+      h('a', { class: 'btn-top view-switch', href: `${VARIANT === 'focus' ? 'index.html' : 'focus.html'}${location.hash}`, title: t('ui.viewHint') },
+        VARIANT === 'focus' ? t('ui.standardView') : t('ui.focusView'))));
 }
 
 // ---- Left panel ---------------------------------------------------------------------------------

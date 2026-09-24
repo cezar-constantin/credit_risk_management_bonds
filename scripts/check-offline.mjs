@@ -2,7 +2,7 @@
 import { readFileSync } from 'node:fs';
 
 let failed = false;
-for (const file of ['app/index.html', 'app/description.html']) {
+for (const file of ['app/index.html', 'app/focus.html', 'app/description.html']) {
   const html = readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');
   const problems = [];
   for (const m of html.matchAll(/<(script|link|img|iframe|source|audio|video)\b[^>]*\b(src|href)\s*=\s*["']([^"']+)["']/gi)) {

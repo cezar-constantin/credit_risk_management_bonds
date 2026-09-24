@@ -8,7 +8,7 @@ const require = createRequire(import.meta.url);
 let pw;
 for (const p of ['playwright', '/opt/node22/lib/node_modules/playwright']) { try { pw = require(p); break; } catch (e) { /* next */ } }
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const url = pathToFileURL(resolve(root, 'app/index.html')).href;
+const url = pathToFileURL(resolve(root, process.argv[2] || 'app/index.html')).href;
 
 const browser = await pw.chromium.launch();
 const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, acceptDownloads: true });

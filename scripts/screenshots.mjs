@@ -15,9 +15,11 @@ if (!playwright) { console.error('Playwright not found'); process.exit(1); }
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const out = resolve(root, 'docs/screenshots');
 mkdirSync(out, { recursive: true });
-const url = pathToFileURL(resolve(root, 'app/index.html')).href;
+const views = [['', 'app/index.html'], ['focus-', 'app/focus.html']];
 
 const browser = await playwright.chromium.launch();
+for (const [prefix, file] of views) {
+const url = pathToFileURL(resolve(root, file)).href;
 for (const lang of ['en', 'zh']) {
   const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
   const page = await ctx.newPage();
@@ -32,7 +34,7 @@ for (const lang of ['en', 'zh']) {
     // Reveal everything on the tab so the screenshot shows the model answers.
     for (let k = 0; k < 20; k += 1) await page.keyboard.press('ArrowRight');
     await page.waitForTimeout(150);
-    const name = `${lang}-${String(i).padStart(2, '0')}-${tabs[i].replace('tab-', '')}.png`;
+    const name = `${prefix}${lang}-${String(i).padStart(2, '0')}-${tabs[i].replace('tab-', '')}.png`;
     await page.screenshot({ path: resolve(out, name), fullPage: true });
     console.log(name);
   }
@@ -42,9 +44,10 @@ for (const lang of ['en', 'zh']) {
     await page.click('#tab-repricing');
     await page.keyboard.press('p');
     await page.waitForTimeout(150);
-    await page.screenshot({ path: resolve(out, 'en-presenter-1920x1080.png') });
+    await page.screenshot({ path: resolve(out, `${prefix}en-presenter-1920x1080.png`) });
     await page.keyboard.press('p');
   }
   await ctx.close();
+}
 }
 await browser.close();

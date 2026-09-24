@@ -4,6 +4,10 @@
 
 const NS = 'http://www.w3.org/2000/svg';
 
+// Focus view draws charts at their natural pixel size (no up-scaling) so chart text keeps one size.
+const naturalSize = globalThis.__VARIANT__ === 'focus';
+const sized = (attrs, width, height) => (naturalSize ? { ...attrs, width, height } : attrs);
+
 function s(tag, attrs = {}, ...children) {
   const el = document.createElementNS(NS, tag);
   for (const [k, v] of Object.entries(attrs)) if (v != null) el.setAttribute(k, v);
@@ -41,7 +45,7 @@ export function lineChart({ series, markers = [], vline, title, xLabel, yLabel, 
   const X = (x) => m.l + ((x - xMin) / (xMax - xMin || 1)) * W;
   const Y = (y) => m.t + H - ((y - yt.lo) / (yt.hi - yt.lo || 1)) * H;
 
-  const svg = s('svg', { viewBox: `0 0 ${width} ${height}`, class: 'chart', role: 'img', 'aria-label': title, preserveAspectRatio: 'xMidYMid meet' });
+  const svg = s('svg', sized({ viewBox: `0 0 ${width} ${height}`, class: 'chart', role: 'img', 'aria-label': title, preserveAspectRatio: 'xMidYMid meet' }, width, height));
   svg.appendChild(s('title', {}, title));
   const g = s('g');
   yt.ticks.forEach((v) => {
@@ -134,7 +138,7 @@ export function barChart({ items, title, fmt = (v) => v.toFixed(2), width = 640,
   const lo = Math.min(base, ...vals);
   const hi = Math.max(base, ...vals);
   const X = (v) => m.l + ((v - lo) / (hi - lo || 1)) * W;
-  const svg = s('svg', { viewBox: `0 0 ${width} ${height}`, class: 'chart chart-bars', role: 'img', 'aria-label': title });
+  const svg = s('svg', sized({ viewBox: `0 0 ${width} ${height}`, class: 'chart chart-bars', role: 'img', 'aria-label': title }, width, height));
   svg.appendChild(s('title', {}, title));
   const defs = s('defs', {}, s('pattern', { id: 'hatch', width: 6, height: 6, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' },
     s('rect', { width: 6, height: 6, class: 'hatch-bg' }), s('line', { x1: 0, y1: 0, x2: 0, y2: 6, class: 'hatch-line' })));
@@ -164,7 +168,7 @@ export function stackedBar({ parts, title, fmt = (v) => v.toFixed(0), width = 64
   const m = { l: 8, r: 8, t: 8 };
   const total = parts.reduce((a, p) => a + Math.max(0, p.value), 0) || 1;
   const W = width - m.l - m.r;
-  const svg = s('svg', { viewBox: `0 0 ${width} ${height}`, class: 'chart chart-stack', role: 'img', 'aria-label': title });
+  const svg = s('svg', sized({ viewBox: `0 0 ${width} ${height}`, class: 'chart chart-stack', role: 'img', 'aria-label': title }, width, height));
   svg.appendChild(s('title', {}, title));
   svg.appendChild(s('defs', {}, s('pattern', { id: 'hatch2', width: 6, height: 6, patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' },
     s('rect', { width: 6, height: 6, class: 'hatch-bg' }), s('line', { x1: 0, y1: 0, x2: 0, y2: 6, class: 'hatch-line' }))));

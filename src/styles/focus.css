@@ -1,0 +1,148 @@
+/* ==========================================================================
+   Focus view — same app, same palette (tokens.css), lower visual load.
+   Loaded only in app/focus.html (html.focus), after app.css.
+   Rules: exactly three font sizes; one accent (red) reserved for actions and alarms;
+   no boxes where whitespace separates; no decorative colour.
+   ========================================================================== */
+html.focus {
+  --fs-s: 13px;   /* labels, captions, chart text, notes */
+  --fs-m: 15px;   /* body, controls, tables, card titles */
+  --fs-l: 22px;   /* page titles, key numbers */
+  --page: #F7F7F7;
+}
+html.focus[data-presenter="true"] { --fs-s: 18px; --fs-m: 22px; --fs-l: 32px; }
+
+/* ---- Three sizes only ------------------------------------------------------------------- */
+html.focus body, html.focus body :where(*) { font-size: var(--fs-m) !important; }
+html.focus :is(.small, .note, .muted, .field-hint, .footer, .metric-label, .metric-sub, .brand-sub, .badge, .pill,
+  .tab-n, .legend, .shortcut-help, kbd, .workings, .timer, .t-kind, .impact, .label-illustrative, .back-label,
+  table.data thead th, table.data caption, .formula, .tab-intro, .field-label, .field label, .seg-item label,
+  .btn-small, .suffix, .req, .validation, .hint-text),
+html.focus :is(.small, .note, .muted, .field-hint, .footer, .metric-label, .metric-sub, .brand-sub, .badge, .pill,
+  .legend, .shortcut-help, .workings, .timer, .t-kind, .impact, .label-illustrative, .formula, .validation, .hint-text) *,
+html.focus .chart text, html.focus .chart tspan {
+  font-size: var(--fs-s) !important;
+}
+html.focus :is(.brand-title, .tabpanel h2, .metric-value, .question-hero, .statements li::before, .poll-letter),
+html.focus :is(.question-hero, .metric-value) * {
+  font-size: var(--fs-l) !important;
+}
+
+/* ---- Page ------------------------------------------------------------------------------- */
+html.focus body { background: var(--page); line-height: 1.55; }
+html.focus .topbar { padding: 8px 20px; box-shadow: none; }
+html.focus .topbar .brand-sub { opacity: .9; }
+html.focus .main { padding: 20px 28px 0; }
+html.focus .layout { grid-template-columns: var(--panel-w) minmax(0, 1fr); }
+
+/* Left panel: plain list, no boxes */
+html.focus .panel { background: var(--page); border-right: 1px solid var(--border); padding: 20px 16px; }
+html.focus .panel h2 { color: var(--text-2); font-weight: 600; margin: 20px 0 6px; }
+html.focus .panel .stop-nav { gap: 2px; }
+html.focus .panel .stop-nav .btn { border: 0; background: none; text-align: left; padding: 4px 0; min-height: 30px; color: var(--text); font-weight: 400; }
+html.focus .panel .stop-nav .btn:hover { color: var(--red); background: none; text-decoration: underline; }
+
+/* Tiles: one quiet strip, dividers instead of cards, colour only for alarms */
+html.focus .tiles { gap: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 20px; }
+html.focus .metric { border: 0; border-left: 1px solid var(--border); border-radius: 0; padding: 10px 14px; background: none; }
+html.focus .tiles > .metric:first-child { border-left: 0; }
+html.focus .metric.tone-amber, html.focus .metric.tone-ok, html.focus .metric.tone-red { border-top: 0; }
+html.focus .metric-value { font-weight: 700; color: var(--text); }
+html.focus .metric.tone-red .metric-value { color: var(--red-dark); }
+html.focus .metric-label, html.focus .metric-sub { color: var(--text-2); }
+
+/* Tabs: single underlined row, horizontal scroll instead of wrapping */
+html.focus .tablist { flex-wrap: nowrap; overflow-x: auto; gap: 0; border-bottom: 1px solid var(--border); scrollbar-width: thin; }
+html.focus .tab { border: 0; border-bottom: 3px solid transparent; border-radius: 0; background: none; padding: 8px 12px; white-space: nowrap; color: var(--text-2); }
+html.focus .tab:hover { color: var(--text); border-bottom-color: var(--border); }
+html.focus .tab[aria-selected="true"] { background: none; color: var(--red-dark); border-bottom-color: var(--red); }
+html.focus .tab[aria-selected="true"] .tab-n, html.focus .tab .tab-n { color: var(--text-2); }
+html.focus .tab.visited:not([aria-selected="true"])::after { content: none; }
+
+/* Content panel: no frame, generous rhythm */
+html.focus .tabpanel { background: none; border: 0; padding: 24px 0 32px; }
+html.focus .tabpanel h2 { font-weight: 700; margin-bottom: 12px; }
+html.focus .tab-intro { color: var(--text-2); max-width: 72ch; margin-bottom: 20px; }
+html.focus .back-strip { background: none; border-left: 3px solid var(--red); border-radius: 0; padding: 2px 0 2px 12px; margin: 0 0 12px; }
+html.focus .back-label { color: var(--red-dark); font-weight: 600; }
+html.focus .grid { gap: 20px; }
+html.focus .stack > * + * { margin-top: 20px; }
+
+/* Cards: white surfaces separated by space, not borders */
+html.focus .card { border: 0; border-radius: 6px; padding: 18px 20px; box-shadow: 0 1px 2px rgba(0, 0, 0, .06); }
+html.focus .card .card { box-shadow: none; border: 1px solid var(--panel); }
+html.focus .card-title { border-bottom: 0; padding-bottom: 0; margin-bottom: 12px; font-weight: 700; }
+html.focus .card.accent { border-left: 0; }
+html.focus h3, html.focus h4 { font-weight: 700; }
+html.focus p { max-width: 80ch; }
+
+/* Tables: rules only where they carry meaning */
+html.focus table.data th, html.focus table.data td { border-bottom: 1px solid #E6E6E6; padding: 7px 8px; }
+html.focus table.data thead th { background: none; color: var(--text-2); font-weight: 600; border-bottom: 1px solid var(--border); }
+html.focus table.data tr.total th, html.focus table.data tr.total td { border-top: 1px solid var(--text-2); }
+html.focus table.data tr.hl th, html.focus table.data tr.hl td { background: var(--red-tint); }
+html.focus table.data tbody th { font-weight: 400; }
+html.focus td.cell-amber { background: none; color: var(--amber); }
+html.focus td.cell-red { background: none; }
+
+/* Controls: one filled red button per context; the rest are quiet */
+html.focus .btn { border-color: var(--border); color: var(--text); background: var(--surface); font-weight: 600; }
+html.focus .btn:hover { border-color: var(--red); color: var(--red-dark); background: var(--surface); }
+html.focus .btn-primary { background: var(--red); border-color: var(--red); color: #fff; }
+html.focus .btn-primary:hover { background: var(--red-dark); color: #fff; }
+html.focus .btn-reveal { border-style: solid; border-color: var(--red); color: var(--red-dark); }
+html.focus .btn-link { border: 0; background: none; color: var(--red-dark); }
+html.focus .segmented { background: var(--surface); border-color: var(--border); }
+html.focus .seg-item label { font-weight: 400; color: var(--text-2); }
+html.focus .seg-item input:checked + label { background: var(--text); color: #fff; font-weight: 600; }
+html.focus input[type="number"], html.focus input[type="text"], html.focus input[type="date"], html.focus textarea, html.focus select { border-color: var(--border); }
+html.focus .field label, html.focus .field-label { font-weight: 600; color: var(--text-2); }
+html.focus .slider-value { color: var(--text); }
+html.focus .topbar .seg-item input:checked + label { background: #fff; color: var(--red-dark); }
+html.focus .topbar .seg-item label { color: #fff; }
+
+/* Status marks: neutral unless it is an alarm */
+html.focus .pill { border: 0; padding: 0; background: none; font-weight: 700; }
+html.focus .pill.ok { color: var(--ok); background: none; }
+html.focus .pill.amber { color: var(--amber); background: none; }
+html.focus .pill.neutral { color: var(--text-2); background: none; }
+html.focus .pill.red { color: var(--red-dark); background: none; }
+html.focus .badge-fictional { font-weight: 600; }
+html.focus .label-illustrative { border: 0; padding: 0; }
+html.focus .revealed { background: none; border-left: 3px solid var(--ok); padding: 4px 0 4px 12px; }
+html.focus .revealed.wrong { background: none; border-left-color: var(--red); }
+html.focus .note { border-left: 0; padding-left: 0; color: var(--text-2); }
+html.focus .hint-text { background: none; border-left: 3px solid var(--amber); border-radius: 0; }
+html.focus .workings summary { color: var(--text-2); font-weight: 600; }
+html.focus .workings-body { background: var(--page); }
+
+/* Components */
+html.focus .question-hero { border-left: 4px solid var(--red); background: none; padding: 4px 0 4px 16px; font-weight: 700; }
+html.focus .poll-item { border: 0; border-bottom: 1px solid var(--panel); border-radius: 0; padding: 10px 0; background: none; }
+html.focus .mech { border: 0; box-shadow: 0 1px 2px rgba(0, 0, 0, .06); }
+html.focus .mech[data-on="true"] { box-shadow: inset 3px 0 0 var(--red), 0 1px 2px rgba(0, 0, 0, .06); }
+html.focus .impact { border: 0; background: var(--page); }
+html.focus .impact.on { background: var(--text); color: #fff; }
+html.focus .statements li { border: 0; border-left: 3px solid var(--red); box-shadow: 0 1px 2px rgba(0, 0, 0, .06); }
+html.focus .timeline { border-left-color: var(--panel); }
+html.focus .timeline li::before { width: 11px; height: 11px; left: -7px; border-width: 2px; }
+html.focus .progress > span, html.focus .vote-bar > span { background: var(--text-2); }
+html.focus .trigger-row { border-bottom: 0; }
+
+/* Charts: drawn at 1:1 so chart text keeps the small size; lighter guides */
+html.focus .chart { width: auto; max-width: 100%; height: auto; }
+html.focus .chart .grid { stroke: #EFEFEF; }
+html.focus .chart .axis { stroke: var(--border); }
+html.focus .chart .bar-value, html.focus .chart .marker-label, html.focus .chart .vline-label { font-weight: 600; }
+
+/* Footer */
+html.focus .footer { padding: 16px 0 24px; }
+
+/* Header controls sit on red: keep them white-on-red, not the quiet body style */
+html.focus .topbar .field label, html.focus .topbar .field-label { color: #fff; font-weight: 600; }
+html.focus .topbar .segmented { background: rgba(255, 255, 255, .15); border-color: rgba(255, 255, 255, .6); }
+html.focus .topbar .seg-item label { color: #fff; font-weight: 600; }
+html.focus .topbar .seg-item input:checked + label { background: #fff; color: var(--red-dark); }
+html.focus .field-check label { font-weight: 400; color: var(--text); }
+html.focus .trigger-row { gap: 12px; }
+html.focus .trigger-row :is(select, input) { min-height: 40px; }
