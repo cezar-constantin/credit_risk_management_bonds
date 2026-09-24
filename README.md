@@ -2,6 +2,9 @@
 
 **UZH Executive Education Finance · Cezar Chirila**
 
+**▶ Open the dashboard / 打开应用: https://cezar-constantin.github.io/credit_risk_management_bonds/**
+· [Module description / 模块说明](https://cezar-constantin.github.io/credit_risk_management_bonds/description.html)
+
 [English](#english) · [中文](#中文)
 
 > **Disclaimer.** Educational use only. This application supports a University of Zurich Executive Education class. All issuers, positions, prices, spreads, financial statements, dates and scenarios are fictional teaching assumptions; simplified formulas are used for teaching, not for valuation, accounting or regulatory reporting. Nothing here is investment, accounting, legal or regulatory advice, and nothing represents the policies, data or views of ICBC or any other institution. Verify any figure against primary sources before use.
@@ -31,6 +34,10 @@ The app follows one fictional position through four dated stops, computing every
 
 Fifteen tabs: Home · Position · Mechanisms · Repricing lab · Spread anatomy · Ratings · Timeline · Structure · Portfolio · Recognition · Capital · Controls · Decision · The answer · Glossary. See [`app/description.html`](app/description.html) for each module's purpose, inputs and outputs, and [`docs/slide-to-module-map.md`](docs/slide-to-module-map.md) for where each class slide lives in the app.
 
+### Open it online
+
+The app is published on GitHub Pages at **https://cezar-constantin.github.io/credit_risk_management_bonds/**. It works on any laptop or tablet browser, and participants can use it straight away. Every push to `main` redeploys it.
+
 ### Run it offline (instructor laptop)
 
 `app/index.html` is one self-contained file: all code, styles, data and both languages are inlined. It makes no network calls and loads no external fonts or scripts.
@@ -54,7 +61,7 @@ Choose **Participant**. Work through the tabs at your own pace. Hints and **Chec
 
 ### Deploy
 
-- **GitHub Pages:** `.github/workflows/ci.yml` runs the tests, the i18n parity check and the build, then deploys `app/` to Pages on every push to `main`. In the repository settings, set Pages → Source to **GitHub Actions**.
+- **GitHub Pages:** `.github/workflows/ci.yml` runs the tests, the i18n parity check and the build, then deploys `app/` to Pages on every push to `main` (live at https://cezar-constantin.github.io/credit_risk_management_bonds/). Pages → Source is set to **GitHub Actions**.
 - **Portfolio path:** copy `app/index.html` and `app/description.html` to `cezar-chirila.com/risk-intelligence/bond-credit-risk-case-lab/app/`. No server-side code is needed.
 
 ### How the numbers tie to the class deck
@@ -117,6 +124,10 @@ The visual identity is derived from the public website icbc.com.cn (primary red 
 | 4 | 2026年6月 | 决策：可成交价格对比概率加权的持有价值 |
 
 应用共15个标签页。各模块的目的、输入和输出见 [`app/description.html`](app/description.html)；每张课程幻灯片对应的模块见 [`docs/slide-to-module-map.md`](docs/slide-to-module-map.md)。
+
+### 在线打开
+
+应用发布在 GitHub Pages：**https://cezar-constantin.github.io/credit_risk_management_bonds/** ，可在任何笔记本电脑或平板浏览器中直接使用。每次推送到 `main` 都会自动重新部署。
 
 ### 离线运行（讲师笔记本电脑）
 
