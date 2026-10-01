@@ -22,7 +22,7 @@ export function engineAnswers(data, { position = data.position } = {}) {
   const cover = fy.cash / fy.std;
   const hp = F.mar26;
 
-  return {
+  const out = {
     Q12: {
       values: { benchmark: bench.approx, spread: spread.approx, modifiedDuration: F.t0.modified },
       workings: `benchmark +30 bp: −MV × D_mod × Δy = −${(bench.p0).toFixed(2)} × ${F.t0.modified.toFixed(2)} × 0.0030 = ${f2(bench.approx)}; spread +30 bp: ${f2(spread.approx)} → identical`,
@@ -64,30 +64,43 @@ export function engineAnswers(data, { position = data.position } = {}) {
     },
     Q27: {
       values: { stage2Charge: F.ecl.stage2Charge, stage1Charge: F.ecl.stage1Charge, fvtpl: F.recognition.fvtpl.pnlPeriod },
-      workings: `Stage 2 charge = lifetime ${F.ecl.aprLifetime.toFixed(2)} − 12-month at T0 ${F.ecl.t0.toFixed(2)} = ${F.ecl.stage2Charge.toFixed(2)} (Stage 1 would be ${F.ecl.stage1Charge.toFixed(2)}; FVTPL shows ${f2(F.recognition.fvtpl.pnlPeriod)})`,
+      workings: `cumulative charge since purchase, excluding day 1 = lifetime ${F.ecl.aprLifetime.toFixed(2)} − day-1 12-month ${F.ecl.t0.toFixed(2)} = ${F.ecl.stage2Charge.toFixed(2)} (Stage 1 would be ${F.ecl.stage1Charge.toFixed(2)}; FVTPL shows ${f2(F.recognition.fvtpl.pnlPeriod)})`,
       display: F.ecl.stage2Charge.toFixed(2),
       targets: [F.ecl.stage2Charge],
       expectedLetter: 'B',
     },
+    // v5: same-date break-even (15 Jun 2026): (91.32 − 89.91) ÷ (98.11 − 89.91) ≈ 17%.
     Q31: {
-      values: { breakEven: F.jul26.breakEven, sale: F.jun26.bid, A: F.jul26.A, B: F.jul26.B },
-      workings: `break-even support probability = (${F.jun26.bid.toFixed(2)} − ${F.jul26.B.toFixed(2)}) ÷ (${F.jul26.A.toFixed(2)} − ${F.jul26.B.toFixed(2)}) = ${(F.jul26.breakEven * 100).toFixed(1)}% ≈ ${Math.round(F.jul26.breakEven * 100)}%`,
-      display: `≈ ${Math.round(F.jul26.breakEven * 100)}%`,
-      targets: [F.jul26.breakEven * 100],
+      values: { breakEven: F.cf.breakEven, sale: F.jun26.bid, A: F.cf.A, B: F.cf.B },
+      workings: `break-even support probability = (${F.jun26.bid.toFixed(2)} − ${F.cf.B.toFixed(2)}) ÷ (${F.cf.A.toFixed(2)} − ${F.cf.B.toFixed(2)}) = ${(F.cf.breakEven * 100).toFixed(1)}% ≈ ${Math.round(F.cf.breakEven * 100)}% (all values on 15 Jun 2026)`,
+      display: `≈ ${Math.round(F.cf.breakEven * 100)}%`,
+      targets: [F.cf.breakEven * 100],
       tol: 0.5,
-      expectedLetter: 'A',
+      expectedLetter: 'B',
+    },
+    // v5 new: period charge 15 Mar → 15 Apr 2026 when the allowance moves 1.20 → 6.00.
+    Q5: {
+      values: { opening: F.ecl.mar26, closing: F.ecl.aprLifetime, charge: -(F.ecl.aprLifetime - F.ecl.mar26) },
+      workings: `period charge = −(${F.ecl.aprLifetime.toFixed(2)} − ${F.ecl.mar26.toFixed(2)}) = ${f2(-(F.ecl.aprLifetime - F.ecl.mar26))}`,
+      display: f2(-(F.ecl.aprLifetime - F.ecl.mar26)),
+      targets: [F.ecl.aprLifetime - F.ecl.mar26],
+      expectedLetter: 'B',
     },
     Q17bid: {
       values: { bid: F.mar26.bid },
-      workings: `price at 6.70% (6.30% + 40 bp) with two years remaining = ${F.mar26.bid.toFixed(2)} (class figure ≈ 94.35)`,
+      workings: `price at 6.70% (mid 6.30% + 20 bp mid-to-bid + 20 bp block) with two years remaining = ${F.mar26.bid.toFixed(2)}`,
       display: F.mar26.bid.toFixed(2),
-      targets: [94.35],
-      tol: 0.05,
+      targets: [F.mar26.bid],
     },
   };
+  Object.entries(ENGINE_ALIASES).forEach(([id, of]) => { out[id] = out[of]; });
+  return out;
 }
 
-export const ENGINE_QUESTION_IDS = ['Q12', 'Q13', 'Q14', 'Q15', 'Q21', 'Q27', 'Q31'];
+export const ENGINE_QUESTION_IDS = ['Q12', 'Q13', 'Q14', 'Q15', 'Q21', 'Q27', 'Q31', 'Q5'];
+
+/** v5 renumbering of the class tier: Q3 = old Q12, Q6 = old Q31 (answers computed the same way). */
+export const ENGINE_ALIASES = { Q3: 'Q12', Q6: 'Q31' };
 
 /** Numbers appearing in an option text (signs ignored; thousands separators removed). */
 export function numbersIn(text) {

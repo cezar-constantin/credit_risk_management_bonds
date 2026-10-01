@@ -6,7 +6,7 @@ import {
 } from '../engine/index.js';
 
 export const TABS = ['home', 'position', 'mechanisms', 'bondsloans', 'repricing', 'spread', 'ratings', 'timeline', 'structure',
-  'portfolio', 'recognition', 'capital', 'controls', 'decision', 'answer', 'glossary'];
+  'portfolio', 'recognition', 'controls', 'decision', 'answer', 'capital', 'glossary'];
 
 export const STOP_IDS = CASE.stops.map((s) => s.id);
 

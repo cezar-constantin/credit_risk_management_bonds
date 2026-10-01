@@ -3,11 +3,12 @@
 import { t, tr } from '../i18n.js';
 import * as store from '../state.js';
 import * as fmt from '../format.js';
+import { CASE } from '../data.js';
 import { h, card, slider, numberField, segmented, select, textField, table, workings, button, paras } from '../ui.js';
 import { holdValue, breakEvenProbability, extensionBranch } from '../../engine/index.js';
 import { barChart } from '../charts.js';
 import { tabHeader, legend, guidedKeep } from './common.js';
-import { value, allowanceAt, market } from '../model.js';
+import { value, allowanceAt, market, figures } from '../model.js';
 
 const ACTIONS = ['hold', 'reduce', 'hedge', 'exit'];
 const METRICS = ['spread', 'price', 'cashCover', 'event', 'date'];
@@ -15,8 +16,8 @@ const METRICS = ['spread', 'price', 'cashCover', 'event', 'date'];
 function econ() {
   const d = store.get().decision;
   const jun = value('jun26', 'none');
-  const A = value('jul26', 'A');
-  const B = value('jul26', 'B');
+  const A = value('jun26', 'A');
+  const B = value('jun26', 'B');
   const al = allowanceAt('jun26');
   const pA = d.pA / 100;
   const hv = holdValue({ pA, valueA: A.mid, valueB: B.mid, capitalCost: d.capitalCost, liquidityCost: d.liquidityCost });
@@ -49,8 +50,8 @@ function download(name, text) {
 }
 
 function scenarioMetrics(cf) {
-  const v = value('jul26', cf);
-  const m = market('jul26', cf);
+  const v = value('jun26', cf);
+  const m = market('jun26', cf);
   return { spread: m.spread, price: v.perHundred.mid, cashCover: cf === 'A' ? 0.6 : 0.3, event: cf === 'B', date: '2026-07-15' };
 }
 
@@ -70,16 +71,15 @@ export function render(root, ctx, { goTab }) {
     const s = e.jun.scale;
     const items = [
       { label: t('decision.l.acGross'), value: e.jun.amortisedCost / s, color: '--series-cost' },
-      { label: t('decision.l.acNet'), value: (e.jun.amortisedCost - e.al.allowance) / s, color: '--series-cost' },
       { label: t('decision.l.mid'), value: e.jun.mid / s, color: '--series-spread' },
       { label: t('decision.l.bid'), value: e.jun.bid / s, color: '--series-bid' },
       { label: t('decision.l.holdA'), value: e.A.mid / s, color: '--series-rates' },
       { label: t('decision.l.holdB'), value: e.B.mid / s, color: '--series-rates' },
-      { label: t('decision.l.expected', { p: fmt.pctRaw(e.d.pA, 0) }), value: e.hv / s, texture: true },
     ];
     return [
-      legend([{ label: t('decision.l.legendAC'), color: '--series-cost' }, { label: t('decision.l.mid'), color: '--series-spread' }, { label: t('decision.l.bid'), color: '--series-bid' }, { label: t('decision.l.legendHold'), color: '--series-rates' }, { label: t('decision.l.expectedShort'), hatch: true }]),
+      legend([{ label: t('decision.l.legendAC'), color: '--series-cost' }, { label: t('decision.l.mid'), color: '--series-spread' }, { label: t('decision.l.bid'), color: '--series-bid' }, { label: t('decision.l.legendHold'), color: '--series-rates' }]),
       barChart({ items, title: t('decision.ladderTitle'), base: 85, fmt: (v) => fmt.price(v), marker: { value: e.jun.bid / s, label: t('decision.l.bidMarker') } }),
+      h('p', null, h('strong', null, t('decision.ladderBe', { p: fmt.pct(e.be.raw, 1) }))),
       h('p', { class: 'small muted' }, t('decision.ladderNote')),
     ];
   }));
@@ -115,6 +115,30 @@ export function render(root, ctx, { goTab }) {
         workings('dec-be', t('decision.beFormula'), [[t('decision.saleProceeds'), fmt.money(sell)], [t('decision.holdA'), fmt.money(e.A.mid)], [t('decision.holdB'), fmt.money(e.B.mid)], [t('decision.capitalCost'), fmt.money(e.d.capitalCost)], [t('decision.liquidityCost'), fmt.money(e.d.liquidityCost)], [t('decision.pA'), fmt.pctRaw(e.d.pA, 0)]]),
       ];
     }));
+
+  // ---- Forward-horizon model (behind a toggle) -------------------------------------------------
+  const forward = card(t('decision.fw.title'),
+    segmented({ path: 'decision.view', label: t('decision.fw.view'), options: [{ value: 'same', label: t('decision.fw.same') }, { value: 'forward', label: t('decision.fw.forward') }] }),
+    ctx.live(() => {
+      if (store.get().decision.view !== 'forward') return h('p', { class: 'small muted' }, t('decision.fw.sameNote'));
+      const F = figures().forward;
+      return [
+        table([t('decision.measure'), t('decision.fw.mid'), t('decision.fw.bid')], [
+          [t('decision.fw.sell', { r: fmt.pctRaw(CASE.forward.reinvestRate) }), fmt.price(F.sell), fmt.price(F.sell)],
+          [t('decision.fw.holdA', { w: fmt.bp(F.A.width) }), fmt.price(F.A.mid), fmt.price(F.A.bid)],
+          [t('decision.fw.holdB', { w: fmt.bp(F.B.width) }), fmt.price(F.B.mid), fmt.price(F.B.bid)],
+          { cls: 'hl', cells: [t('decision.breakEvenP'), fmt.pct(F.breakEvenMid, 1), fmt.pct(F.breakEven, 1)] },
+        ], { numericCols: [1, 2], caption: t('decision.fw.caption', { date: fmt.date(F.date) }) }),
+        h('p', { class: 'small' }, t('decision.fw.read', { be: fmt.pct(F.breakEven, 1) })),
+        workings('dec-fw', t('decision.fw.formula'), [[t('decision.saleProceeds'), fmt.price(figures().jun26.bid)], [t('decision.fw.years'), fmt.num(F.years, 2)]]),
+      ];
+    }));
+
+  // ---- v5 model decision record (memo rows) ---------------------------------------------------
+  const model = card(t('decision.model.title'),
+    h('p', { class: 'small muted' }, t('decision.model.intro')),
+    table([t('decision.model.item'), t('decision.model.value')], ['tranche1', 'support', 'refinancing', 'exit', 'floor', 'impairment', 'sizing'].map((k) => [t(`decision.model.rows.${k}.k`), t(`decision.model.rows.${k}.v`, { tr2: fmt.price(figures().secondTranche.bid) })])),
+    h('p', { class: 'note' }, t('decision.model.note')));
 
   // ---- Extension branch -----------------------------------------------------------------------
   const ext = card(t('decision.extTitle'),
@@ -284,7 +308,8 @@ export function render(root, ctx, { goTab }) {
   root.append(...tabHeader('decision'),
     h('div', { class: 'stack' },
       ladder,
-      h('div', { class: 'grid grid-2' }, prob, h('div', { class: 'stack' }, ext, hedge)),
+      h('div', { class: 'grid grid-2' }, prob, h('div', { class: 'stack' }, forward, model)),
+      h('div', { class: 'grid grid-2' }, ext, hedge),
       form,
       replay),
     printSummary);

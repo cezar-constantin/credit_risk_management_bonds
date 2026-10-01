@@ -41,7 +41,7 @@ test('15 Mar 2026, 2 years remaining — decomposition and holding-period result
   eq2(F.mar26.coupon, 3.60, 'coupon');
   eq2(F.mar26.gross, -1.33, 'gross total return');
   eq2(F.mar26.funded, -3.33, 'funded return');
-  assert.ok(Math.abs(F.mar26.bid - 94.35) < 0.05, `executable bid ≈ 94.35 (got ${F.mar26.bid.toFixed(4)})`);
+  eq2(F.mar26.bid, 94.37, 'executable bid at 6.70% (mid + 20 bp mid-to-bid + 20 bp block), v5');
 });
 
 test('15 Apr 2026, 1.917 years remaining — dirty value, mid, executable bid', () => {
@@ -84,11 +84,46 @@ test('15 Jun 2026, 1.75 years remaining', () => {
   eq2(F.jun26.realised, -9.57, 'realised if sold');
 });
 
-test('Jul 2026 counterfactuals and break-even probability', () => {
-  assert.equal(F.jul26.remaining.toFixed(3), '1.667');
-  eq2(F.jul26.A, 98.53, 'counterfactual A at 5.30 %');
-  eq2(F.jul26.B, 90.68, 'counterfactual B at 10.80 %');
-  assert.equal(Math.round(F.jul26.breakEven * 100), 8, 'break-even probability ≈ 8 %');
+test('v5: counterfactuals on the same date as the bid (15 Jun 2026) and break-even ≈ 17.2 %', () => {
+  eq2(F.cf.remaining, 1.75, 'remaining life');
+  eq2(F.cf.A, 98.11, 'counterfactual A at 5.30 %');
+  eq2(F.cf.B, 89.91, 'counterfactual B at 10.80 %');
+  assert.equal((F.cf.breakEven * 100).toFixed(1), '17.2', 'break-even probability');
+});
+
+test('v5: forward-horizon model to 15 Sep 2026', () => {
+  eq2(F.forward.sell, 91.78, 'sell and reinvest at 2.00 %');
+  eq2(F.forward.A.mid, 99.39, 'hold A mid');
+  eq2(F.forward.A.bid, 98.56, 'hold A bid');
+  eq2(F.forward.B.mid, 92.25, 'hold B mid');
+  eq2(F.forward.B.bid, 90.45, 'hold B bid (150 bp-wide market)');
+  assert.equal((F.forward.breakEven * 100).toFixed(1), '16.3', 'forward-horizon break-even');
+  assert.ok(F.forward.breakEvenMid < 0, 'negative with mid values');
+});
+
+test('v5: second-tranche bid and quote convention', () => {
+  eq2(F.secondTranche.bid, 90.61, 'mid + 150 bp');
+  const jun = data.stops.find((s) => s.id === 'jun26');
+  assert.equal(jun.width, 100);
+});
+
+test('v5: ECL path and accounting bridge', () => {
+  const B = F.bridge;
+  eq2(F.ecl.t0, 0.6, 'day 1');
+  eq2(F.ecl.mar26, 1.2, '15 Mar 2026, Stage 1 remeasured at PD 2 %');
+  eq2(F.ecl.aprLifetime, 6.0, '15 Apr 2026, Stage 2');
+  eq2(F.ecl.apr12, 3.6, '12-month alternative');
+  eq2(F.ecl.aprLifetimeDiscounted, 5.79, 'discounted illustration');
+  ['day1', 'mar26', 'apr26'].forEach((d, i) => eq2(B[d].ac.carrying, [99.4, 98.8, 94.0][i], `AC net ${d}`));
+  ['day1', 'mar26', 'apr26'].forEach((d, i) => eq2(B[d].fvoci.carrying, [100.0, 95.07, 93.59][i], `FVOCI carrying ${d}`));
+  ['day1', 'mar26', 'apr26'].forEach((d, i) => eq2(B[d].fvoci.oci, [0.6, -3.73, -0.41][i], `FVOCI OCI ${d}`));
+  ['day1', 'mar26', 'apr26'].forEach((d, i) => eq2(B[d].fvoci.equity, [0, -4.93, -6.41][i], `FVOCI equity ${d}`));
+  ['day1', 'mar26', 'apr26'].forEach((d, i) => eq2(B[d].fvtpl.equity, [0, -4.93, -6.41][i], `FVTPL ${d}`));
+  eq2(B.period.ac.pnl, -4.8, 'AC period P&L');
+  eq2(B.period.fvoci.pnl, -4.8, 'FVOCI period P&L');
+  eq2(B.period.fvoci.oci, 3.32, 'FVOCI period OCI');
+  eq2(B.period.fvoci.equity, -1.48, 'FVOCI period equity');
+  eq2(B.period.fvtpl.pnl, -1.48, 'FVTPL period');
 });
 
 test('Extension branch — PV cost vs modification loss at the original EIR', () => {

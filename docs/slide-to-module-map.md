@@ -24,7 +24,7 @@ The v3 deck (`Credit_Risk_in_Bond_Investment_Training_Deck_ICBC_v3`) has 35 main
 | 14 | Holding-period result | Q14 | Repricing | Holding-period table; Q14 (engine: −3.33 → C) |
 | 15 | What a spread pays for | Q15 | Spread anatomy | Break-even PD; Q15 (engine: 3.5% → B) |
 | 16 | Ratings and evidence | Q16 | Ratings | Rating-termination event, Yongcheng example; Q16 panel |
-| 17 | First decision (Stop 2) | V17, Q17 | Repricing | Stop 2 preset, executable bid 94.35 (engine check); V17 vote, Q17 panel |
+| 17 | First decision (Stop 2) | V17, Q17 | Repricing | Stop 2 preset, executable bid 94.37 (engine check; width / mid-to-bid / block); V17 vote, Q17 panel |
 | 18 | Transition slide | — | Timeline | Transition slide in the deck — no separate control |
 | 19 | Transition slide | — | Timeline | Transition slide in the deck — no separate control |
 | 20 | Timeline: deterioration while paying | V20, Q20 | Timeline | Dated facts with thesis votes; V20 vote, Q20 panel |
@@ -34,11 +34,11 @@ The v3 deck (`Credit_Risk_in_Bond_Investment_Training_Deck_ICBC_v3`) has 35 main
 | 24 | Structure and claims | Q24 | Structure | Parent MTN vs keepwell SPV vs bank Tier-2; Q24 panel |
 | 25 | Portfolio contrasts | Q25 | Portfolio | Five lines × four questions (keepwell: FX and governing law; Tier-2 shortened); Q25 panel |
 | 26 | Transition slide | — | Recognition | Transition slide in the deck — no separate control |
-| 27 | Recognition | Q27 | Recognition | AC / FVOCI / FVTPL recognition, ECL scenarios, SICR; Q27 (engine: 5.40 → B); CECL callout for New York |
+| 27 | Recognition | Q27 | Recognition | AC / FVOCI / FVTPL recognition, ECL scenarios, SICR; Q27 (engine: 5.40 → B); accounting bridge (three dates × three lenses, period −4.80 / +3.32 / −1.48), Q5 (engine: −4.80 → B); CECL callout for New York |
 | 28 | Five-category classification | Q28 | Recognition | Five-category panel (Art. 7 more-than-10% rule) vs IFRS 9 stage; Q28 panel |
 | 29 | Capital | Q29 | Capital | Risk weights, IRB vs weighted, OCI into CET1 (AT1/Tier-2 holdings note in Show workings); Q29 panel |
 | 30 | Controls and five lenses | Q30 | Controls | Four control steps, illustrative escalation rule, five functional lenses (FMD HO, branch/relationship, risk, audit, operations); Q30 panel |
-| 31 | Decision economics | Q31 | Decision | Value ladder, break-even marker on the probability slider; Q31 (engine: ≈ 8% → A) |
+| 31 | Decision economics | Q31 | Decision | Same-date ladder (100.89 / 92.76 / 91.32 / 98.11 / 89.91), break-even marker ≈ 17%; forward-horizon toggle (16.3%); Q31/Q6 (engine: ≈ 17% → B) |
 | 32 | Final decision (Stop 4) | V32, Q32 | Decision | Decision record, replay A/B; V32 vote, Q32 panel |
 | 33 | ZKB visit questions | Q33 | The answer | ZKB visit questions; Q33 panel |
 | 34 | The answer | — | The answer | Five statements with links; score; question sheet and answer key print |
@@ -60,7 +60,7 @@ The v3 deck (`Credit_Risk_in_Bond_Investment_Training_Deck_ICBC_v3`) has 35 main
 
 ## Engine questions (checked in CI)
 
-The engine computes the answers to Q12, Q13, Q14, Q15, Q21, Q27 and Q31 at runtime. `tests/questions.test.js` recomputes each value and asserts that it selects the option marked `answer` in `data/questions.json`. The Q17 executable bid (94.35 = price at 6.70% with two years remaining) is checked in the same file.
+The engine computes the answers to Q12, Q13, Q14, Q15, Q21, Q27 and Q31 at runtime. `tests/questions.test.js` recomputes each value and asserts that it selects the option marked `answer` in `data/questions.json`. The Q17 executable bid (94.37 = price at 6.70% with two years remaining) is checked in the same file. v5: Q3 = old Q12, Q6 = old Q31 (now ≈ 17%, same-date values), Q5 new (period charge −4.80).
 
 ## Session blocks (instructor timer)
 

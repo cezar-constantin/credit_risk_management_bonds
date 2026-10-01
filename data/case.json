@@ -121,7 +121,7 @@
       "months": 0,
       "dBenchmark": 0,
       "dSpread": 0,
-      "bidAsk": 5,
+      "width": 5,
       "ecl": {
         "stage": 1,
         "pd12": null,
@@ -134,7 +134,7 @@
       "months": 6,
       "dBenchmark": 30,
       "dSpread": 120,
-      "bidAsk": 40,
+      "width": 40,
       "ecl": {
         "stage": 1,
         "pd12": null,
@@ -147,10 +147,10 @@
       "months": 12,
       "dBenchmark": 30,
       "dSpread": 240,
-      "bidAsk": 40,
+      "width": 40,
       "ecl": {
         "stage": 1,
-        "pd12": null,
+        "pd12": 2,
         "pdLife": null
       }
     },
@@ -160,7 +160,7 @@
       "months": 13,
       "dBenchmark": 30,
       "dSpread": 340,
-      "bidAsk": 60,
+      "width": 60,
       "ecl": {
         "stage": 2,
         "pd12": 6,
@@ -173,20 +173,7 @@
       "months": 15,
       "dBenchmark": 30,
       "dSpread": 490,
-      "bidAsk": 100,
-      "ecl": {
-        "stage": 2,
-        "pd12": 6,
-        "pdLife": 10
-      }
-    },
-    {
-      "id": "jul26",
-      "date": "2026-07-15",
-      "months": 16,
-      "dBenchmark": 30,
-      "dSpread": 490,
-      "bidAsk": 100,
+      "width": 100,
       "ecl": {
         "stage": 2,
         "pd12": 6,
@@ -195,11 +182,11 @@
       "counterfactuals": {
         "A": {
           "dSpread": 140,
-          "bidAsk": 40
+          "width": 40
         },
         "B": {
           "dSpread": 690,
-          "bidAsk": 150
+          "width": 150
         }
       }
     }
@@ -271,7 +258,8 @@
   "ecl": {
     "pd12": 6,
     "pdLife": 10,
-    "lgd": 60
+    "lgd": 60,
+    "mar26Pd12": 2
   },
   "extension": {
     "paidShare": 40,
@@ -295,46 +283,103 @@
       "date": "2025-09-15",
       "kind": "market",
       "spread": 330,
-      "bidAsk": 40
+      "width": 40,
+      "dates": {
+        "occurred": "2025-09-15",
+        "disclosed": "2025-09-15",
+        "ho": null,
+        "branch": null,
+        "decision": null
+      }
     },
     {
       "id": "f1",
       "date": "2025-12-15",
-      "kind": "operating"
+      "kind": "operating",
+      "dates": {
+        "occurred": "2025-12-15",
+        "disclosed": "2025-12-15",
+        "ho": null,
+        "branch": null,
+        "decision": null
+      }
     },
     {
       "id": "f2",
       "date": "2026-02-10",
-      "kind": "governance"
+      "kind": "governance",
+      "dates": {
+        "occurred": "2026-02-10",
+        "disclosed": "2026-02-10",
+        "ho": null,
+        "branch": null,
+        "decision": null
+      }
     },
     {
       "id": "f3",
       "date": "2026-03-15",
-      "kind": "payment"
+      "kind": "payment",
+      "dates": {
+        "occurred": "2026-03-15",
+        "disclosed": "2026-03-15",
+        "ho": null,
+        "branch": null,
+        "decision": null
+      }
     },
     {
       "id": "f4",
-      "date": "2026-03-20",
-      "kind": "funding"
+      "date": "2026-03-12",
+      "kind": "funding",
+      "dates": {
+        "occurred": "2026-03-12",
+        "disclosed": null,
+        "ho": null,
+        "branch": "2026-03-12",
+        "decision": null
+      },
+      "branchOnly": true
     },
     {
       "id": "f5",
-      "date": "2026-04-28",
+      "date": "2026-04-14",
       "kind": "financials",
       "spread": 550,
-      "bidAsk": 60
+      "width": 60,
+      "dates": {
+        "occurred": "2026-04-14",
+        "disclosed": "2026-04-14",
+        "ho": null,
+        "branch": null,
+        "decision": null
+      }
     },
     {
       "id": "f6",
       "date": "2026-06-12",
       "kind": "rating",
       "spread": 700,
-      "bidAsk": 100
+      "width": 100,
+      "dates": {
+        "occurred": "2026-06-12",
+        "disclosed": "2026-06-12",
+        "ho": null,
+        "branch": null,
+        "decision": null
+      }
     },
     {
       "id": "f7",
       "date": "2026-06-15",
-      "kind": "maturities"
+      "kind": "maturities",
+      "dates": {
+        "occurred": "2026-06-15",
+        "disclosed": "2026-06-15",
+        "ho": null,
+        "branch": null,
+        "decision": null
+      }
     }
   ],
   "escalation": {
@@ -932,10 +977,8 @@
     {
       "id": "m26bid",
       "path": "mar26.bid",
-      "expected": 94.35,
+      "expected": 94.37,
       "dp": 2,
-      "tol": 0.05,
-      "approx": true,
       "tab": "repricing"
     },
     {
@@ -1108,24 +1151,24 @@
     },
     {
       "id": "jlA",
-      "path": "jul26.A",
-      "expected": 98.53,
+      "path": "cf.A",
+      "expected": 98.11,
       "dp": 2,
       "tab": "decision"
     },
     {
       "id": "jlB",
-      "path": "jul26.B",
-      "expected": 90.68,
+      "path": "cf.B",
+      "expected": 89.91,
       "dp": 2,
       "tab": "decision"
     },
     {
       "id": "jlbe",
-      "path": "jul26.breakEven",
-      "expected": 0.08,
-      "dp": 2,
-      "tol": 0.005,
+      "path": "cf.breakEven",
+      "expected": 0.172,
+      "dp": 3,
+      "tol": 0.0005,
       "approx": true,
       "pct": true,
       "tab": "decision"
@@ -1175,6 +1218,113 @@
       "dp": 5,
       "pct": true,
       "tab": "spread"
+    },
+    {
+      "id": "e1m26",
+      "path": "ecl.mar26",
+      "expected": 1.2,
+      "dp": 2,
+      "tab": "recognition"
+    },
+    {
+      "id": "brAc",
+      "path": "bridge.apr26.ac.carrying",
+      "expected": 94.0,
+      "dp": 2,
+      "tab": "recognition"
+    },
+    {
+      "id": "brFvM",
+      "path": "bridge.mar26.fvoci.carrying",
+      "expected": 95.07,
+      "dp": 2,
+      "tab": "recognition"
+    },
+    {
+      "id": "brFvA",
+      "path": "bridge.apr26.fvoci.carrying",
+      "expected": 93.59,
+      "dp": 2,
+      "tab": "recognition"
+    },
+    {
+      "id": "brOciM",
+      "path": "bridge.mar26.fvoci.oci",
+      "expected": -3.73,
+      "dp": 2,
+      "tab": "recognition"
+    },
+    {
+      "id": "brPerAc",
+      "path": "bridge.period.ac.pnl",
+      "expected": -4.8,
+      "dp": 2,
+      "tab": "recognition"
+    },
+    {
+      "id": "brPerOci",
+      "path": "bridge.period.fvoci.oci",
+      "expected": 3.32,
+      "dp": 2,
+      "tab": "recognition"
+    },
+    {
+      "id": "brPerEq",
+      "path": "bridge.period.fvoci.equity",
+      "expected": -1.48,
+      "dp": 2,
+      "tab": "recognition"
+    },
+    {
+      "id": "fwSell",
+      "path": "forward.sell",
+      "expected": 91.78,
+      "dp": 2,
+      "tab": "decision"
+    },
+    {
+      "id": "fwAmid",
+      "path": "forward.A.mid",
+      "expected": 99.39,
+      "dp": 2,
+      "tab": "decision"
+    },
+    {
+      "id": "fwAbid",
+      "path": "forward.A.bid",
+      "expected": 98.56,
+      "dp": 2,
+      "tab": "decision"
+    },
+    {
+      "id": "fwBmid",
+      "path": "forward.B.mid",
+      "expected": 92.25,
+      "dp": 2,
+      "tab": "decision"
+    },
+    {
+      "id": "fwBbid",
+      "path": "forward.B.bid",
+      "expected": 90.45,
+      "dp": 2,
+      "tab": "decision"
+    },
+    {
+      "id": "fwBe",
+      "path": "forward.breakEven",
+      "expected": 0.163,
+      "dp": 3,
+      "tol": 0.0005,
+      "pct": true,
+      "tab": "decision"
+    },
+    {
+      "id": "tr2",
+      "path": "secondTranche.bid",
+      "expected": 90.61,
+      "dp": 2,
+      "tab": "decision"
     }
   ],
   "route": [
@@ -1446,5 +1596,25 @@
       "slide": "A9",
       "tab": "glossary"
     }
-  ]
+  ],
+  "quoteConvention": {
+    "note": "width = full quoted bid–ask in yield; mid_to_bid = width / 2; block concession = width / 2; executable bid = mid + mid_to_bid + block"
+  },
+  "forward": {
+    "date": "2026-09-15",
+    "months": 18,
+    "reinvestRate": 2.0,
+    "A": {
+      "dSpread": 140,
+      "width": 60
+    },
+    "B": {
+      "dSpread": 690,
+      "width": 150
+    }
+  },
+  "secondTranche": {
+    "stop": "jun26",
+    "extraSpread": 150
+  }
 }

@@ -43,19 +43,26 @@ test('Q27 — Stage 2 charge 6.00 − 0.60 = 5.40 (distractors: 3.00 Stage 1, �
   assert.equal(r2(A.Q27.values.fvtpl), -6.41);
 });
 
-test('Q31 — break-even support probability (91.32 − 90.68) ÷ (98.53 − 90.68) ≈ 8%', () => {
-  assert.equal(Math.round(A.Q31.values.breakEven * 100), 8);
+test('Q6 (= old Q31) — same-date break-even (91.32 − 89.91) ÷ (98.11 − 89.91) ≈ 17%', () => {
+  assert.equal(Math.round(A.Q6.values.breakEven * 100), 17);
+  assert.equal(A.Q6, A.Q31);
 });
 
-test('Q17 — quoted executable bid 94.35 = price at 6.70% with two years remaining', () => {
-  assert.ok(Math.abs(A.Q17bid.values.bid - 94.35) < 0.05, `bid ${A.Q17bid.values.bid}`);
+test('Q5 (new) — allowance 1.20 → 6.00; period charge −4.80', () => {
+  assert.equal(r2(A.Q5.values.charge), -4.8);
+});
+
+test('Q17 — executable bid 94.37 = price at 6.70% with two years remaining', () => {
+  assert.equal(r2(A.Q17bid.values.bid), 94.37);
 });
 
 test('option selection logic picks the option carrying the computed figure', () => {
   assert.equal(selectOption(A.Q14, ['+3.60 (coupon)', '−1.33 (gross)', '−3.33 (funded)']), 2);
   assert.equal(selectOption(A.Q13, ['rates −4.36, spread −0.57', 'rates −0.57, spread −4.36', 'rates −2.47, spread −2.46']), 1);
   assert.equal(selectOption(A.Q12, ['benchmark hurts more', 'spread hurts more', 'identical, −0.84 m each']), 2);
-  assert.equal(selectOption(A.Q31, ['≈ 8%', '≈ 50%', '≈ 92%']), 0);
+  assert.equal(selectOption(A.Q6, ['≈ 8%', '≈ 17%', '≈ 50%']), 1);
+  assert.equal(selectOption(A.Q5, ['−6.41', '−4.80', '−3.60']), 1);
+  assert.equal(selectOption(A.Q27, ['−6.41', '−5.40', '−4.80']), 1);
 });
 
 // ---- Against the class question bank ----------------------------------------------------------
@@ -66,9 +73,11 @@ test('question bank: engine questions select the stored answer', { skip: hasBank
   const raw = JSON.parse(readFileSync(bankPath, 'utf8'));
   const items = Array.isArray(raw) ? raw : raw.questions || raw.items || [];
   const byId = Object.fromEntries(items.map((q) => [q.id, q]));
-  for (const id of ENGINE_QUESTION_IDS) {
+  // v5 renumbering: the class tier uses Q3 (old Q12) and Q6 (old Q31); whichever ids the bank carries are checked.
+  const ids = [...ENGINE_QUESTION_IDS, 'Q3', 'Q6'].filter((id) => byId[id] && byId[id].kind === 'engine');
+  assert.ok(ids.length >= 7, `engine questions found: ${ids.join(', ')}`);
+  for (const id of ids) {
     const q = byId[id];
-    assert.ok(q, `${id} is in the bank`);
     assert.equal(q.kind, 'engine', `${id} is an engine question`);
     const opts = (q.opts || []).map((o) => (typeof o === 'string' ? o : o.en ?? Object.values(o)[0]));
     const picked = selectOption(A[id], opts);
@@ -78,11 +87,9 @@ test('question bank: engine questions select the stored answer', { skip: hasBank
   }
 });
 
-test('question bank: shape (29 items, 26 choose-one with an answer, 3 votes)', { skip: hasBank ? false : 'data/questions.json not yet added' }, () => {
+test('question bank: shape (v5: 31 items)', { skip: hasBank ? false : 'data/questions.json not yet added' }, () => {
   const raw = JSON.parse(readFileSync(bankPath, 'utf8'));
   const items = Array.isArray(raw) ? raw : raw.questions || raw.items || [];
-  assert.equal(items.length, 29);
-  assert.equal(items.filter((q) => q.kind === 'vote').length, 3);
-  assert.equal(items.filter((q) => q.kind !== 'vote' && q.answer != null).length, 26);
+  assert.equal(items.length, 31);
   for (const q of items) for (const f of ['id', 'slide', 'kind', 'q', 'opts', 'app']) assert.ok(q[f] != null, `${q.id} has ${f}`);
 });

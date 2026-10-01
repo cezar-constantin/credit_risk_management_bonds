@@ -112,7 +112,7 @@ writeFileSync(resolve(root, 'app/focus.html'), page('focus', read('src/styles/fo
 
 // ---- app/description.html: generated from the same translation files --------------------------
 const esc = (x) => String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const TABS = ['home', 'position', 'mechanisms', 'bondsloans', 'repricing', 'spread', 'ratings', 'timeline', 'structure', 'portfolio', 'recognition', 'capital', 'controls', 'decision', 'answer', 'glossary'];
+const TABS = ['home', 'position', 'mechanisms', 'bondsloans', 'repricing', 'spread', 'ratings', 'timeline', 'structure', 'portfolio', 'recognition', 'controls', 'decision', 'answer', 'capital', 'glossary'];
 function descBody(L) {
   const d = i18n[L];
   if (!d.desc) return '';

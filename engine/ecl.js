@@ -80,3 +80,25 @@ export function recognition({ grossAmortisedCost, fairValue, allowancePrev, allo
 export function ceclOrderOfMagnitude({ pdAnnual, lgd, ead, years }) {
   return pdAnnual * lgd * ead * years;
 }
+
+/**
+ * Accounting bridge across dated points (v5): for each point and lens the carrying amount, the allowance,
+ * OCI and the equity effect (all cumulative since purchase), plus the period movement between the last two.
+ * points: [{ id, gross (gross amortised cost, clean), fv (fair value, clean), allowance }]
+ *   AC    net carrying = gross − allowance; P&L = −allowance
+ *   FVOCI carrying = fv; allowance sits in OCI: OCI = fv − gross + allowance; P&L = −allowance; equity = fv − gross
+ *   FVTPL carrying = fv; P&L = equity = fv − gross (outside the impairment scope)
+ */
+export function accountingBridge(points) {
+  const at = (p) => ({
+    ac: { carrying: p.gross - p.allowance, allowance: p.allowance, pnl: -p.allowance, oci: 0, equity: -p.allowance },
+    fvoci: { carrying: p.fv, allowance: p.allowance, pnl: -p.allowance, oci: p.fv - p.gross + p.allowance, equity: p.fv - p.gross },
+    fvtpl: { carrying: p.fv, allowance: 0, pnl: p.fv - p.gross, oci: 0, equity: p.fv - p.gross },
+  });
+  const out = { order: points.map((p) => p.id) };
+  points.forEach((p) => { out[p.id] = at(p); });
+  const [prev, last] = points.slice(-2).map((p) => out[p.id]);
+  const diff = (l) => ({ pnl: last[l].pnl - prev[l].pnl, oci: last[l].oci - prev[l].oci, equity: last[l].equity - prev[l].equity });
+  out.period = { ac: diff('ac'), fvoci: diff('fvoci'), fvtpl: diff('fvtpl') };
+  return out;
+}

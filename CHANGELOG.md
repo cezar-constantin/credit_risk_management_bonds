@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.3.0 — 2026-10-01 — v5 case numbers (partial; see "Not yet applied")
+
+- Quote convention: `width`, mid-to-bid = width ÷ 2, block concession = width ÷ 2 at every stop; executable bid on 15 Mar 2026 = **94.37** (exact, mid + 20 bp + 20 bp). The Repricing lab shows the three parts and a panel of what was known by 15 Mar 2026 (head office vs branch only).
+- ECL path 0.60 → **1.20** (15 Mar 2026, Stage 1 remeasured at PD 2%) → 6.00 (15 Apr 2026, Stage 2); 12-month alternative 3.60, discounted illustration 5.79.
+- Recognition: the single-period table is replaced by the **accounting bridge**. It covers three dates and three lenses, plus the 15 Mar → 15 Apr period: AC net 99.40 → 98.80 → 94.00; FVOCI 100.00 → 95.07 → 93.59, with OCI +0.60 → −3.73 → −0.41 and equity 0 → −4.93 → −6.41; FVTPL 0 → −4.93 → −6.41. Period: AC P&L −4.80; FVOCI P&L −4.80, OCI +3.32, equity −1.48; FVTPL −1.48.
+- Counterfactuals are valued on **15 Jun 2026**, the same date as the 91.32 bid: A 98.11, B 89.91, break-even ≈ 17.2%. A forward-horizon model to 15 Sep 2026 sits behind a toggle: sell and reinvest 91.78; A 99.39 / 98.56; B 92.25 / 90.45; break-even 16.3% at bid, negative at mid. Second-tranche bid 90.61.
+- Decision: same-date ladder (100.89 / 92.76 / 91.32 / 98.11 / 89.91) and the class model decision record (30 Jun, 31 Jul, 15 Aug, 31 Aug; floor 91.3 with a one-time 50 bp fallback; impairment assessed on the day; sizing rationale).
+- Timeline: four date columns per event (occurrence / disclosure / head office / branch / decision). The trust-loan extensions are branch-only (12 Mar 2026), results are dated 14 Apr 2026 and the rating termination 12 Jun 2026.
+- Capital is now a reference screen (after The answer), with Art. 32 (OCI in CET1) added and "zero issuer credit" on CGBs labelled a case assumption. Home subtitle and disclaimer updated; glossary gains the A10 terms.
+- Engine questions: Q3 = old Q12, Q6 = old Q31 (≈ 17% → B), new Q5 (period charge −4.80 → B), and Q17 bid 94.37 exact. The question-bank shape test now expects 31 items.
+
+### Not yet applied (source files not supplied)
+`case_ledger_v5.json` and its §3, §8 and §9, the v5 question bank, the slide-23 memo, the seven pre-purchase questions, the decision-rights map and four measures, the workout and WM-vs-own-book content, and Capital Rules Art. 58 and Art. 70.
+
 ## 1.2.0 — 2026-09-24 — aligned with the v3 class materials
 
 - Huaxing is de-identified: a top-30 developer in a tier-2 city; a provincial SOE holds 20% with no board seat; one RMB 5 bn shareholder loan in 2024. Counterfactual A is now a registered guarantee plus a new RMB 5 bn loan. Prices, spreads, ratios, ECL figures and all acceptance tests are unchanged. `scripts/check-content.mjs` fails CI if the old profile appears in the build.

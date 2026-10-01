@@ -75,7 +75,7 @@ function panel() {
         h('h2', null, t('ui.context')),
         select({ path: 'ctx.stop', label: t('ui.date'), options: stopOptions }),
         segmented({ path: 'ctx.cf', label: t('ui.counterfactual'), options: [{ value: 'none', label: t('cf.none') }, { value: 'A', label: t('cf.A') }, { value: 'B', label: t('cf.B') }] }),
-        panelCtx.live(() => (store.get().ctx.stop === 'jul26' ? null : h('p', { class: 'field-hint' }, t('ui.cfOnlyJul')))),
+        panelCtx.live(() => (store.get().ctx.stop === 'jun26' ? null : h('p', { class: 'field-hint' }, t('ui.cfOnlyJul')))),
         segmented({ path: 'ctx.lens', label: t('ui.lens'), options: ['AC', 'FVOCI', 'FVTPL'].map((v) => ({ value: v, label: t(`lens.${v}.short`) })) })),
       h('div', null,
         h('h2', null, t('ui.preset')),

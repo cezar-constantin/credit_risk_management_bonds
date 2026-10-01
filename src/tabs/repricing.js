@@ -32,7 +32,7 @@ export function render(root, ctx) {
     h('div', { class: 'row', style: { marginBottom: '8px' } }, PRESETS.map((p) => button(t(`lab.preset.${p.id}`), () => applyPreset(p), { cls: 'btn btn-small' }))),
     slider({ path: 'lab.dBench', label: t('lab.dBench'), min: -100, max: 300, step: 5, fmt: bpFmt }),
     slider({ path: 'lab.dSpread', label: t('lab.dSpread'), min: -150, max: 900, step: 5, fmt: bpFmt }),
-    slider({ path: 'lab.bidAsk', label: t('lab.bidAsk'), min: 0, max: 200, step: 5, fmt: (v) => fmt.bp(v) }),
+    slider({ path: 'lab.bidAsk', label: t('lab.width'), min: 0, max: 200, step: 5, fmt: (v) => fmt.bp(v) }),
     slider({ path: 'lab.months', label: t('lab.horizon'), min: 0, max: maxMonths, step: 1, fmt: (v) => t('lab.months', { n: v }) }),
     segmented({ path: 'lab.view', label: t('lab.view'), options: [{ value: 'instant', label: t('lab.instant') }, { value: 'holding', label: t('lab.holding') }] }),
     segmented({ path: 'lab.dirty', label: t('lab.priceBasis'), options: [{ value: false, label: t('lab.clean') }, { value: true, label: t('lab.dirty') }] }),
@@ -126,6 +126,36 @@ export function render(root, ctx) {
     ];
   }));
 
+  // v5 quote convention: width vs mid-to-bid vs block concession.
+  const quoteCard = card(t('lab.quoteTitle'), ctx.live(() => {
+    const l = L();
+    const mid = calc().d;
+    return [
+      table([t('lab.measure'), t('lab.value')], [
+        [t('lab.width'), fmt.bp(l.bidAsk)],
+        [t('lab.midToBid'), fmt.bp(l.bidAsk / 2)],
+        [t('lab.block'), fmt.bp(l.bidAsk / 2)],
+        { cls: 'total', cells: [t('lab.bidYield'), `${fmt.pct(mid.yBid)} → ${fmt.price(mid.bid)}`] },
+      ], { numericCols: [1] }),
+      h('p', { class: 'small muted' }, t('lab.quoteNote')),
+    ];
+  }));
+
+  // Dated information panel: what was known by 15 Mar 2026, at head office and at the branch.
+  const infoCard = card(t('lab.infoTitle'), (() => {
+    const cut = '2026-03-15';
+    const known = (x) => x && x <= cut;
+    const ho = CASE.timeline.filter((f) => known(f.dates.disclosed) || known(f.dates.ho));
+    const br = CASE.timeline.filter((f) => !ho.includes(f) && known(f.dates.branch));
+    return [
+      h('p', { class: 'small' }, h('strong', null, t('lab.infoHo'))),
+      h('ul', { class: 'small' }, ho.map((f) => h('li', null, `${fmt.date(f.dates.disclosed || f.dates.ho)} — ${t(`timeline.facts.${f.id}`)}`))),
+      h('p', { class: 'small' }, h('strong', null, t('lab.infoBranch'))),
+      h('ul', { class: 'small' }, br.map((f) => h('li', null, `${fmt.date(f.dates.branch)} — ${t(`timeline.facts.${f.id}`)}`))),
+      h('p', { class: 'note' }, t('lab.infoNote')),
+    ];
+  })());
+
   const hpCard = card(t('lab.hpTitle'), ctx.live(() => {
     const c = calc();
     const s = scale();
@@ -201,6 +231,7 @@ export function render(root, ctx) {
       h('div', { class: 'stack' },
         guidedKeep(h('div', { class: 'grid grid-2' }, approxCard, hpCard)),
         decompCard,
+        h('div', { class: 'grid grid-2' }, quoteCard, infoCard),
         pathCard)),
     h('div', { style: { marginTop: '16px' } }, exercise),
   );

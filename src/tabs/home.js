@@ -11,6 +11,7 @@ export function render(root, ctx, { goTab }) {
   root.append(
     ...tabHeader('home', fictionalBadge()),
     h('p', { class: 'question-hero' }, t('question')),
+    h('p', { class: 'tab-intro' }, h('strong', null, t('home.subtitle'))),
     h('div', { class: 'grid grid-2' },
       guidedKeep(card(t('home.pollTitle'),
         h('p', null, h('strong', null, t('home.poll.q'))),

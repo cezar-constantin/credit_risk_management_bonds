@@ -62,6 +62,7 @@ export function render(root, ctx) {
     const R = F.recognition;
     return [
       h('p', { class: 'small' }, t('capital.ociText')),
+      h('p', { class: 'small' }, t('capital.art32')),
       table([t('capital.measure'), t('lens.AC.short'), t('lens.FVOCI.short'), t('lens.FVTPL.short')], [
         [t('capital.cet1Effect'), fmt.money(R.ac.equityCumulative, 2, { sign: true }), fmt.money(R.fvoci.equityCumulative, 2, { sign: true }), fmt.money(R.fvtpl.equityCumulative, 2, { sign: true })],
         [t('capital.ofWhichOci'), '–', fmt.money(R.fvoci.ociCumulative, 2, { sign: true }), '–'],

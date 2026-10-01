@@ -10,7 +10,7 @@
   },
   "disclaimer": {
     "title": "Disclaimer.",
-    "text": "Educational use only. This application supports a University of Zurich Executive Education class. All issuers, positions, prices, spreads, financial statements, dates and scenarios are fictional teaching assumptions; simplified formulas are used for teaching, not for valuation, accounting or regulatory reporting. Nothing here is investment, accounting, legal or regulatory advice, and nothing represents the policies, data or views of ICBC or any other institution. Verify any figure against primary sources before use."
+    "text": "Educational use only. This application supports a University of Zurich Executive Education class. All issuers, positions, prices, spreads, financial statements, dates and scenarios are fictional teaching assumptions; simplified formulas are used for teaching, not for valuation, accounting or regulatory reporting. Nothing here is investment, accounting, legal or regulatory advice, and nothing represents the policies, data or views of ICBC or any other institution. Verify any figure against primary sources before use. No statement is made about ICBC's current practice; thresholds are placeholders."
   },
   "units": {
     "rmb": "RMB",
@@ -39,8 +39,8 @@
     "stop": "Stop",
     "context": "Case context",
     "date": "Date",
-    "counterfactual": "Counterfactual (Jul 2026)",
-    "cfOnlyJul": "Counterfactuals apply to the Jul 2026 date.",
+    "counterfactual": "Counterfactual (15 Jun 2026)",
+    "cfOnlyJul": "Counterfactuals are valued on 15 Jun 2026, the same date as the executable bid.",
     "lens": "Accounting lens",
     "preset": "Preset",
     "classDefaults": "Class defaults",
@@ -137,8 +137,8 @@
       "back": "Impairment charges are a loss while paying: the accounting lens decides where and when they appear."
     },
     "capital": {
-      "title": "Capital",
-      "short": "Capital",
+      "title": "Capital — reference",
+      "short": "Capital (reference)",
       "intro": "Illustrative standardised risk weights, the internal-ratings-based (IRB) formula versus the weighted approach, OCI flowing into CET1, and static G-SIB/TLAC facts.",
       "back": "Greater capital pressure is the fifth part of the answer — even with no default."
     },
@@ -249,7 +249,7 @@
     "vsPurchase": "vs purchase",
     "mid": "Mid value (dirty, per 100)",
     "bid": "Bid",
-    "bidAsk": "bid–ask",
+    "bidAsk": "width",
     "economic": "Economic change",
     "vsAC": "mid vs amortised cost",
     "realised": "Realised if sold",
@@ -310,7 +310,8 @@
       "Progress, answers and your decision are saved in this browser only (localStorage). Nothing is sent anywhere; the app works fully offline."
     ],
     "fictionalNote": "Huaxing Development Co., Ltd. is a fictional composite. Names of real institutions appear only in public precedents and regulatory facts, which should be verified against primary sources.",
-    "routeOpen": "Show the 35 slides and their questions"
+    "routeOpen": "Show the 35 slides and their questions",
+    "subtitle": "Challenge the purchase · see deterioration before a missed payment · decide with evidence"
   },
   "position": {
     "termSheet": "Term sheet",
@@ -565,7 +566,17 @@
     "shockCol": "Shock",
     "creditQ": "Credit?",
     "exAnswer": "The +120 bp spread shock costs most. The +30 bp benchmark shock is not credit: an identical-duration government bond loses the same. Note how the duration approximation overstates each DCF loss.",
-    "exFormula": "ΔV ≈ −MV × D_mod × Δy  vs  ΔV = PV(y₀ + Δy) − PV(y₀)"
+    "exFormula": "ΔV ≈ −MV × D_mod × Δy  vs  ΔV = PV(y₀ + Δy) − PV(y₀)",
+    "width": "Quote width (bid–ask in yield)",
+    "midToBid": "Mid to bid = width ÷ 2",
+    "block": "Block concession = width ÷ 2",
+    "bidYield": "Executable bid (yield → price)",
+    "quoteTitle": "Quote convention: width, mid-to-bid, block",
+    "quoteNote": "The quoted width is not the cost of selling the position: half of it takes you from mid to the bid, and a block of this size costs about another half.",
+    "infoTitle": "Known by 15 Mar 2026",
+    "infoHo": "At head office (public or disclosed)",
+    "infoBranch": "At the branch only",
+    "infoNote": "Dates follow the case timeline; the branch-only item reaches head office only if the branch reports it."
   },
   "spread": {
     "inputs": "Inputs",
@@ -749,7 +760,7 @@
       "limited": "Support may be selective (e.g. housing delivery, not bondholders).",
       "low": "Do not rely on support in the base case."
     },
-    "cfTitle": "Counterfactuals (Jul 2026)",
+    "cfTitle": "Counterfactuals (valued 15 Jun 2026)",
     "cfIntro": "Choose a counterfactual: it drives spread → price in the tiles, the Decision tab and everywhere downstream.",
     "cfA": [
       "A registered guarantee plus a new RMB 5 bn shareholder loan.",
@@ -760,7 +771,7 @@
       "Spread widens to 900 bp."
     ],
     "cfCase": "Case",
-    "cfCaption": "Jul 2026 (1.667 years remaining), per RMB 100 m",
+    "cfCaption": "15 Jun 2026 (1.75 years remaining, the date of the 91.32 bid), per RMB 100 m",
     "remaining": "Remaining life",
     "cfFormula": "Mid = PV of remaining cash flows at benchmark 1.80% + counterfactual spread\nEconomic change = mid − value at the 3.60% purchase yield",
     "qTitle": "Discussion",
@@ -807,7 +818,18 @@
       "assessment": "Support assessment",
       "tally": "Room tally (hand counts)",
       "fictional": "Fictional profiles — no real platform, region or province."
-    }
+    },
+    "branchOnly": "branch-only in the base case",
+    "datesTitle": "Who knew what, when",
+    "event": "Event",
+    "cols": {
+      "occurred": "Occurred",
+      "disclosed": "Disclosed",
+      "ho": "Head office knows",
+      "branch": "Branch knows",
+      "decision": "Decision"
+    },
+    "datesNote": "Dates per event (occurrence / disclosure / head-office knowledge / branch knowledge / decision). The trust-loan extensions are branch-only in the base case (12 Mar 2026). Empty cells are completed from the v5 case ledger."
   },
   "structure": {
     "compareTitle": "Three instruments, three claims",
@@ -943,7 +965,7 @@
       "cgb": {
         "name": "China Government Bond, 5 years",
         "desc": "Sovereign benchmark, highly liquid.",
-        "mechanism": "Benchmark rates — a real loss of value, but not credit: this line is the control.",
+        "mechanism": "Benchmark rates — a real loss of value, but not credit (nil issuer credit is a case assumption): this line is the control.",
         "missing": "Nothing on credit; the funding and rate outlook.",
         "control": "Duration and interest-rate risk limits.",
         "evidence": "A change in the rate outlook or funding cost, not issuer news."
@@ -1178,7 +1200,29 @@
       "formula": "IFRS 9 day one = PD₁₂ × LGD × EAD\nCECL order of magnitude = years × PD₁₂ × LGD × EAD",
       "source": "Source: Federal Register, 14 Feb 2019, 84 FR 4222. Group reporting stays IFRS / CAS with no differences.",
       "years": "Remaining years"
-    }
+    },
+    "bridgeTitle": "Accounting bridge: three dates × three lenses (RMB m, clean values)",
+    "bridgeDates": {
+      "day1": "Day 1 (15 Mar 2025)",
+      "mar26": "15 Mar 2026",
+      "apr26": "15 Apr 2026",
+      "period": "Period 15 Mar → 15 Apr"
+    },
+    "bridge": {
+      "acNet": "Net carrying amount",
+      "allowance": "Allowance",
+      "pnl": "P&L (cumulative; period)",
+      "carrying": "Carrying amount (fair value)",
+      "allowanceOci": "Allowance (held in OCI)",
+      "oci": "OCI (cumulative; period)",
+      "equity": "Equity effect",
+      "pnlEquity": "P&L = equity effect"
+    },
+    "bridgeCaption": "Allowance 0.60 → 1.20 (15 Mar 2026, Stage 1 remeasured at PD 2%) → 6.00 (15 Apr 2026, Stage 2)",
+    "bridgeRead": "The period column is the April charge the class discusses: AC and FVOCI both book −4.80 in P&L; FVOCI moves +3.32 through OCI so that equity falls only 1.48, the same as FVTPL.",
+    "bridgeFormula": "AC net = gross amortised cost − allowance\nFVOCI: carrying = fair value; OCI = fair value − gross amortised cost + allowance; equity = fair value − gross amortised cost\nFVTPL: P&L = fair value − gross amortised cost\nPeriod = 15 Apr 2026 − 15 Mar 2026",
+    "marAllowance": "Allowance at 15 Mar 2026 (Stage 1 remeasured, PD 2%)",
+    "periodCharge": "Period charge 15 Mar → 15 Apr 2026"
   },
   "capital": {
     "rwTitle": "Standardised risk weights (weighted approach)",
@@ -1186,7 +1230,7 @@
     "rw": "Risk weight",
     "ref": "Reference (to verify)",
     "rwRows": {
-      "cgb": "China central government bonds",
+      "cgb": "China central government bonds (zero issuer credit — a case assumption)",
       "pbc": "People’s Bank of China",
       "policyBank": "Policy banks",
       "localGeneral": "Local government general bonds",
@@ -1254,7 +1298,8 @@
       "No. Capital fell through the ECL charge (retained earnings) and, under FVOCI, through OCI in CET1.",
       "Under IRB the higher PD would also raise RWA. And a realised loss on sale reduces capital immediately."
     ],
-    "holdingsNote": "Holdings of other banks' AT1 and Tier-2 instruments and TLAC-eligible debt attract high risk weights (Tier-2: 150%) and, above thresholds, deductions from capital — relevant for the Tier-2 line in the portfolio."
+    "holdingsNote": "Holdings of other banks' AT1 and Tier-2 instruments and TLAC-eligible debt attract high risk weights (Tier-2: 150%) and, above thresholds, deductions from capital — relevant for the Tier-2 line in the portfolio.",
+    "art32": "Capital Rules (2023), Art. 32: accumulated other comprehensive income is part of CET1 — under FVOCI the fair-value loss reaches capital before any sale."
   },
   "controls": {
     "stepsTitle": "Four steps mapped to the case dates",
@@ -1273,7 +1318,7 @@
       },
       "execution": {
         "name": "4 · Execution",
-        "text": "Rating terminated and maturity wall (Jun 2026): decide — hold, reduce, hedge or exit — with owner, triggers and counterfactual response (Jul 2026)."
+        "text": "Rating terminated and maturity wall (Jun 2026): decide — hold, reduce, hedge or exit — with owner, dated triggers (30 Jun, 31 Jul, 15 Aug, 31 Aug) and the counterfactual response."
       }
     },
     "dates": {
@@ -1356,15 +1401,15 @@
       "acNet": "Amortised cost net of allowance",
       "mid": "Mid (fair value)",
       "bid": "Executable bid (sale proceeds)",
-      "holdA": "Hold → A (Jul 2026)",
-      "holdB": "Hold → B (Jul 2026)",
+      "holdA": "Hold → A (15 Jun 2026)",
+      "holdB": "Hold → B (15 Jun 2026)",
       "expected": "Expected hold (P(A) {p}, net of costs)",
       "expectedShort": "Expected hold value",
       "legendAC": "Amortised cost",
       "legendHold": "Hold outcomes",
       "bidMarker": "sale proceeds"
     },
-    "ladderNote": "Jun 2026 values at 1.75 years; counterfactual values in Jul 2026 at 1.667 years, as in the class deck. Bars start at 85 to show differences.",
+    "ladderNote": "All values on 15 Jun 2026 with 1.75 years remaining — the same date as the executable bid. Bars start at 85 to show differences.",
     "probTitle": "Proceeds vs probability-weighted holding value",
     "pA": "Probability of counterfactual A (support)",
     "capitalCost": "Cost of capital while holding",
@@ -1381,7 +1426,7 @@
     "beAria": "Break-even probability {p}; current probability {cur}",
     "readHold": "On these inputs holding is worth more than selling: the probability of A exceeds the break-even of {p}.",
     "readSell": "On these inputs selling is worth more than holding: the probability of A is below the break-even of {p}.",
-    "probNote": "Before capital and liquidity costs the break-even is about 8%. Add the costs of holding a Stage 2 exposure and funding it, and the bar rises. Liquidity needs and limits may force a sale whatever the probabilities say.",
+    "probNote": "Before capital and liquidity costs the same-date break-even is about 17%. The forward-horizon model gives 16.3% when B must exit in a 150 bp-wide market, and turns negative with mid values. Liquidity needs and limits may force a sale whatever the probabilities say.",
     "beFormula": "Hold value = p·V_A + (1 − p)·V_B − capital cost − liquidity cost\nBreak-even p* = (sale proceeds + costs − V_B) ÷ (V_A − V_B)",
     "extTitle": "Extension branch: PV cost vs modification loss",
     "extIntro": "If B happens, part of the principal is paid late. Compare the economic cost (at the market rate) with the accounting modification loss (at the original EIR).",
@@ -1480,7 +1525,61 @@
       "lessonB": "In B, holding costs more than the June sale, and the extension adds a PV cost with no accounting modification loss. Did your triggers get you out early enough?"
     },
     "toAnswer": "Go to the answer →",
-    "printEcon": "Sale proceeds {sale}; value if A {a}; value if B {b}; P(A) {p}; expected hold value {hold}; break-even probability {be}."
+    "printEcon": "Sale proceeds {sale}; value if A {a}; value if B {b}; P(A) {p}; expected hold value {hold}; break-even probability {be}.",
+    "ladderBe": "Same-date break-even probability of A: {p}",
+    "fw": {
+      "title": "Forward-horizon model",
+      "view": "Decision view",
+      "same": "Same date (15 Jun 2026)",
+      "forward": "Forward horizon (15 Sep 2026)",
+      "sameNote": "The class decides on the same date as the bid. Switch to the forward horizon to compare selling and reinvesting with holding to 15 Sep 2026.",
+      "mid": "Mid",
+      "bid": "Bid",
+      "sell": "Sell 15 Jun, reinvest at {r}",
+      "holdA": "Hold to horizon, A (width {w})",
+      "holdB": "Hold to horizon, B (width {w})",
+      "caption": "Values at {date}, per 100",
+      "read": "At bid values the break-even support probability is {be} — B exits in a 150 bp-wide market. At mid values it is negative: on mid prices selling never beats holding, which is why the exit price decides.",
+      "formula": "Sell = bid on 15 Jun × (1 + 2.00% × 0.25)\nHold = value on 15 Sep 2026 at mid, or at mid + width\nBreak-even p* = (Sell − B) ÷ (A − B)",
+      "years": "Horizon (years)"
+    },
+    "model": {
+      "title": "Decision record — class model (v5)",
+      "intro": "The memo rows the class compares its own record with.",
+      "item": "Item",
+      "value": "Model answer",
+      "note": "A model to compare against, not the only right answer.",
+      "rows": {
+        "tranche1": {
+          "k": "First tranche",
+          "v": "Sell the first tranche by 30 Jun 2026 at the executable bid."
+        },
+        "support": {
+          "k": "Support check",
+          "v": "31 Jul 2026: registered guarantee and new shareholder loan in place — or not."
+        },
+        "refinancing": {
+          "k": "Refinancing plan",
+          "v": "15 Aug 2026: a credible refinancing plan for the September bond — or not."
+        },
+        "exit": {
+          "k": "Exit remainder",
+          "v": "By 31 Aug 2026 unless both checks are met."
+        },
+        "floor": {
+          "k": "Price floor",
+          "v": "91.3, with a one-time 50 bp fallback; second-tranche reference bid {tr2} (mid + 150 bp)."
+        },
+        "impairment": {
+          "k": "Impairment",
+          "v": "Assessed on the day of each trigger, not at month-end."
+        },
+        "sizing": {
+          "k": "Sizing rationale",
+          "v": "Liquidity, risk budget and uncertainty — the reasons for the tranche size are written into the record."
+        }
+      }
+    }
   },
   "answer": {
     "shortTitle": "Short answer",
@@ -1730,6 +1829,30 @@
       "escalation": {
         "term": "Escalation",
         "def": "Formal referral of an issue to a higher decision body with a dated agenda."
+      },
+      "default": {
+        "term": "Default",
+        "def": "Failure to pay principal or interest when due after any grace period, or another event of default in the documents. Not the same as a non-performing classification."
+      },
+      "quoteWidth": {
+        "term": "Width (quoted bid–ask)",
+        "def": "The full quoted bid–ask in yield, e.g. 40 bp."
+      },
+      "midToBid": {
+        "term": "Mid-to-bid",
+        "def": "Half the width: the move from the mid yield to the quoted bid."
+      },
+      "blockConcession": {
+        "term": "Block concession",
+        "def": "Extra yield a buyer demands to take the whole position at once; half the width in the case."
+      },
+      "registeredGuarantee": {
+        "term": "Registered guarantee",
+        "def": "A guarantee formally granted for the bonds and recorded, giving holders a direct claim on the guarantor (counterfactual A)."
+      },
+      "navProduct": {
+        "term": "NAV product",
+        "def": "A wealth-management product valued at net asset value: investors bear market-value changes directly, unlike the bank's own book at amortised cost."
       }
     },
     "acronyms": {
@@ -1790,7 +1913,7 @@
     "m26c": "Mar 2026 coupon received (RMB m)",
     "m26g": "Mar 2026 gross total return (RMB m)",
     "m26f": "Mar 2026 funded return (RMB m)",
-    "m26bid": "Mar 2026 executable bid at +40 bp",
+    "m26bid": "Mar 2026 executable bid at 6.70% (mid + 20 bp + 20 bp)",
     "a26ac": "Apr 2026 dirty value at 3.60% (RMB m)",
     "a26acc": "Apr 2026 accrued interest (RMB m)",
     "a26mid": "Apr 2026 mid at 7.30% (RMB m)",
@@ -1815,15 +1938,30 @@
     "j26eco": "Jun 2026 economic change (RMB m)",
     "j26bid": "Jun 2026 executable bid at +100 bp (RMB m)",
     "j26rea": "Jun 2026 realised if sold (RMB m)",
-    "jlA": "Jul 2026 counterfactual A at 5.30%",
-    "jlB": "Jul 2026 counterfactual B at 10.80%",
-    "jlbe": "Break-even probability of A",
+    "jlA": "15 Jun 2026 counterfactual A at 5.30%",
+    "jlB": "15 Jun 2026 counterfactual B at 10.80%",
+    "jlbe": "Break-even probability of A (same date)",
     "xpv": "Extension: PV cost at 8.80% (RMB m)",
     "xml": "Extension: modification loss at 3.60% EIR (RMB m)",
     "bepd": "Break-even PD = 210 bp ÷ 60%",
     "szl": "Sizing: loss from a 1% position defaulting",
     "szr40": "Sizing: a year of income on the rest at 40 bp",
-    "szr150": "Sizing: a year of income on the rest at 150 bp"
+    "szr150": "Sizing: a year of income on the rest at 150 bp",
+    "e1m26": "12-month ECL, 15 Mar 2026 (Stage 1 remeasured, PD 2%)",
+    "brAc": "AC net carrying, 15 Apr 2026",
+    "brFvM": "FVOCI carrying, 15 Mar 2026",
+    "brFvA": "FVOCI carrying, 15 Apr 2026",
+    "brOciM": "FVOCI OCI, 15 Mar 2026",
+    "brPerAc": "AC P&L, 15 Mar → 15 Apr",
+    "brPerOci": "FVOCI OCI, 15 Mar → 15 Apr",
+    "brPerEq": "FVOCI equity, 15 Mar → 15 Apr",
+    "fwSell": "Forward: sell and reinvest at 2.00% to 15 Sep 2026",
+    "fwAmid": "Forward: hold A, mid",
+    "fwAbid": "Forward: hold A, bid",
+    "fwBmid": "Forward: hold B, mid",
+    "fwBbid": "Forward: hold B, bid",
+    "fwBe": "Forward-horizon break-even probability",
+    "tr2": "Second-tranche bid (mid + 150 bp)"
   },
   "desc": {
     "purposeTitle": "Purpose",

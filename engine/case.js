@@ -1,8 +1,8 @@
 // Case layer: turns the Huaxing case data (data/case.json) into every figure used in class.
 // All money values are in RMB m for the stated nominal (per-100 values × nominal / 100).
 
-import { cashflows, pv, macaulayDuration, modifiedDuration, shockCompare, decompose, holdingPeriod, yieldFromPrice } from './pricing.js';
-import { ecl, lifetimeEcl, recognition } from './ecl.js';
+import { cashflows, pv, macaulayDuration, modifiedDuration, shockCompare, decompose, holdingPeriod, yieldFromPrice, accrued } from './pricing.js';
+import { ecl, lifetimeEcl, recognition, accountingBridge } from './ecl.js';
 import { breakEvenProbability, extensionBranch, breakEvenPD, sizing } from './decision.js';
 
 export const bp = (x) => x / 10000;
@@ -23,15 +23,19 @@ export function purchasePrice(position) {
   return pv(cashflows(bondOf(position), 0), purchaseYield(position));
 }
 
-/** Market state of a stop: benchmark (%), spread (bp), bid–ask (bp), applying a counterfactual if set. */
+/**
+ * Market state of a stop: benchmark (%), spread (bp) and the quote convention, applying a counterfactual.
+ * Quote convention (v5): `width` is the full quoted bid–ask in yield; mid-to-bid = width / 2 and the
+ * block concession for selling the position = width / 2, so the executable bid = mid + width.
+ */
 export function stopMarket(position, stop, cf = 'none') {
   const over = cf !== 'none' && stop.counterfactuals ? stop.counterfactuals[cf] : null;
   const dBench = stop.dBenchmark;
   const dSpread = over ? over.dSpread : stop.dSpread;
-  const bidAsk = over ? over.bidAsk : stop.bidAsk;
+  const width = over ? (over.width ?? over.bidAsk) : (stop.width ?? stop.bidAsk);
   const benchmark = position.benchmark + dBench / 100;
   const spread = position.spread + dSpread;
-  return { dBench, dSpread, bidAsk, benchmark, spread, yield: benchmark / 100 + bp(spread) };
+  return { dBench, dSpread, width, midToBid: width / 2, block: width / 2, bidAsk: width, benchmark, spread, yield: benchmark / 100 + bp(spread) };
 }
 
 /** Full valuation of the position at a stop (per 100 and money). */
@@ -106,8 +110,10 @@ export function caseFigures(data, { position = data.position } = {}) {
   const ecl12 = ecl(pct(E.pd12), pct(E.lgd), ead);
   const eclLife = lifetimeEcl(pct(E.pdLife), pct(E.lgd), ead);
   const eclLifeDisc = lifetimeEcl(pct(E.pdLife), pct(E.lgd), ead, { discount: true, eir: y0, years: 1 });
+  const eclMar = ecl(pct(E.mar26Pd12 ?? position.pd12), pct(position.lgd), ead);
   const eclFig = {
     t0: eclT0,
+    mar26: eclMar,
     apr12: ecl12,
     aprLifetime: eclLife,
     aprLifetimeDiscounted: eclLifeDisc,
@@ -119,10 +125,43 @@ export function caseFigures(data, { position = data.position } = {}) {
   const j = valueAtStop(position, stops.jun26);
   const jun26 = { remaining: j.remaining, amortisedCost: j.amortisedCost, mid: j.mid, economic: j.economic, bid: j.bid, realised: j.realised };
 
-  const A = valueAtStop(position, stops.jul26, 'A');
-  const B = valueAtStop(position, stops.jul26, 'B');
+  // Counterfactuals valued on the same date as the executable bid (15 Jun 2026).
+  const A = valueAtStop(position, stops.jun26, 'A');
+  const B = valueAtStop(position, stops.jun26, 'B');
   const be = breakEvenProbability({ saleProceeds: j.bid, valueA: A.mid, valueB: B.mid });
-  const jul26 = { remaining: A.remaining, A: A.mid, B: B.mid, breakEven: be.raw };
+  const cf = { remaining: A.remaining, A: A.mid, B: B.mid, breakEven: be.raw };
+
+  // Forward-horizon model: sell now and reinvest vs hold to the horizon in A or B (at mid and at bid).
+  const FW = data.forward;
+  const fwElapsed = FW.months / 12;
+  const fwYears = (FW.months - stops.jun26.months) / 12;
+  const fwAt = (c) => {
+    const mk = stopMarket(position, { dBenchmark: stops.jun26.dBenchmark, dSpread: c.dSpread, width: c.width }, 'none');
+    const flows = cashflows(bond, fwElapsed);
+    return { mid: pv(flows, mk.yield) * scale, bid: pv(flows, mk.yield + bp(mk.width)) * scale, width: mk.width, yield: mk.yield };
+  };
+  const fA = fwAt(FW.A);
+  const fB = fwAt(FW.B);
+  const sell = j.bid * (1 + pct(FW.reinvestRate) * fwYears);
+  const forward = {
+    date: FW.date, years: fwYears, sell, A: fA, B: fB,
+    breakEven: (sell - fB.bid) / (fA.bid - fB.bid),
+    breakEvenMid: (sell - fB.mid) / (fA.mid - fB.mid),
+  };
+
+  // Second tranche fallback: mid + 150 bp on the same date.
+  const tr = data.secondTranche;
+  const secondTranche = { extraSpread: tr.extraSpread, bid: pv(cashflows(bond, stops.jun26.months / 12), j.market.yield + bp(tr.extraSpread)) * scale };
+
+  // Accounting bridge (v5): day 1 → 15 Mar 2026 (Stage 1 remeasured) → 15 Apr 2026 (Stage 2), clean values.
+  const cleanAC = (e) => (pv(cashflows(bond, e), y0) - accrued(bond, e)) * scale;
+  const cleanMid = (v) => (v.perHundred.mid - accrued(bond, v.elapsed)) * scale;
+  const m = valueAtStop(position, stops.mar26);
+  const bridge = accountingBridge([
+    { id: 'day1', gross: cleanAC(0), fv: purchasePrice(position) * scale, allowance: eclT0 },
+    { id: 'mar26', gross: cleanAC(m.elapsed), fv: cleanMid(m), allowance: eclMar },
+    { id: 'apr26', gross: cleanAC(a.elapsed), fv: cleanMid(a), allowance: eclLife },
+  ]);
 
   const X = data.extension;
   const ext = extensionBranch({
@@ -142,7 +181,7 @@ export function caseFigures(data, { position = data.position } = {}) {
     restIncome: S.restSpreads.map((r) => sizing({ weight: pct(S.weight), lgd: pct(S.lgd), restSpread: bp(r) }).restIncome),
   };
 
-  return { t0, shocks, mar26, apr26, ecl: eclFig, recognition: rec, jun26, jul26, extension, spread };
+  return { t0, shocks, mar26, apr26, ecl: eclFig, recognition: rec, bridge, jun26, cf, forward, secondTranche, extension, spread };
 }
 
 /** Reads a dotted path such as "mar26.price" or "shocks.0.dcf" from the figures object. */

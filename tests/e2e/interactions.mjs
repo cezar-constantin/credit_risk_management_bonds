@@ -50,7 +50,7 @@ assert.equal(await page.evaluate(() => document.activeElement.getAttribute('data
 // Counterfactual drives the tiles.
 await page.selectOption('#main ~ * select, .panel select', 'jul26').catch(() => {});
 await page.click('#tab-timeline');
-await page.click('.card:has-text("Counterfactuals (Jul 2026)") label:has-text("B · extension")');
+await page.click('.card:has-text("Counterfactuals (valued 15 Jun 2026)") label:has-text("B · extension")');
 assert.ok((await text('.tiles')).includes('900'), 'counterfactual B → spread 900 bp in the tiles');
 
 // Free play recomputes; class defaults restore.

@@ -41,7 +41,8 @@ export function render(root, ctx) {
         return h('li', null,
           h('div', null, h('span', { class: 't-date' }, fmt.date(f.date, { month: true })), h('span', { class: 't-kind' }, t(`timeline.kinds.${f.kind}`))),
           h('p', null, t(`timeline.facts.${f.id}`)),
-          f.spread ? h('p', { class: 'small muted' }, t('timeline.marketLine', { spread: fmt.bp(f.spread), ba: fmt.bp(f.bidAsk) })) : null,
+          f.spread ? h('p', { class: 'small muted' }, t('timeline.marketLine', { spread: fmt.bp(f.spread), ba: fmt.bp(f.width) })) : null,
+          f.branchOnly ? h('p', null, h('span', { class: 'pill amber' }, t('timeline.branchOnly'))) : null,
           h('div', { class: 'row small' }, h('strong', null, t('timeline.thesis')),
             s.mode === 'instructor'
               ? [h('span', null, t('ui.yes')), tallyInput(`timeline.votes.${f.id}.yes`, `${t('ui.yes')} ${f.id}`), h('span', null, t('ui.no')), tallyInput(`timeline.votes.${f.id}.no`, `${t('ui.no')} ${f.id}`),
@@ -55,6 +56,13 @@ export function render(root, ctx) {
       h('p', { class: 'small muted' }, t('timeline.progress', { n: shown.length, total: facts.length })),
     ];
   }));
+
+  // Who knew what, when: occurrence / disclosure / head-office knowledge / branch knowledge / decision.
+  const COLS = ['occurred', 'disclosed', 'ho', 'branch', 'decision'];
+  const datesCard = card(t('timeline.datesTitle'),
+    table([t('timeline.event'), ...COLS.map((c) => t(`timeline.cols.${c}`))],
+      facts.map((f) => ({ cls: f.branchOnly ? 'hl' : null, cells: [`${fmt.date(f.date, { month: true })} · ${t(`timeline.kinds.${f.kind}`)}${f.branchOnly ? ` (${t('timeline.branchOnly')})` : ''}`, ...COLS.map((c) => (f.dates[c] ? fmt.date(f.dates[c]) : '—'))] }))),
+    h('p', { class: 'note' }, t('timeline.datesNote')));
 
   const ratios = card(t('timeline.ratiosTitle'),
     table([t('position.metric'), t('position.fy2024'), t('timeline.fy2025')], ratioRows().map(([k, a, b]) => ({
@@ -95,19 +103,19 @@ export function render(root, ctx) {
 
   const cf = card(t('timeline.cfTitle'),
     h('p', null, t('timeline.cfIntro')),
-    segmented({ path: 'ctx.cf', label: t('ui.counterfactual'), options: [{ value: 'none', label: t('cf.none') }, { value: 'A', label: t('cf.A') }, { value: 'B', label: t('cf.B') }], onChange: () => { store.get().ctx.stop = 'jul26'; store.save(); store.emit('ctx'); } }),
+    segmented({ path: 'ctx.cf', label: t('ui.counterfactual'), options: [{ value: 'none', label: t('cf.none') }, { value: 'A', label: t('cf.A') }, { value: 'B', label: t('cf.B') }], onChange: () => { store.get().ctx.stop = 'jun26'; store.save(); store.emit('ctx'); } }),
     h('div', { class: 'grid grid-2' },
       h('div', null, h('h4', null, t('cf.A')), ...paras(tr('timeline.cfA'))),
       h('div', null, h('h4', null, t('cf.B')), ...paras(tr('timeline.cfB')))),
     ctx.live(() => {
       const rows = ['none', 'A', 'B'].map((c) => {
-        const v = value('jul26', c);
-        const m = market('jul26', c);
+        const v = value('jun26', c);
+        const m = market('jun26', c);
         return { cls: store.get().ctx.cf === c ? 'hl' : null, cells: [t(`cf.${c}`), fmt.bp(m.spread), fmt.pct(m.yield), fmt.price(v.mid / v.scale), fmt.money(v.economic, 2, { sign: true })] };
       });
       return [
         table([t('timeline.cfCase'), t('tiles.spread'), t('tiles.yield'), t('tiles.mid'), t('tiles.economic')], rows, { numericCols: [1, 2, 3, 4], caption: t('timeline.cfCaption') }),
-        workings('tl-cf', t('timeline.cfFormula'), [[t('timeline.remaining'), fmt.years(value('jul26', 'A').remaining)]]),
+        workings('tl-cf', t('timeline.cfFormula'), [[t('timeline.remaining'), fmt.years(value('jun26', 'A').remaining)]]),
       ];
     }));
 
@@ -152,6 +160,7 @@ export function render(root, ctx) {
     h('div', { class: 'grid grid-2' },
       h('div', { class: 'stack' }, factList, q, funnel),
       h('div', { class: 'stack' }, ratios, cf, support, missing)),
+    h('div', { style: { marginTop: '20px' } }, datesCard),
     h('div', { style: { marginTop: '20px' } }, lgfv),
   );
 }

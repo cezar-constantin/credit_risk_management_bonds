@@ -5,7 +5,7 @@ import * as fmt from '../format.js';
 import { h, card, slider, segmented, checkbox, table, workings, paras, reveal, button, numberField, hint } from '../ui.js';
 import { weightedEcl, recognition, fiveCategory, ifrsStage, ecl, pct, ceclOrderOfMagnitude } from '../../engine/index.js';
 import { tabHeader, guidedKeep } from './common.js';
-import { value, position, y0 } from '../model.js';
+import { value, position, y0, figures } from '../model.js';
 
 const EVIDENCE = ['spread', 'rating', 'financials', 'watchlist', 'dpd30'];
 
@@ -53,8 +53,10 @@ export function render(root, ctx) {
         [t('recog.ecl12'), fmt.money(c.w.ecl12)],
         [t('recog.eclLife'), fmt.money(c.w.eclLifetime)],
         [t('recog.prevAllowance'), fmt.money(c.prev)],
+        [t('recog.marAllowance'), fmt.money(figures().ecl.mar26)],
         { cls: 'hl', cells: [t('recog.allowance', { n: c.r.stage }), fmt.money(c.allowance)] },
         { cls: 'total', cells: [t('recog.charge'), fmt.money(-(c.allowance - c.prev), 2, { sign: true })] },
+        [t('recog.periodCharge'), fmt.money(-(c.allowance - figures().ecl.mar26), 2, { sign: true })],
         [t('recog.altCharge', { n: Number(c.r.stage) === 1 ? 2 : 1 }), fmt.money(-((Number(c.r.stage) === 1 ? c.w.eclLifetime : c.w.ecl12) - c.prev), 2, { sign: true })],
       ], { numericCols: [1] }),
       workings('rec-ecl', t('recog.eclFormula'), [
@@ -64,28 +66,34 @@ export function render(root, ctx) {
     ];
   }));
 
-  const lenses = card(t('recog.lensTitle'), ctx.live(() => {
-    const c = compute();
-    const R = c.rec;
-    const col = (x, key) => ({
-      carrying: fmt.money(x.carrying),
-      pnl: fmt.money(x.pnlPeriod, 2, { sign: true }),
-      oci: key === 'fvtpl' || key === 'ac' ? '–' : fmt.money(x.ociCumulative, 2, { sign: true }),
-      equity: fmt.money(x.equityCumulative, 2, { sign: true }),
-    });
-    const cols = { ac: col(R.ac, 'ac'), fvoci: col(R.fvoci, 'fvoci'), fvtpl: col(R.fvtpl, 'fvtpl') };
-    const lens = store.get().ctx.lens.toLowerCase();
+  // v5: accounting bridge — three dates × three lenses, plus the period 15 Mar → 15 Apr 2026.
+  const lenses = card(t('recog.bridgeTitle'), ctx.live(() => {
+    const B = figures().bridge;
+    const D = B.order;
+    const m = (x) => fmt.money(x, 2, { sign: true });
+    const c = (x) => fmt.money(x);
+    const dateHead = D.map((d) => t(`recog.bridgeDates.${d}`));
+    const rows = [
+      { cls: 'hl', cells: [t('lens.AC.name'), '', '', '', ''] },
+      [t('recog.bridge.acNet'), ...D.map((d) => c(B[d].ac.carrying)), '–'],
+      [t('recog.bridge.allowance'), ...D.map((d) => c(B[d].ac.allowance)), m(B[D[2]].ac.allowance - B[D[1]].ac.allowance)],
+      [t('recog.bridge.pnl'), ...D.map((d) => m(B[d].ac.pnl)), m(B.period.ac.pnl)],
+      { cls: 'hl', cells: [t('lens.FVOCI.name'), '', '', '', ''] },
+      [t('recog.bridge.carrying'), ...D.map((d) => c(B[d].fvoci.carrying)), '–'],
+      [t('recog.bridge.allowanceOci'), ...D.map((d) => c(B[d].fvoci.allowance)), '–'],
+      [t('recog.bridge.pnl'), ...D.map((d) => m(B[d].fvoci.pnl)), m(B.period.fvoci.pnl)],
+      [t('recog.bridge.oci'), ...D.map((d) => m(B[d].fvoci.oci)), m(B.period.fvoci.oci)],
+      [t('recog.bridge.equity'), ...D.map((d) => m(B[d].fvoci.equity)), m(B.period.fvoci.equity)],
+      { cls: 'hl', cells: [t('lens.FVTPL.name'), '', '', '', ''] },
+      [t('recog.bridge.pnlEquity'), ...D.map((d) => m(B[d].fvtpl.equity)), m(B.period.fvtpl.pnl)],
+    ];
     return [
-      table([t('recog.line'), t('lens.AC.short'), t('lens.FVOCI.short'), t('lens.FVTPL.short')], [
-        [t('recog.carrying'), cols.ac.carrying, cols.fvoci.carrying, cols.fvtpl.carrying],
-        [t('recog.pnl'), cols.ac.pnl, cols.fvoci.pnl, cols.fvtpl.pnl],
-        [t('recog.oci'), cols.ac.oci, cols.fvoci.oci, cols.fvtpl.oci],
-        [t('recog.equity'), cols.ac.equity, cols.fvoci.equity, cols.fvtpl.equity],
-        [t('recog.eclWhere'), t('recog.eclAC'), t('recog.eclFVOCI'), t('recog.eclFVTPL')],
-      ], { numericCols: [1, 2, 3], caption: t('recog.lensCaption', { gross: fmt.money(c.v.amortisedCost), fv: fmt.money(c.v.mid), lens: t(`lens.${lens.toUpperCase()}.short`) }) }),
-      h('p', { class: 'small' }, t('recog.lensRead')),
-      workings('rec-lens', t('recog.lensFormula'), [
-        [t('recog.gross'), fmt.money(c.v.amortisedCost)], [t('recog.fv'), fmt.money(c.v.mid)], [t('recog.prevAllowance'), fmt.money(c.prev)], [t('recog.allowanceShort'), fmt.money(c.allowance)],
+      table([t('recog.line'), ...dateHead, t('recog.bridgeDates.period')], rows, { numericCols: [1, 2, 3, 4], caption: t('recog.bridgeCaption') }),
+      h('p', { class: 'small' }, t('recog.bridgeRead')),
+      workings('rec-bridge', t('recog.bridgeFormula'), [
+        [t('recog.bridgeDates.day1'), `${t('recog.allowanceShort')} ${c(B.day1.ac.allowance)}`],
+        [t('recog.bridgeDates.mar26'), `${t('recog.allowanceShort')} ${c(B.mar26.ac.allowance)} (PD 2%)`],
+        [t('recog.bridgeDates.apr26'), `${t('recog.allowanceShort')} ${c(B.apr26.ac.allowance)} (Stage 2)`],
       ], t('recog.lensNote')),
     ];
   }));

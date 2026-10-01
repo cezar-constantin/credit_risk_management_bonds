@@ -49,6 +49,7 @@ export function defaultState() {
       ext: { paidShare: CASE.extension.paidShare, delayYears: CASE.extension.delayYears, coupon: CASE.position.coupon, rate: 8.8, eir: 3.6 },
       form: { action: '', sellShare: 0, rationale: '', owner: '', triggers: [{ metric: 'spread', number: '', date: '', consequence: '' }], escalation: '', responseA: '', responseB: '' },
       replay: 'none',
+      view: 'same',
     },
     answers: {},
     qtally: {},

@@ -56,7 +56,7 @@ for (const file of walk(join(root, 'src'))) {
 }
 
 // Dynamic key families (template literals) expanded from case data.
-const TABS = ['home', 'position', 'mechanisms', 'bondsloans', 'repricing', 'spread', 'ratings', 'timeline', 'structure', 'portfolio', 'recognition', 'capital', 'controls', 'decision', 'answer', 'glossary'];
+const TABS = ['home', 'position', 'mechanisms', 'bondsloans', 'repricing', 'spread', 'ratings', 'timeline', 'structure', 'portfolio', 'recognition', 'controls', 'decision', 'answer', 'capital', 'glossary'];
 TABS.forEach((id) => ['title', 'short', 'intro', 'back'].forEach((f) => used.add(`tabs.${id}.${f}`)));
 CASE.stops.forEach((s) => used.add(`stops.${s.id}.short`));
 CASE.classStops.forEach((s) => { used.add(`classStops.s${s.n}`); used.add(`classStops.d${s.n}`); });

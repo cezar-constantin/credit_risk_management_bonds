@@ -26,7 +26,7 @@ export function render(root, ctx, { goTab }) {
       bid: fmt.money(jun.liquidity, 2, { sign: true }),
       realised: fmt.money(F.jun26.realised, 2, { sign: true }),
       oci: fmt.money(F.recognition.fvoci.equityCumulative, 2, { sign: true }),
-      a: fmt.price(F.jul26.A), b: fmt.price(F.jul26.B),
+      a: fmt.price(F.cf.A), b: fmt.price(F.cf.B),
     };
     return h('ol', { class: 'statements' }, STATEMENTS.map((s) => h('li', null,
       h('strong', null, t(`answer.${s.id}.title`)),

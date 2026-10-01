@@ -79,9 +79,9 @@ Choose **Participant**. Work through the tabs at your own pace. Hints and **Chec
 ### How the numbers tie to the class deck
 
 - **Engine:** `engine/` is a pure, framework-free module (pricing, ECL, recognition, five-category classification, decision maths, capital). It uses annual coupons, bullet repayment, DCF with fractional exponents, and “dirty” value = PV of all remaining cash flows, accrued interest included. Executable bid = price at mid yield + full quoted bid–ask.
-- **Acceptance tests:** `tests/engine.test.js` hard-codes every figure in the deck. Examples: T0 price 100.00, Macaulay 2.90, modified 2.80. Shocks −3.36/−3.28, −1.40/−1.38, −0.84/−0.83. Mar 2026: 99.43, 95.07, −0.57, −4.36, −1.33, −3.33, bid ≈ 94.35. Apr 2026: 100.30, 93.89, 92.91. ECL 0.60 / 3.60 / 6.00 / 5.79, charges 5.40 / 3.00. Recognition: AC 94.30, FVOCI 93.89 with OCI −0.41, FVTPL −6.41. Jun 2026: 100.89, 92.76, 91.32. Jul 2026: A 98.53, B 90.68, break-even ≈ 8%. Extension: PV cost 2.87, modification loss 0.00. Break-even PD 3.5%; sizing 0.60% vs 0.396% / 1.485%. **Any drift fails CI.**
+- **Acceptance tests:** `tests/engine.test.js` hard-codes every figure in the deck. Examples: T0 price 100.00, Macaulay 2.90, modified 2.80. Shocks −3.36/−3.28, −1.40/−1.38, −0.84/−0.83. Mar 2026: 99.43, 95.07, −0.57, −4.36, −1.33, −3.33, bid 94.37 (mid + 20 bp mid-to-bid + 20 bp block). Apr 2026: 100.30, 93.89, 92.91. ECL 0.60 / 3.60 / 6.00 / 5.79, charges 5.40 / 3.00. Recognition: AC 94.30, FVOCI 93.89 with OCI −0.41, FVTPL −6.41. Jun 2026: 100.89, 92.76, 91.32. 15 Jun 2026 counterfactuals (same date as the bid): A 98.11, B 89.91, break-even ≈ 17.2%; forward horizon 15 Sep 2026: sell 91.78, A 99.39 / 98.56, B 92.25 / 90.45, break-even 16.3%. ECL path 0.60 → 1.20 → 6.00 and the accounting bridge (AC 99.40 → 98.80 → 94.00; FVOCI 100.00 → 95.07 → 93.59; period P&L −4.80, OCI +3.32, equity −1.48). Extension: PV cost 2.87, modification loss 0.00. Break-even PD 3.5%; sizing 0.60% vs 0.396% / 1.485%. **Any drift fails CI.**
 - **On screen:** the same figures are listed in `data/case.json → tieOut` and recomputed live in the tie-out table. Every calculation has **Show workings** with its formula and inputs.
-- **Rounding note:** the executable bid on 15 Mar 2026 (6.70%) computes to 94.37. The deck shows “≈ 94.35”, and the test allows ±0.05.
+- **Quote convention (v5):** width = full quoted bid–ask in yield; mid-to-bid = width ÷ 2; block concession = width ÷ 2; executable bid = mid + width.
 
 ### Repository layout
 
@@ -172,7 +172,7 @@ The visual identity is derived from the public website icbc.com.cn (primary red 
 
 ### 数字如何与课件对应
 
-`engine/` 是纯函数计算模块。`tests/engine.test.js` 写死了课件中的每一个数字，任何偏差都会导致 CI 失败。应用中 **与课堂讲义核对** 表格实时重算同样的数字，每项计算都有 **显示计算过程**。说明：2026年3月15日可成交买价（6.70%）计算结果为94.37，课件显示“≈ 94.35”，测试允许 ±0.05 的误差。
+`engine/` 是纯函数计算模块。`tests/engine.test.js` 写死了课件中的每一个数字，任何偏差都会导致 CI 失败。应用中 **与课堂讲义核对** 表格实时重算同样的数字，每项计算都有 **显示计算过程**。第5版：2026年3月15日可成交买入价为94.37（中间价+20个基点+20个基点大额折让）；反事实情景与买入价同日估值（A 98.11、B 89.91，盈亏平衡约17.2%）。
 
 ### 许可
 
