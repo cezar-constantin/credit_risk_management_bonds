@@ -71,7 +71,7 @@
     "focusView": "Focus view",
     "standardView": "Standard view",
     "viewHint": "Same content and numbers; switch between the standard and the calmer focus layout",
-    "route": "Slide route (v3 deck, 35 slides)",
+    "route": "Slide route (v5 deck, 27 slides + appendix A1–A14)",
     "slide": "Slide",
     "appendix": "Appendix"
   },
@@ -95,7 +95,7 @@
       "back": "The answer has six candidate mechanisms; only one of them (benchmark rates) is not credit."
     },
     "repricing": {
-      "title": "Repricing lab — Stops 1 and 2",
+      "title": "Repricing lab — purchase to one year later",
       "short": "Repricing",
       "intro": "Stop 1 (Sep 2025): market repricing, no issuer news. Stop 2 (Mar 2026): one coupon received, spread 450 bp. Move benchmark, spread, bid–ask and horizon; compare the duration approximation with full DCF.",
       "back": "Mechanisms 1–3: value falls through rates, spread and exit liquidity while the coupon is paid in full."
@@ -113,7 +113,7 @@
       "back": "A lost external rating is information to assess, not an event that decides for you."
     },
     "timeline": {
-      "title": "Timeline — Stop 3: deterioration while every coupon is paid",
+      "title": "Timeline — deterioration while every coupon is paid",
       "short": "Timeline",
       "intro": "Reveal the dated facts one at a time and vote whether the investment thesis still stands. Ratios, missing information, support scoring and the July 2026 counterfactuals follow.",
       "back": "Mechanisms 4–6: weaker expected cash flows, refinancing and support risk, and a possible distressed extension — all before any missed payment."
@@ -125,13 +125,13 @@
       "back": "Who owes you, and on what claim, decides how much of the issuer’s ability to pay reaches you."
     },
     "portfolio": {
-      "title": "Portfolio contrasts",
+      "title": "Portfolio view and contrasts",
       "short": "Portfolio",
-      "intro": "Five lines, four questions each. Pick the main mechanism and the control, then reveal the model answer. Spreads are shown against the benchmark in each line’s own currency.",
+      "intro": "One group, several legal obligors, one support provider: count the group exposure, run the joint stress and choose a contingency action. Then five contrasting lines, four questions each, and the nine-position reference list. Spreads are shown against the benchmark in each line’s own currency.",
       "back": "The same question — loss while paying — has a different dominant mechanism in each line."
     },
     "recognition": {
-      "title": "Recognition — April 2026 under three lenses",
+      "title": "Recognition — April 2026 under three lenses (Stop 3)",
       "short": "Recognition",
       "intro": "The same position through amortised cost, FVOCI and FVTPL; ECL scenarios; the SICR judgement; and China’s five-category classification alongside the IFRS 9 stage.",
       "back": "Impairment charges are a loss while paying: the accounting lens decides where and when they appear."
@@ -145,7 +145,7 @@
     "controls": {
       "title": "Controls mapped to the case dates",
       "short": "Controls",
-      "intro": "Monitoring → escalation → formal impairment assessment → execution, across the branch that knows the client and the head office that holds the bond, seen through five functional lenses. The escalation rule is illustrative only.",
+      "intro": "Monitoring → escalation → formal impairment assessment → execution, across the branch that knows the client and the head office that holds the bond — with an illustrative map of who proposes, decides, is consulted and tests, and four measures someone can count on Monday. The escalation rule is illustrative only.",
       "back": "Losses while paying become larger when evidence is seen late or acted on slowly."
     },
     "decision": {
@@ -171,6 +171,12 @@
       "short": "Bonds vs loans",
       "intro": "The same client can owe the branch a loan and the head office a bond. Flip each row to see how the bond differs and which loss mechanism the difference feeds.",
       "back": "The branch knows the obligor first; what it sees reaches the bond's value through the six mechanisms."
+    },
+    "workout": {
+      "title": "Workout and wealth products",
+      "short": "Workout",
+      "intro": "If support fails (scenario B), the next decision is not a trade but a workout: claim, vote, deadlines, recovery range and cost. Then one more place the same bond lives — a wealth-management product, under different rules.",
+      "back": "A paying bond can still end in a workout; the recovery depends on rank, structure and deadlines decided long before."
     }
   },
   "stops": {
@@ -194,24 +200,14 @@
     }
   },
   "classStops": {
-    "s1": "Market repricing",
-    "d1": "Sep 2025, T+6m: benchmark +30 bp, spread 210 → 330 bp, bid–ask 5 → 40 bp; no issuer news.",
-    "s2": "Holding-period result",
-    "d2": "Mar 2026, T+12m: one coupon received, spread 450 bp, price 95.07; first decision.",
-    "s3": "Deterioration while paying",
-    "d3": "Dec 2025 → Jun 2026: sales, CFO, trust loans, FY2025 results, rating terminated; counterfactuals A and B.",
-    "s4": "The decision",
-    "d4": "Jun 2026: executable proceeds vs probability-weighted holding value; write the decision."
-  },
-  "agenda": {
-    "b1": "Question, poll, the bank's bond",
-    "b2": "Mechanisms, bonds vs loans, three lenses",
-    "b3": "Stops 1–2: sensitivity, shocks, holding period, spread, ratings",
-    "b4": "Break",
-    "b5": "Stop 3: timeline, ratios, support, LGFV, structure, contrasts",
-    "b6": "Recognition, classification, capital, controls",
-    "b7": "Stop 4: the decision",
-    "b8": "ZKB questions and the answer"
+    "s1": "Purchase",
+    "d1": "15 Mar 2025, T0: the seven-point check and Decision 1; one formula to size the risk (Q3).",
+    "s2": "One year later",
+    "d2": "15 Mar 2026: coupon received, spread 450 bp, price 95.07, executable bid 94.37; what head office knew and the branch knew (Q4); Decision 2.",
+    "s3": "The April results",
+    "d3": "14–15 Apr 2026: FY2025 results, SICR → Stage 2, the accounting bridge (Q5); support, structure, portfolio, decision rights.",
+    "s4": "The June decision",
+    "d4": "15 Jun 2026: rating terminated; executable proceeds vs hold value on one date (Q6); the committee memo and Decision 3."
   },
   "timer": {
     "inBlock": "{block} — {left} min left",
@@ -310,7 +306,7 @@
       "Progress, answers and your decision are saved in this browser only (localStorage). Nothing is sent anywhere; the app works fully offline."
     ],
     "fictionalNote": "Huaxing Development Co., Ltd. is a fictional composite. Names of real institutions appear only in public precedents and regulatory facts, which should be verified against primary sources.",
-    "routeOpen": "Show the 35 slides and their questions",
+    "routeOpen": "Show the 27 slides and their questions",
     "subtitle": "Challenge the purchase · see deterioration before a missed payment · decide with evidence"
   },
   "position": {
@@ -377,7 +373,60 @@
     "icbcLens": [
       "The bond sits in the head-office book. The obligor is a branch client: its loans, guarantees, escrow accounts and the CFO's phone number are in the branch.",
       "The same deterioration reaches both books. The branch usually sees it first — a CFO leaving, supplier arrears, escrow behaviour — while the bond's price may show it earlier or later. Report what you see; do not wait for the price."
-    ]
+    ],
+    "check": {
+      "title": "Decision 1 · 15 March 2025: the seven-point pre-purchase check",
+      "label": "Illustrative framework — not ICBC’s approval process",
+      "mandate": {
+        "name": "1 Mandate fit",
+        "text": "head-office credit-bond mandate; limit per developer {limit} (assumption)."
+      },
+      "issuer": {
+        "name": "2 Issuer eligibility",
+        "text": "internal rating refreshed on FY2024; all four ratios inside the alarm lines."
+      },
+      "instrument": {
+        "name": "3 Instrument eligibility",
+        "text": "senior unsecured claim on the operating parent, RMB, onshore law, 3-year bullet; no SPV, no keepwell."
+      },
+      "information": {
+        "name": "4 Information quality",
+        "text": "preliminary results only; audited accounts due April; monthly sales published; the branch has the relationship."
+      },
+      "downside": {
+        "name": "5 Downside and recovery",
+        "text": "LGD {lgd}: unsecured; operating assets sit in project companies behind secured lenders."
+      },
+      "return": {
+        "name": "6 Expected return after costs",
+        "text": "≈ {net} net a year after funding, expected loss, capital and a liquidity reserve (illustrative; table below)."
+      },
+      "size": {
+        "name": "7 Size and exit capacity",
+        "text": "RMB 100 m = {share} of a {issue} issue; dealers quote {dealer} in size; {days} days to exit in a normal market."
+      },
+      "line": "Expected return after costs",
+      "bp": "bp a year",
+      "carry": "Carry: yield {y} − funding {f}",
+      "el": "− Expected loss: PD {pd} × LGD {lgd}",
+      "capital": "− Capital cost: {rw}% risk weight × {r}% × {c}% cost of capital",
+      "liquidity": "− Liquidity reserve (assumption)",
+      "net": "Net margin",
+      "formula": "net = (yield − funding) − PD × LGD − RW × capital ratio × cost of capital − liquidity reserve",
+      "carryShort": "Carry (bp)",
+      "elShort": "Expected loss (bp)",
+      "capitalShort": "Capital cost (bp)",
+      "liquidityShort": "Liquidity reserve (bp)",
+      "shareShort": "Share of the issue",
+      "note": "All figures fictional. The mapping of a developer’s bond (Capital Rules Art. 67 corporate vs Art. 70 real-estate development) is an open item. The point is not the number but the list: a purchase memo that cannot name these five lines is not complete."
+    },
+    "d1": {
+      "afterTitle": "After the vote",
+      "after": [
+        "Most rooms approve, with conditions. The case is about what happens after a defensible purchase — and whether the conditions written down today are the ones that will matter in 2026.",
+        "Ask one person who voted B for their conditions: expect size (RMB 50 m), a dated trigger on the September 2026 refinancing and a branch information covenant. A 35 bp net margin leaves no room for a surprise."
+      ]
+    }
   },
   "fin": {
     "revenue": "Revenue",
@@ -416,7 +465,8 @@
         "AC": "Economic value only; not in P&L or OCI unless sold (interest-rate risk in the banking book is managed separately).",
         "FVOCI": "Fair-value change goes to OCI and therefore CET1; recycled to P&L on sale.",
         "FVTPL": "Straight through P&L."
-      }
+      },
+      "seenBy": "Treasury / market risk"
     },
     "spread": {
       "name": "Spread widening",
@@ -426,7 +476,8 @@
         "AC": "Economic value only; the carrying amount does not move until impairment or sale.",
         "FVOCI": "OCI (and CET1); the credit part is also reflected through ECL in P&L.",
         "FVTPL": "Straight through P&L."
-      }
+      },
+      "seenBy": "Global Market Department (price)"
     },
     "liquidity": {
       "name": "Liquidity / exit discount",
@@ -436,7 +487,8 @@
         "AC": "Realised on sale only.",
         "FVOCI": "Realised on sale; fair value may already sit at an exit price inside the bid–ask.",
         "FVTPL": "Realised on sale; fair value may already sit at an exit price inside the bid–ask."
-      }
+      },
+      "seenBy": "The desk, on the day it tries to sell"
     },
     "ecl": {
       "name": "Higher expected credit loss",
@@ -446,7 +498,8 @@
         "AC": "P&L (allowance reduces the carrying amount).",
         "FVOCI": "P&L; the allowance is recognised in OCI, not against the carrying amount.",
         "FVTPL": "Outside the impairment scope — already inside the fair-value change."
-      }
+      },
+      "seenBy": "Finance / impairment committee"
     },
     "refinancing": {
       "name": "Refinancing, support or recovery change",
@@ -456,7 +509,8 @@
         "AC": "Through ECL (PD, LGD) in P&L; economic value through spread.",
         "FVOCI": "ECL in P&L, the rest of the fair-value change in OCI.",
         "FVTPL": "Through fair value in P&L."
-      }
+      },
+      "seenBy": "The branch — the obligor is its client"
     },
     "extension": {
       "name": "Distressed extension",
@@ -466,13 +520,15 @@
         "AC": "Modification gain/loss at the original EIR in P&L, ECL, and restructured-asset classification.",
         "FVOCI": "Modification and ECL in P&L; fair value in OCI.",
         "FVTPL": "Fair value in P&L."
-      }
+      },
+      "seenBy": "Asset Preservation / Special Financing"
     },
     "noncallTitle": "Note: non-call is not default",
     "noncall": [
       "When a bank does not call a Tier-2 bond at its first call date, the bond continues — usually at a reset coupon — exactly as the contract allows. That is extension risk priced by the market, not a default.",
       "Conversely, a write-down at the point of non-viability is a contractual loss of principal without a default event. Read the contract, not the headline."
-    ]
+    ],
+    "seenByCol": "Seen first by"
   },
   "lab": {
     "controls": "Market inputs",
@@ -697,27 +753,31 @@
       "funding": "funding",
       "financials": "financials",
       "rating": "rating",
-      "maturities": "maturities"
+      "support": "support"
     },
     "facts": {
-      "f0": "Market repricing with no issuer news: benchmark +30 bp to 1.80%; developer spreads widen, Huaxing 210 → 330 bp; bid–ask in yield 5 → 40 bp.",
-      "f1": "Monthly contracted sales −31% y/y (sector −12%).",
-      "f2": "The CFO resigns.",
-      "f3": "Annual coupon of 3.60 paid in full and on time. Spread 450 bp; yield 6.30%; price 95.07.",
-      "f4": "Two project-company trust loans are extended — at project level, not the issuer’s bonds.",
-      "f5": "FY2025 results: revenue RMB 215 bn (−24%), total debt 310, debt/EBITDA 7.8×, EBITDA/interest 1.6×, unrestricted cash 42 vs short-term debt 98 (0.43×), operating cash flow −9 vs net profit +4.",
-      "f6": "National-scale rating terminated at the issuer’s request.",
-      "f7": "Maturity wall: RMB 12 bn onshore bond due September 2026; US$ 800 m keepwell notes of an offshore SPV (a different obligor) due December 2026."
+      "E0": "FY2024 preliminary results: revenue RMB 283 bn; contracted sales −5%; debt/EBITDA 5.2×; EBITDA/interest 3.1×; cash 75 vs short-term debt 70; operating cash flow +12 vs profit +10.",
+      "E1": "H1 2025 interim report: contracted sales −8% y/y (sector −10%); ratios broadly unchanged.",
+      "M1": "Market repricing with no issuer news: benchmark +30 bp to 1.80%; developer spreads widen, Huaxing 300 → 330 bp; two-way width 5 → 40 bp.",
+      "E2": "December monthly contracted sales −31% y/y — the third month at or below −25%; sector −12%. Published in the monthly operating announcement on 6 Jan 2026.",
+      "E3": "The CFO resigns ‘for personal reasons’; no successor named (exchange announcement).",
+      "E4": "Two project-company trust loans (lenders: trust companies, not ICBC) are extended by 12 months — at project level, not the issuer’s bonds. Not public; the relationship manager learns of it on 12 Mar 2026.",
+      "C1": "Annual coupon of 3.60 received on our MTN, in full and on time. Spread 450 bp; yield 6.30%; price 95.07.",
+      "E5": "FY2025 results: revenue RMB 215 bn (−24%), debt/EBITDA 7.8×, EBITDA/interest 1.6×, unrestricted cash 42 vs short-term debt 98 (0.43×), operating cash flow −9 vs net profit +4.",
+      "E6": "National-scale rating terminated at the issuer’s request. Maturity wall: RMB 12 bn onshore bond due 15 Sep 2026; US$ 800 m keepwell notes of an offshore SPV (a different obligor) due December 2026.",
+      "S": "Resolution of the support question (assumption: by 31 Jul 2026): counterfactual A — registered guarantee for the refinancing bond plus a new drawn shareholder loan; or B — no support, extension proposal for the September bond."
     },
     "readings": {
-      "f0": "Market-wide: the control (rates) and sector spread move together; no issuer-specific evidence yet.",
-      "f1": "Sales fall far faster than the sector: issuer-specific cash generation is weakening.",
-      "f2": "Governance and information risk: who signs the next financial statements?",
-      "f3": "The coupon is paid — and the position is still down: price −4.93, funded return −3.33.",
-      "f4": "Project-level extensions are not a default on your bond, but they show refinancing pressure inside the group.",
-      "f5": "Cash cover below 1× and negative operating cash flow with a positive profit: earnings are not turning into cash.",
-      "f6": "Information to assess, not a rating action. See the Ratings tab.",
-      "f7": "Refinancing risk is now dated. The keepwell notes are owed by the SPV, not by the parent."
+      "E0": "The baseline the purchase was approved on: all four ratios inside the alarm lines.",
+      "E1": "Sales slightly weaker than the sector; a routine review, no action needed.",
+      "M1": "Market-wide: the control (rates) and sector spread move together; no issuer-specific evidence yet.",
+      "E2": "Sales fall far faster than the sector for the third month: issuer-specific cash generation is weakening. Should trigger a watchlist entry (control step 1).",
+      "E3": "Governance and information risk: who signs the next financial statements? Should trigger a formal review (control step 2).",
+      "E4": "Not a default on your bond, but refinancing pressure inside the group. In the base case head office learns of it only on 20 Apr 2026 — after the 15 Mar decision. Had the branch reported within 3 working days, head office would have known on 13 Mar.",
+      "C1": "The coupon is paid — and the position is still down: price −4.93, funded return −3.33.",
+      "E5": "Cash cover below 1× and negative operating cash flow with a positive profit: earnings are not turning into cash. Impairment committee on 15 Apr: SICR → Stage 2.",
+      "E6": "Information to assess, not a rating action (see the Ratings tab). Refinancing risk is now dated; the keepwell notes are owed by the SPV, not by the parent.",
+      "S": "The second-step review on 31 Jul 2026 reads the outcome: A → spread 350 bp; B → 900 bp."
     },
     "ratiosTitle": "Ratios before and after",
     "fy2025": "FY2025",
@@ -827,9 +887,26 @@
       "disclosed": "Disclosed",
       "ho": "Head office knows",
       "branch": "Branch knows",
-      "decision": "Decision"
+      "decision": "Decision",
+      "spread": "Spread (bp)"
     },
-    "datesNote": "Dates per event (occurrence / disclosure / head-office knowledge / branch knowledge / decision). The trust-loan extensions are branch-only in the base case (12 Mar 2026). Empty cells are completed from the v5 case ledger."
+    "datesNote": "From the case ledger (§3). Every date is fictional. The branch’s knowledge of E4 on 12 Mar 2026 is the branch–head-office point of the whole case: in the base case head office decides on 15 Mar without it. Reporting dates are simplified to case dates; ICBC’s actual reporting dates are quarter-ends.",
+    "spreadLine": "Spread {spread}.",
+    "spreadAB": "Spread: A {a} / B {b}.",
+    "byDate": "by {date}",
+    "notPublic": "not public",
+    "hoBase": "base case {base}; counterfactual {cf}",
+    "decisions": {
+      "D1": "D1 15 Mar 2025 — purchase approved",
+      "none": "none (routine review)",
+      "watch": "should trigger a watchlist entry (control step 1)",
+      "review": "should trigger a formal review (control step 2)",
+      "D2held": "D2 15 Mar 2026 — held WITHOUT this fact in the base case",
+      "D2": "D2 15 Mar 2026 — first review (vote)",
+      "D2b": "D2b 15 Apr 2026 — impairment committee: SICR → Stage 2; category reviewed",
+      "D3": "D3 15 Jun 2026 — final decision (vote)",
+      "review2": "second-step review 31 Jul 2026"
+    }
   },
   "structure": {
     "compareTitle": "Three instruments, three claims",
@@ -1003,62 +1080,119 @@
         "evidence": "Parent performing under the deed, a court decision on enforcement, or a change in USD funding conditions."
       }
     },
-    "refTitle": "Nine-line reference list",
+    "refTitle": "Nine illustrative positions — the same four questions for each (Appendix A6)",
     "refCols": {
-      "line": "Line",
-      "ccy": "Currency",
-      "bench": "Benchmark",
-      "mech": "Dominant mechanism while paying",
-      "control": "Key control"
+      "line": "Instrument",
+      "bench": "Benchmark / currency",
+      "mech": "Main mechanism while paying · evidence that changes the decision",
+      "spread": "Indicative spread (bp)",
+      "book": "Book"
     },
     "ref": {
       "r1": {
-        "name": "China Government Bond 10y",
-        "mech": "Benchmark rates (control)",
-        "control": "Duration limit"
+        "name": "10-year China Government Bond",
+        "mech": "1 rates; 3 liquidity (issuer credit nil by case assumption) · a change in the mandate; duration limits"
       },
       "r2": {
-        "name": "Policy-bank bond 5y",
-        "mech": "Rates; small spread to CGB",
-        "control": "Duration limit"
+        "name": "Provincial special-purpose local government bond, 7y",
+        "mech": "1; 3; region liquidity · capital 20% (Art. 62)"
       },
       "r3": {
-        "name": "Provincial government special bond",
-        "mech": "Rates; liquidity",
-        "control": "Duration and liquidity limits"
+        "name": "Policy-bank bond, 5y",
+        "mech": "1; 3 · OCI moves CET1 at once"
       },
       "r4": {
-        "name": "Big-six bank Tier-2 10NC5",
-        "mech": "Spread; non-call extension; write-down",
-        "control": "Call monitoring, legal review"
+        "name": "Big-six bank Tier-2, 10NC5 (contrast)",
+        "mech": "2 subordination spread; non-call extends duration · CET1 trend; replacement issuance; 150% weight (Art. 77)"
       },
       "r5": {
-        "name": "Joint-stock bank perpetual (AT1)",
-        "mech": "Coupon cancellation; non-call; write-down",
-        "control": "Legal review, concentration"
+        "name": "City commercial bank Tier-2, 10NC5, weaker province",
+        "mech": "2; 5 support of the bank; non-call; write-down at non-viability (Baoshang)"
       },
       "r6": {
-        "name": "Central SOE MTN",
-        "mech": "Spread; support assumptions",
-        "control": "Support assessment"
+        "name": "District-level LGFV MTN, 3y",
+        "mech": "2; 4; 5 refinancing and support · refinancing completed; bond allocation; overdue non-standard debt"
       },
       "r7": {
-        "name": "District LGFV MTN",
-        "mech": "Refinancing; support; liquidity",
-        "control": "Regional concentration limit"
+        "name": "Central SOE utility MTN, 5y",
+        "mech": "2 (small); 1"
       },
       "r8": {
-        "name": "USD keepwell note (offshore SPV)",
-        "mech": "Structure; refinancing; USD spread",
-        "control": "Legal review; FX hedge"
+        "name": "Huaxing MTN (case)",
+        "mech": "2; 4; 5; 6 if extended · registered support; September refinancing; monthly sales"
       },
       "r9": {
-        "name": "US Treasury 5y",
-        "mech": "USD rates (control); FX",
-        "control": "Duration and FX limits"
+        "name": "US$ keepwell note of an SOE subsidiary, 3y",
+        "mech": "2 vs UST; FX; 5 structure and remedy under the governing law · a registered guarantee replacing the keepwell"
       }
     },
-    "ccyNote": "Spreads are measured against the benchmark of each line’s own currency. Never compare a USD spread over US Treasuries with a CNY spread over CGBs."
+    "ccyNote": "Spreads are measured against the benchmark of each line’s own currency. Never compare a USD spread over US Treasuries with a CNY spread over CGBs.",
+    "contrastTitle": "Contrasts: five lines, four questions",
+    "group": {
+      "title": "The portfolio view: one group, several legal obligors, one support provider",
+      "caption": "Illustrative exposures (RMB m, fictional). Count each legal obligor once. Amounts in brackets are not the bank’s credit exposure.",
+      "obligor": "Legal obligor",
+      "instrument": "Instrument · book",
+      "amount": "RMB m",
+      "status": "Status (Apr 2026)",
+      "obligors": {
+        "parent": "Huaxing parent",
+        "projectCos": "Project Co A, B (subsidiaries, 100% / 51%)",
+        "soe": "Provincial SOE (20% shareholder)",
+        "none": "Memo — not an obligor"
+      },
+      "rows": {
+        "wcLoans": "Working-capital loans (secured on land-use rights)",
+        "mtn": "3.60% MTN 2028 — our case",
+        "guarantees": "Guarantees and LCs issued",
+        "projectLoans": "Project loans (secured; presale escrow)",
+        "trustLoans": "Trust loans from trust companies (extended Mar 2026)",
+        "soe": "Loans and bonds",
+        "wm": "WM product holds 50 of the same MTN"
+      },
+      "books": {
+        "branch": "branch",
+        "hoAc": "head office, AC",
+        "branchOff": "branch, off-balance",
+        "notIcbc": "not ICBC",
+        "branchHo": "branch + head office",
+        "wm": "off-balance; investors bear the risk"
+      },
+      "statuses": {
+        "s2sm": "Stage 2 / special mention",
+        "s2": "Stage 2",
+        "s1assess": "Stage 1 — assess (Art. 7: different debtors)",
+        "na": "n/a — structural seniority information",
+        "s1corr": "Stage 1 — correlated with any support given",
+        "nav": "net-value product; conflict / reputational"
+      },
+      "cGroup": "Group: RMB {on} m on-balance, {off} m with guarantees — the bond is {share} of it.",
+      "cSupport": "Support provider: {soe} m to the SOE whose support we are hoping for — support given weakens our other obligor.",
+      "cSector": "Sector: developers ≈ {sector} m at the bank (illustrative); region ≈ {region} m.",
+      "cLegal": "Legal entities: parent, two project companies, an offshore SPV and the SOE are five different debtors — classify by assessment, do not propagate automatically."
+    },
+    "stress": {
+      "title": "Joint stress (illustrative)",
+      "shock": "Shock",
+      "effect": "RMB m",
+      "spread": "Spread +{bp} bp on the bond → fair value",
+      "pd": "Loan PD ×3 (lifetime PD {from} → {to}, LGD {lgd}) → ECL on {loans} of loans",
+      "width": "Bid–ask ×2 → extra exit cost on the bond",
+      "total": "Total — {share} of it in the loans, not the bond",
+      "formula": "bond × spread duration × Δspread + (PD₂ − PD₁) × LGD × loans + bond × spread duration × Δwidth",
+      "dur": "Spread duration (June 2026)",
+      "bond": "Bond (RMB m)",
+      "loans": "Loans stressed (RMB m)",
+      "note": "All figures fictional. Loan LGD 40% reflects collateral. The bond is small; the portfolio question is the group limit, the support-provider line and the sector."
+    },
+    "choice": {
+      "title": "Management choice — show of hands",
+      "q": "Which contingency action first, given a group limit of RMB {limit} m (illustrative)?",
+      "A": "No new money to the group; freeze guarantee issuance",
+      "B": "Collateral top-up on the working-capital loans; tighten escrow controls",
+      "C": "Reduce the bond (the only exposure with a market) — accept that it moves the group number by 3%",
+      "note": "Expected: A or B. C is defensible only as part of A/B: the bond is the one exposure with a daily price and an exit, which is exactly why it attracts attention out of proportion to its size."
+    }
   },
   "recog": {
     "scenTitle": "ECL scenario inputs",
@@ -1225,37 +1359,11 @@
     "periodCharge": "Period charge 15 Mar → 15 Apr 2026"
   },
   "capital": {
-    "rwTitle": "Standardised risk weights (weighted approach)",
+    "rwTitle": "Standardised risk weights by article (weighted approach)",
     "exposure": "Exposure",
     "rw": "Risk weight",
     "ref": "Reference (to verify)",
-    "rwRows": {
-      "cgb": "China central government bonds (zero issuer credit — a case assumption)",
-      "pbc": "People’s Bank of China",
-      "policyBank": "Policy banks",
-      "localGeneral": "Local government general bonds",
-      "localSpecial": "Local government special bonds",
-      "bankA": "Domestic commercial bank, grade A (general)",
-      "bankB": "Domestic commercial bank, grade B",
-      "bankTier2": "Bank Tier-2 / other capital instruments held",
-      "corpIG": "Investment-grade corporate",
-      "corpGeneral": "General corporate",
-      "corpSub": "Subordinated debt of corporates"
-    },
-    "rwRef": {
-      "cgb": "Capital Rules (2023), Annex 2",
-      "pbc": "Capital Rules (2023), Annex 2",
-      "policyBank": "Capital Rules (2023), Annex 2",
-      "localGeneral": "Capital Rules (2023), Annex 2",
-      "localSpecial": "Capital Rules (2023), Annex 2",
-      "bankA": "Capital Rules (2023), Annex 2",
-      "bankB": "Capital Rules (2023), Annex 2",
-      "bankTier2": "Capital Rules (2023), Annex 2",
-      "corpIG": "Capital Rules (2023), Annex 2",
-      "corpGeneral": "Capital Rules (2023), Annex 2",
-      "corpSub": "Capital Rules (2023), Annex 2"
-    },
-    "rwNote": "Illustrative weights under the NFRA Capital Rules for Commercial Banks (effective 1 Jan 2024). Article and paragraph numbers must be checked against the official text; conditions (maturity, grading, eligibility) are omitted.",
+    "rwNote": "Capital Rules (NFRA Order 2023 No. 4, effective 1 Jan 2024), articles from the gov.cn text, read at source 1 Oct 2026. Only the PRC central government and the PBoC carry 0% (Art. 61); foreign sovereigns are weighted by rating (Art. 58); provincial bonds 10% / 20% (Art. 62); a district government is not in that category. A developer’s bond may map to Art. 67 or Art. 70 — confirm with the capital team.",
     "approachTitle": "IRB vs weighted approach",
     "approach": "Approach",
     "weighted": "Weighted (standardised)",
@@ -1298,8 +1406,103 @@
       "No. Capital fell through the ECL charge (retained earnings) and, under FVOCI, through OCI in CET1.",
       "Under IRB the higher PD would also raise RWA. And a realised loss on sale reduces capital immediately."
     ],
-    "holdingsNote": "Holdings of other banks' AT1 and Tier-2 instruments and TLAC-eligible debt attract high risk weights (Tier-2: 150%) and, above thresholds, deductions from capital — relevant for the Tier-2 line in the portfolio.",
-    "art32": "Capital Rules (2023), Art. 32: accumulated other comprehensive income is part of CET1 — under FVOCI the fair-value loss reaches capital before any sale."
+    "holdingsNote": "Subordinated claims (excluding development and policy banks) carry 150% (Art. 77) — relevant for the Tier-2 lines in the portfolio. Reciprocal holdings of other banks’ capital instruments are deducted; minority investments are deducted above the 10% thresholds, then the rest is weighted (Arts. 36–38). Treatment of bank AT1 holdings is not stated in the articles read.",
+    "art32": "Capital Rules (2023), Art. 32: accumulated other comprehensive income is part of CET1 — under FVOCI the fair-value loss reaches capital before any sale.",
+    "art": "Art. {n}",
+    "arts": {
+      "prc": {
+        "name": "PRC central government and PBoC",
+        "rw": "0%"
+      },
+      "sov": {
+        "name": "Other sovereigns, by rating: AA− and above 0%; A− to AA− 20%; BBB− to A− 50%; B− to BBB− 100%; below B− 150%; unrated 100%",
+        "rw": "by rating"
+      },
+      "prov": {
+        "name": "Provincial (and separately-listed-city) governments — general bonds / special bonds",
+        "rw": "10% / 20%"
+      },
+      "policy": {
+        "name": "Development and policy banks (excluding subordinated claims)",
+        "rw": "0%"
+      },
+      "banks": {
+        "name": "Commercial banks by grade A+ / A / B / C",
+        "rw": "30 / 40 / 75 / 150%"
+      },
+      "otherFi": {
+        "name": "Other financial institutions; investment-grade",
+        "rw": "100%; 75%"
+      },
+      "corp": {
+        "name": "General corporates; investment-grade; SMEs; small and micro",
+        "rw": "100%; 75%; 85%; 75%"
+      },
+      "reDev": {
+        "name": "Real-estate development exposures (prudential criteria met: 100%)",
+        "rw": "150% / 100%"
+      },
+      "sub": {
+        "name": "Subordinated claims (excluding development and policy banks)",
+        "rw": "150%"
+      },
+      "equity": {
+        "name": "Equity investments in financial institutions (un-deducted part); DTAs relying on future profit",
+        "rw": "250%"
+      },
+      "defaulted": {
+        "name": "Defaulted exposures: provisions < 20% of book value / ≥ 20%",
+        "rw": "150% / 100%"
+      },
+      "holdings": {
+        "name": "Holdings of other banks’ capital instruments: reciprocal holdings deducted; minority investments deducted above 10% thresholds",
+        "rw": "deduction, then weighting"
+      }
+    },
+    "rwRows": {
+      "cgb": "PRC central government and PBoC",
+      "localGeneral": "Provincial government general bond",
+      "localSpecial": "Provincial government special bond",
+      "policyBank": "Development and policy banks",
+      "bankAplus": "Commercial bank, grade A+",
+      "bankA": "Commercial bank, grade A",
+      "bankB": "Commercial bank, grade B",
+      "bankC": "Commercial bank, grade C",
+      "otherFi": "Other financial institution",
+      "otherFiIG": "Other financial institution, investment-grade",
+      "corpGeneral": "General corporate",
+      "corpIG": "Investment-grade corporate",
+      "corpSme": "Medium-sized enterprise",
+      "reDev": "Real-estate development",
+      "reDevPrudent": "Real-estate development, prudential criteria met",
+      "sub": "Subordinated claim",
+      "defaultedLow": "Defaulted, provisions < 20%",
+      "defaultedHigh": "Defaulted, provisions ≥ 20%"
+    },
+    "icbcTitle": "ICBC capital (public disclosures)",
+    "icbc": {
+      "cet1": {
+        "label": "ICBC capital",
+        "value": "CET1 13.57%",
+        "text": "31 Dec 2025 (Tier 1 14.94%, total 18.76%); 13.21% at 30 Jun 2026"
+      },
+      "gsib": {
+        "label": "G-SIB",
+        "value": "Bucket 3",
+        "text": "FSB list 27 Nov 2025; 2.0% buffer from 1 Jan 2027 (bucket 2 in Nov 2024)"
+      },
+      "tlac": {
+        "label": "TLAC",
+        "value": "21.47%",
+        "text": "risk-weighted ratio, end-2025; minimum 16% from 2025, 18% from 2028"
+      },
+      "approach": {
+        "label": "Approach",
+        "value": "F-IRB / A-IRB",
+        "text": "corporate / retail; weighted (standardised) approach for the rest, sovereign and bank included"
+      }
+    },
+    "icbcSource": "ICBC 2025 Pillar 3 Disclosure Report (HKEX 27 Mar 2026) p. 2, KM1 p. 3, TLAC1 p. 17; FSB G-SIB lists 27 Nov 2025 and 26 Nov 2024; PBoC/CBIRC/MOF Order 2021 No. 6. Accumulated OCI is inside CET1 (Art. 32), so FVOCI losses reach capital at once."
   },
   "controls": {
     "stepsTitle": "Four steps mapped to the case dates",
@@ -1355,44 +1558,93 @@
     "noTrigger": "With these thresholds the rule never fires on the case dates.",
     "ruleFormula": "Signals = count of {spread ≥ level, spread − 210 ≥ widening, clean price < floor, cash cover < threshold, qualitative red flag}\nEscalate when signals ≥ required",
     "ruleNote": "Dec 2025 has no market observation in the case; red flags: sales (Dec 2025), CFO and trust loans (Mar 2026), FY2025 results (Apr 2026), rating termination (Jun 2026).",
-    "lensesTitle": "Five functional lenses",
-    "function": "Function",
-    "responsibility": "Responsibility",
-    "inCase": "In the Huaxing case",
-    "lenses": {
-      "fmd": {
-        "name": "Financial Markets Department (HO)",
-        "role": "Owns the position, the business-model assessment and the executable-price check.",
-        "case": "Prepares the Jun 2026 decision: executable bid vs hold value, break-even probability, hedge feasibility."
-      },
-      "branch": {
-        "name": "Branch / relationship",
-        "role": "Knows the obligor first — CFO exit, supplier arrears, escrow behaviour — and reports to head office within a set time, no-fault.",
-        "case": "Reports the CFO resignation and the trust-loan extensions when they happen, not when the price has moved."
-      },
-      "risk": {
-        "name": "Risk management",
-        "role": "Independent assessment, limits, internal grade, SICR and ECL inputs; challenges the first line.",
-        "case": "Refreshes the internal grade after the rating termination; runs the escalation rule; sets ECL scenarios."
-      },
-      "audit": {
-        "name": "Internal audit",
-        "role": "Tests whether controls operated on time and were documented.",
-        "case": "Checks that escalation happened when the rule fired and that the stage judgement is evidenced."
-      },
-      "operations": {
-        "name": "Operations / finance",
-        "role": "Valuation, accounting entries, regulatory reporting, settlement.",
-        "case": "Books ECL, OCI and any modification loss; reports the five-category result; executes any sale at the bid."
-      }
-    },
     "qTitle": "Discussion",
     "q": "Which control failure turns a loss while paying into a larger loss?",
     "a": [
       "Waiting for a missed payment. Every signal in the case arrived while coupons were paid; a control keyed to payment status would escalate only after the exit price has collapsed.",
       "Controls should be dated, evidence-based and owned — with a named escalation route."
     ],
-    "legend": "● signal present · ○ not present"
+    "legend": "● signal present · ○ not present",
+    "rights": {
+      "title": "Decision rights: who proposes, decides, is consulted, tests",
+      "label": "Illustrative map — not ICBC’s organisation",
+      "decision": "Decision",
+      "cols": {
+        "proposes": "Proposes",
+        "decides": "Decides",
+        "consulted": "Must be consulted",
+        "tested": "Tested by"
+      },
+      "rows": {
+        "purchase": {
+          "name": "Purchase and limits",
+          "proposes": "Investment management (Global Market Dept)",
+          "decides": "Credit / investment committee",
+          "consulted": "Independent risk; the relationship branch (information covenant)",
+          "tested": "Internal audit / inspection"
+        },
+        "watchlist": {
+          "name": "Watchlist entry, early warning",
+          "proposes": "Branch / relationship team — within 5 working days of a signal, no-fault",
+          "decides": "Independent risk",
+          "consulted": "Investment management; finance",
+          "tested": "Internal audit"
+        },
+        "sicr": {
+          "name": "SICR, stage, ECL scenarios",
+          "proposes": "Finance / impairment",
+          "decides": "Impairment committee",
+          "consulted": "Independent risk (PD/LGD challenge); the branch",
+          "tested": "Internal audit; external audit"
+        },
+        "regulatory": {
+          "name": "Regulatory classification",
+          "proposes": "Branch (loans) and investment management (bonds)",
+          "decides": "Independent risk — one view per debtor",
+          "consulted": "Legal (restructuring definitions)",
+          "tested": "Inspection office"
+        },
+        "sale": {
+          "name": "Sale, price floor, execution",
+          "proposes": "Investment management — with a documented executable bid",
+          "decides": "Committee for size and floor; desk for timing",
+          "consulted": "Independent risk; operations (settlement, custody)",
+          "tested": "Internal audit (the record)"
+        },
+        "legal": {
+          "name": "Legal action, holders’ vote",
+          "proposes": "Asset preservation / special financing",
+          "decides": "Workout committee",
+          "consulted": "Legal; the branch; finance (Stage 3)",
+          "tested": "Internal audit"
+        }
+      },
+      "disagreeTitle": "When they disagree",
+      "disagree": "Investment management wants to hold; independent risk wants to reduce: the chief risk officer decides within 48 hours, or escalates to the risk committee; the dissent is recorded in the decision record, not in an e-mail. The branch’s view is attached, not summarised.",
+      "infoTitle": "Information-sharing controls",
+      "info": "Branch information about a client is confidential and may be non-public; the head-office desk trades the bond in a market. Who may receive what, when, and whether a trade may follow — Legal and Compliance decide the wall; the early-warning protocol must be designed inside it (open item for ICBC’s own rules).",
+      "note": "Proposed governance for discussion — an outside instructor’s illustrative design on a fictional case; thresholds and timings are placeholders; no statement about ICBC’s current practice. Internal audit tests and never decides."
+    },
+    "measures": {
+      "title": "Four observable control measures — proposals for discussion",
+      "m1": {
+        "name": "1 · Days from a branch signal to a watchlist entry",
+        "text": "Signal list (CFO exit, supplier arrears, escrow behaviour, trust-loan extension, monthly sales below a threshold); report within 5 working days, no-fault; receiver: investment management and independent risk."
+      },
+      "m2": {
+        "name": "2 · Share of debtors with both loans and bonds that have one obligor file",
+        "text": "Reviewed quarterly: five-category classification and IFRS 9 stage side by side, differences explained."
+      },
+      "m3": {
+        "name": "3 · Decision records before any reduction or exit of a credit bond",
+        "text": "One page: executable bid, two hold scenarios on one date, owner, floor and fallback, dated triggers. Audit samples the records, not the outcomes."
+      },
+      "m4": {
+        "name": "4 · SICR assessments documented within 10 working days of a trigger",
+        "text": "Internal rating refreshed; credit-impaired question answered in writing — never deferred to a missed payment."
+      },
+      "note": "An outside instructor’s suggestions on a fictional case; thresholds are placeholders; not an assessment of ICBC’s practice."
+    }
   },
   "decision": {
     "ladderTitle": "Value ladder (per 100 nominal)",
@@ -1544,41 +1796,41 @@
       "years": "Horizon (years)"
     },
     "model": {
-      "title": "Decision record — class model (v5)",
-      "intro": "The memo rows the class compares its own record with.",
+      "title": "Decision 3 · the committee memo, written so that audit can test it",
+      "intro": "Vote first; then the conditional model answer. One defensible answer, not the answer.",
       "item": "Item",
       "value": "Model answer",
-      "note": "A model to compare against, not the only right answer.",
+      "note": "Hold-with-triggers is also defensible if liquidity is not needed and the weighted hold value exceeds the bid after costs; exit is defensible if the mandate no longer fits. Not defensible: a decision without an executable price, a date, a name — or one that waits for a missed payment to assess impairment.",
       "rows": {
-        "tranche1": {
-          "k": "First tranche",
-          "v": "Sell the first tranche by 30 Jun 2026 at the executable bid."
+        "decision": {
+          "k": "Decision",
+          "v": "Reduce to 50% (RMB 50 m) by 30 June 2026 at or above {bid} (the executable bid for RMB 50 m); hold the remainder at Stage 2 with lifetime ECL; no new money to the group; guarantee issuance frozen."
         },
-        "support": {
-          "k": "Support check",
-          "v": "31 Jul 2026: registered guarantee and new shareholder loan in place — or not."
+        "why": {
+          "k": "Why 50%",
+          "v": "Liquidity: dealers absorb RMB 50 m at the bid; a second 50 m would cost ≈ 70 bp more (≈ {tr2}). Risk budget: the post-review bond limit for the obligor is RMB 50 m. Uncertainty: {be} break-even — keeping half preserves the upside if support is registered, selling half caps the downside. No forecast of further widening is needed."
         },
-        "refinancing": {
-          "k": "Refinancing plan",
-          "v": "15 Aug 2026: a credible refinancing plan for the September bond — or not."
-        },
-        "exit": {
-          "k": "Exit remainder",
-          "v": "By 31 Aug 2026 unless both checks are met."
+        "sequence": {
+          "k": "Sequence and triggers",
+          "v": "(1) First tranche executed by 30 Jun. (2) 31 Jul review: registered guarantee or drawn shareholder loan → hold the remainder, review stage after two quarters; none → (3) refinancing plan for the September bond required by 15 Aug; none → exit the remainder by 31 Aug, before the 15 Sep maturity. (4) Any extension proposal, any date → credit-impaired assessment within 5 working days."
         },
         "floor": {
-          "k": "Price floor",
-          "v": "91.3, with a one-time 50 bp fallback; second-tranche reference bid {tr2} (mid + 150 bp)."
+          "k": "Price floor and fallback",
+          "v": "Floor {bid} for the first tranche. If the market cannot be done at the floor by 30 Jun: desk head and CRO may lower it by up to 50 bp of yield once; otherwise hold and re-decide at the 31 Jul review. ‘At any price’ is not an instruction."
         },
         "impairment": {
-          "k": "Impairment",
-          "v": "Assessed on the day of each trigger, not at month-end."
+          "k": "Impairment and classification — now",
+          "v": "Assessed today, not at a missed payment: not credit-impaired (no event of default, no distressed restructuring of our instrument); Stage 2 retained; regulatory category special mention (judgement). A distressed extension of our MTN would make it credit-impaired → at least substandard (Measures Art. 11) even with every coupon paid."
         },
-        "sizing": {
-          "k": "Sizing rationale",
-          "v": "Liquidity, risk budget and uncertainty — the reasons for the tranche size are written into the record."
+        "owner": {
+          "k": "Owner and escalation",
+          "v": "Named individuals: head of the credit-bond desk (execution), head of credit risk (stage and limit), head of the relationship branch (information within 3 working days), finance (ECL). Desk → credit risk → impairment committee within 48 hours of any trigger; audit receives the decision record; the WM company informed of the sale (Workout tab)."
         }
-      }
+      },
+      "pA": "Probability of support (A / B)",
+      "ev": "Expected hold value",
+      "beRow": "Break-even ≈ {be} — equals the executable bid",
+      "evCaption": "15 June 2026, dirty, per 100: p × 98.11 + (1 − p) × 89.91"
     }
   },
   "answer": {
@@ -1961,7 +2213,15 @@
     "fwBmid": "Forward: hold B, mid",
     "fwBbid": "Forward: hold B, bid",
     "fwBe": "Forward-horizon break-even probability",
-    "tr2": "Second-tranche bid (mid + 150 bp)"
+    "tr2": "Second-tranche bid (mid + 150 bp)",
+    "d1carry": "Decision 1: carry, yield − funding (bp)",
+    "d1net": "Decision 1: net margin after costs (bp)",
+    "d1share": "Decision 1: position as share of the RMB 3 bn issue",
+    "pfOn": "Portfolio: Huaxing group on-balance (RMB m)",
+    "pfOff": "Portfolio: Huaxing group incl. guarantees (RMB m)",
+    "pfStress": "Portfolio: joint stress total (RMB m)",
+    "ev50": "Expected hold value at 50 / 50 (15 Jun 2026)",
+    "ev25": "Expected hold value at 25 / 75 (15 Jun 2026)"
   },
   "desc": {
     "purposeTitle": "Purpose",
@@ -2022,7 +2282,7 @@
       },
       "controls": {
         "inputs": "Escalation-rule thresholds (illustrative)",
-        "outputs": "Signals per date and first trigger date; four steps and functional lenses"
+        "outputs": "Signals per date and first trigger date; four steps; decision-rights map; four observable control measures"
       },
       "decision": {
         "inputs": "Probability of A, capital and liquidity costs, extension terms, decision form",
@@ -2039,6 +2299,10 @@
       "bondsloans": {
         "inputs": "Row flips",
         "outputs": "Loan vs bond on six dimensions and the loss mechanism each feeds"
+      },
+      "workout": {
+        "inputs": "Meeting date and vote shares (illustrative); workout record checklist",
+        "outputs": "Three workout options with NAFMII deadlines and illustrative recovery ranges; notice/agenda dates; special-resolution test; own book vs WM product"
       }
     },
     "inputsTitle": "Inputs",
@@ -2063,7 +2327,7 @@
     "disclaimerTitle": "Disclaimer"
   },
   "bl": {
-    "tableTitle": "Loan (branch book) vs bond (head-office book)",
+    "tableTitle": "Same obligor, two instruments: where a bond behaves differently from a loan",
     "colTopic": "Dimension",
     "colLoan": "Loan — branch book",
     "colBond": "Bond — head-office book",
@@ -2073,88 +2337,88 @@
     "rows": {
       "information": {
         "topic": "Information",
-        "loan": "Private and frequent: accounts, covenants, account flows, site visits — the branch sees the client every month.",
-        "bond": "Public disclosure only; the investor sees what the issuer publishes and what the market prices."
+        "loan": "Covenants, monthly reports, site visits, the CFO’s phone.",
+        "bond": "Public disclosure, prices, rating actions — later and thinner."
       },
       "renegotiation": {
         "topic": "Renegotiation",
-        "loan": "Bilateral: the bank and the client can restructure the terms.",
-        "bond": "Many holders; changes go through a bondholder meeting — a distressed extension is proposed to all."
+        "loan": "Bilateral: extend, re-price, add collateral.",
+        "bond": "Holders’ meeting; amended terms bind holders as the issue documents provide."
       },
       "valuation": {
         "topic": "Valuation",
         "loan": "Amortised cost; no daily price.",
-        "bond": "A market price every day: value moves with rates, spread and liquidity even when the book is at amortised cost."
+        "bond": "A market price every day — rates, spread and liquidity are visible."
       },
       "exit": {
         "topic": "Exit",
-        "loan": "Hard to sell; held to maturity, restructured or transferred.",
-        "bond": "Can be sold — at the executable bid, which widens exactly when you need to sell."
+        "loan": "No market; transfer or NPL sale.",
+        "bond": "Sell in the market — at the executable bid, not the model price."
       },
       "security": {
         "topic": "Security",
-        "loan": "Often secured or guaranteed; the branch holds the collateral documents.",
-        "bond": "Senior unsecured; behind project-level secured debt; recovery depends on the claim."
+        "loan": "Often collateral or guarantees.",
+        "bond": "Usually senior unsecured; structure (SPV, keepwell) decides the claim."
       },
       "concentration": {
         "topic": "Concentration",
-        "loan": "Client and group limits in the branch credit system.",
-        "bond": "Held in another book, possibly outside the same limit: one obligor, two exposures."
+        "loan": "Obligor limit.",
+        "bond": "Same obligor limit — and the 10%-of-debtor rule joins the two books (Measures, Art. 7; exception for recognised credit enhancement)."
       }
     },
-    "measuresTitle": "One classification for both",
-    "measures": "The 2023 Measures classify both; more than 10% non-performing at one debtor makes all its exposures at the bank non-performing (Art. 7).",
+    "measuresTitle": "ICBC lens — two books, one obligor",
+    "measures": "The branch knows the obligor; head office holds the bond. The 2023 Measures classify loans and bonds alike: more than 10% of a non-retail debtor’s exposures at the bank non-performing makes all of them non-performing, unless a credit enhancement recognised by the financial regulators applies (Art. 7).",
     "closeTitle": "What the branch sees",
     "close": [
       "What the branch sees — a CFO leaving, supplier arrears, escrow behaviour — reaches the bond's value through mechanism 5.",
       "Report it; do not wait for the price."
-    ]
+    ],
+    "askTitle": "Ask the room",
+    "ask": "Which row would change how your own function works with the head-office bond book — information, exit, or concentration? One answer each from a branch, from Risk Management and from Internal Audit.",
+    "source": "《商业银行金融资产风险分类办法》(银保监会/人民银行令〔2023〕第1号, 11 Feb 2023, effective 1 Jul 2023) Arts. 3, 7. Read at source 1 Oct 2026."
   },
   "route": {
     "s1": "Cover",
-    "s2": "The question and opening poll",
-    "s3": "Reveal: six answers",
-    "s4": "The bank's bond, your client",
-    "s5": "Route: four stops",
-    "s6": "Transition slide",
-    "s7": "Six loss mechanisms",
-    "s8": "Bonds vs loans",
-    "s9": "Three accounting lenses",
-    "s10": "ICBC context: two books, one obligor",
-    "s11": "Transition slide",
-    "s12": "Sensitivity: duration and DCF",
-    "s13": "Three shocks",
-    "s14": "Holding-period result",
-    "s15": "What a spread pays for",
-    "s16": "Ratings and evidence",
-    "s17": "First decision (Stop 2)",
-    "s18": "Transition slide",
-    "s19": "Transition slide",
-    "s20": "Timeline: deterioration while paying",
-    "s21": "Ratios",
-    "s22": "Support scoring",
-    "s23": "LGFV: score two profiles",
-    "s24": "Structure and claims",
-    "s25": "Portfolio contrasts",
-    "s26": "Transition slide",
-    "s27": "Recognition",
-    "s28": "Five-category classification",
-    "s29": "Capital",
-    "s30": "Controls and five lenses",
-    "s31": "Decision economics",
-    "s32": "Final decision (Stop 4)",
-    "s33": "ZKB visit questions",
-    "s34": "The answer",
-    "s35": "Transition slide",
-    "a1": "Pricing formulas",
-    "a2": "Sensitivity and decomposition workings",
-    "a3": "ECL formulas",
-    "a4": "Five-category rules",
-    "a5": "CECL for New York",
-    "a6": "Risk weights and IRB",
-    "a7": "Glossary",
-    "a8": "Nine-line reference list",
-    "a9": "Acronyms"
+    "s2": "The opening question",
+    "s3": "Six mechanisms — five can hurt while every coupon is paid",
+    "s4": "The route: one bond, three committee decisions, six questions",
+    "s5": "Same obligor, two instruments: bond vs loan",
+    "s6": "One economic value, three accounting lenses",
+    "s7": "ICBC’s book: the credit slice is measured differently",
+    "s8": "Decision 1 · 15 Mar 2025: approve the purchase?",
+    "s9": "How much value moves: one formula",
+    "s10": "What a spread pays for; what a rating does and does not tell you",
+    "s11": "Break",
+    "s12": "15 Mar 2026, one year later: what the market did and what was known",
+    "s13": "Decision 2 · 15 Mar 2026: vote",
+    "s14": "14 Apr 2026: the audited results — four ratios",
+    "s15": "Support: who is protected, which debt, how enforceable",
+    "s16": "LGFVs: score two profiles",
+    "s17": "Where you stand in the claim",
+    "s18": "Recognition: three lenses, opening and closing balances",
+    "s19": "Stage 2, credit-impaired, default, non-performing",
+    "s20": "The portfolio view: one group, one support provider",
+    "s21": "Decision rights: an illustrative map",
+    "s22": "Executable proceeds versus hold value on one date",
+    "s23": "Decision 3 · 15 Jun 2026: the committee memo",
+    "s24": "If support fails: the recovery decision",
+    "s25": "Own book and wealth-management product",
+    "s26": "The answer · four observable control measures",
+    "s27": "Discussion",
+    "a1": "ICBC financial investments — detail with denominators",
+    "a2": "China bond market — reference statistics",
+    "a3": "Capital: approach, standardised weights, G-SIB and TLAC",
+    "a4": "Historical cases referred to in the session",
+    "a5": "IFRS 9 / CAS 22 versus US CECL",
+    "a6": "Nine illustrative positions",
+    "a7": "Duration, spread anatomy and sizing",
+    "a8": "Extended calculations: quotes, hold/sell models, ECL, extension",
+    "a9": "Optional: ZKB — an explicit guarantee, a different accounting frame",
+    "a10": "Glossary for the interpreter",
+    "a11": "Sources",
+    "a12": "Additional instructor questions",
+    "a13": "Acronyms",
+    "a14": "The case timeline: occurrence, disclosure, knowledge, decision"
   },
   "q": {
     "chooseOne": "Choose one",
@@ -2178,5 +2442,119 @@
     "name": "Name",
     "unit": "Unit",
     "noBank": "The class question bank (data/questions.json) has not been added yet, so the choose-one panels are empty. Copy question_bank.json into data/questions.json unchanged and rebuild."
+  },
+  "workout": {
+    "options": {
+      "title": "If support fails: the recovery decision — claim, vote, deadlines, range, cost",
+      "option": "Option",
+      "cols": {
+        "involves": "What it involves",
+        "rules": "Rules and deadlines (verified)",
+        "range": "Range, timing, cost (illustrative)"
+      },
+      "rows": {
+        "vote": {
+          "name": "Vote at the holders’ meeting",
+          "involves": "The extension of the September bond is a special resolution: changing principal or interest amounts, timing or credit enhancement (NAFMII Rules Art. 5). Our MTN is a different instrument — but the vote signals what we will be offered in 2028.",
+          "rules": "Notice ≥ 10 working days before the meeting (Art. 16); agenda ≥ 7 working days (Art. 17); special resolution: ≥ 2/3 of votes present AND > 50% of the issue’s total votes (Art. 30).",
+          "range": "Decide the vote on the extension’s economics: PV cost of a 40/60 extension at 8.80% ≈ {pv} per 100; ‘modification loss’ at the original EIR {mod} — the loss arrives through Stage 3 ECL."
+        },
+        "enforce": {
+          "name": "Enforce",
+          "involves": "Accelerate if the terms allow; sue; apply for enforcement — but the operating assets sit in project companies and are pledged to project lenders.",
+          "rules": "Onshore; the instrument’s terms govern acceleration and cross-default.",
+          "range": "Liquidation recovery for a senior unsecured parent creditor: 30–50 over 3–5 years (illustrative); legal cost and time."
+        },
+        "restructure": {
+          "name": "Restructure",
+          "involves": "Negotiated extension / partial payment of our MTN in 2028; coordination with the branch’s loan exposure (same obligor, different ranks and collateral).",
+          "rules": "Restructured asset → at least special mention; observation ≥ 2 repayment periods and ≥ 1 year (Measures Arts. 17–21); Stage 3 assessment.",
+          "range": "If the issuer survives: 85–95 over 2 years (illustrative); the branch’s secured loans recover first."
+        }
+      },
+      "formula": "PV cost of the extension = 60 − 60 × 1.036 / 1.088 (40% paid at maturity, 60% one year later, same coupon, at the 8.80% market yield)",
+      "pvCost": "PV cost (RMB m)",
+      "note": "Whether a passed special resolution binds dissenting holders depends on the issue documents — open item. Recovery ranges are teaching assumptions, not market statistics."
+    },
+    "meeting": {
+      "title": "Holders’ meeting: deadlines and the special-resolution test",
+      "intro": "Enter an illustrative meeting date and vote shares (as % of the issue’s total votes). Working days exclude weekends only; public holidays are not modelled.",
+      "date": "Meeting date",
+      "total": "Total votes of the issue",
+      "present": "Votes present",
+      "for": "Votes for the extension",
+      "test": "Test",
+      "result": "Result",
+      "notice": "Notice at the latest (≥ 10 working days, Art. 16)",
+      "agenda": "Agenda at the latest (≥ 7 working days, Art. 17)",
+      "presentTest": "≥ 2/3 of votes present ({s})",
+      "totalTest": "> 50% of the issue’s total votes ({s})",
+      "passes": "Special resolution passes (Art. 30)",
+      "note": "Both tests must hold. A high share of those present is not enough if turnout is low."
+    },
+    "record": {
+      "title": "The decision record for a workout",
+      "claim": "Claim and rank mapped (Structure tab)",
+      "vote": "Vote position and deadline",
+      "range": "Recovery range with timing and cost for each option",
+      "negotiator": "Who negotiates for the bank across loans and bonds",
+      "branch": "What the branch may say to the client",
+      "count": "{n} of {total} items in the record"
+    },
+    "askTitle": "ICBC lens — ask the room",
+    "ask": "Asset Preservation and Special Financing: in general terms, who coordinates when the same debtor has loans at a branch and bonds at head office — and does the bondholder vote follow the loan strategy?",
+    "wm": {
+      "title": "Own book and wealth-management product: the same bond, different rules",
+      "intro": "The bank does not automatically bear investors’ losses — and products do not all use one accounting model.",
+      "dimension": "Dimension",
+      "own": "Bank’s own book (our MTN)",
+      "product": "Wealth-management product holding the same MTN",
+      "rows": {
+        "loss": {
+          "name": "Who bears a loss",
+          "own": "The bank’s equity — through P&L, OCI, provisions, capital",
+          "product": "The investors: no promise of principal or return; the manager may not advance its own money to meet redemptions (资管新规 ¶ 二)"
+        },
+        "accounting": {
+          "name": "Accounting of the holding",
+          "own": "Amortised cost, FVOCI or FVTPL by business model; ECL at AC and FVOCI",
+          "product": "Net-value management at fair value (¶ 十八); amortised cost only for closed-end products holding to maturity or for assets without an active market; deviation limit 5%"
+        },
+        "liquidity": {
+          "name": "The liquidity test",
+          "own": "The executable bid, on the day the bank decides to sell",
+          "product": "Redemptions: investors leave at today’s NAV; the manager must sell into the same thin market — or gate"
+        },
+        "conflicts": {
+          "name": "Conflicts to manage",
+          "own": "—",
+          "product": "The bank’s sale and the product’s sale compete for the same bid; allocation of a reduction between book and product; what the branch knows and the product manager does not"
+        },
+        "mandate": {
+          "name": "Mandate",
+          "own": "Hold-to-collect mandate; limits per obligor and group",
+          "product": "The product’s investment agreement — eligible assets, concentration, liquidity rules; the investor chose the risk, the manager owes the process"
+        }
+      },
+      "source": "《关于规范金融机构资产管理业务的指导意见》(银发〔2018〕106号, 27 Apr 2018) ¶¶ 二, 十八, 二十九. No statement is made about ICBC Wealth Management’s products or accounting.",
+      "lensTitle": "ICBC lens — ask ICBC Wealth Management",
+      "lens": [
+        "One sentence, in general terms: how does a net-value product experience the April spread move — daily and in full — and what do redemptions do to the executable price the bank itself relies on?",
+        "The point is separation: do not imply the bank bears investors’ losses, and do not imply that every product is at fair value."
+      ]
+    },
+    "sources": "NAFMII《银行间债券市场非金融企业债务融资工具持有人会议规程》(revised 7 Dec 2023, effective 1 Apr 2024) Arts. 5, 16, 17, 30; 《商业银行金融资产风险分类办法》Arts. 17, 20–22. Read at source 1 Oct 2026. All case figures fictional."
+  },
+  "agenda": {
+    "b1": "Opening question · six mechanisms · the route",
+    "b2": "Bonds vs loans · three accounting lenses · ICBC’s book",
+    "b3": "Decision 1 · 15 Mar 2025 — approve the purchase?",
+    "b4": "Sizing the risk · duration · what a spread pays for · ratings",
+    "b5": "Break",
+    "b6": "Decision 2 · 15 Mar 2026 — what the market did, what you knew",
+    "b7": "Deterioration · results and ratios · support · LGFVs · structure",
+    "b8": "Recognition · bridge · categories vs stages · portfolio · decision rights",
+    "b9": "Decision 3 · 15 Jun 2026 — memo · recovery · own book vs WM",
+    "b10": "The answer · four control measures · discussion"
   }
 }

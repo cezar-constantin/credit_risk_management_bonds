@@ -68,6 +68,31 @@
       1
     ]
   },
+  "prePurchase": {
+    "issueSize": 3000,
+    "limitPerDeveloper": 150,
+    "dealerSize": 50,
+    "exitDays": 2,
+    "rw": 100,
+    "capitalRatio": 8,
+    "costOfCapital": 5.6,
+    "liquidityBp": 20
+  },
+  "groupView": {
+    "rows": [
+      { "id": "wcLoans", "group": "huaxing", "obligor": "parent", "book": "branch", "amount": 2000, "bank": true, "status": "s2sm" },
+      { "id": "mtn", "group": "huaxing", "obligor": "parent", "book": "hoAc", "amount": 100, "bank": true, "status": "s2sm", "case": true },
+      { "id": "guarantees", "group": "huaxing", "obligor": "parent", "book": "branchOff", "amount": 300, "bank": true, "offBalance": true, "status": "s2" },
+      { "id": "projectLoans", "group": "huaxing", "obligor": "projectCos", "book": "branch", "amount": 1500, "bank": true, "status": "s1assess" },
+      { "id": "trustLoans", "group": "huaxing", "obligor": "projectCos", "book": "notIcbc", "amount": 2000, "bank": false, "status": "na" },
+      { "id": "soe", "group": "soe", "obligor": "soe", "book": "branchHo", "amount": 4200, "bank": true, "status": "s1corr" },
+      { "id": "wm", "group": "memo", "obligor": "none", "book": "wm", "amount": 50, "bank": false, "memo": true, "status": "nav" }
+    ],
+    "sectorBn": 60000,
+    "regionBn": 150000,
+    "groupLimit": 3000,
+    "stress": { "bond": 100, "spreadDuration": 1.6, "spreadShockBp": 300, "loans": 3500, "pdFrom": 0.10, "pdTo": 0.30, "lgd": 0.40, "extraWidthBp": 100 }
+  },
   "financials": {
     "fy2024": {
       "revenue": 283,
@@ -192,51 +217,10 @@
     }
   ],
   "classStops": [
-    {
-      "n": 1,
-      "stop": "sep25",
-      "tab": "repricing",
-      "questions": [
-        "Q12",
-        "Q13"
-      ]
-    },
-    {
-      "n": 2,
-      "stop": "mar26",
-      "tab": "repricing",
-      "questions": [
-        "Q14",
-        "Q15",
-        "Q16",
-        "V17",
-        "Q17"
-      ]
-    },
-    {
-      "n": 3,
-      "stop": "jun26",
-      "tab": "timeline",
-      "questions": [
-        "V20",
-        "Q20",
-        "Q21",
-        "Q22",
-        "Q23",
-        "Q24",
-        "Q25"
-      ]
-    },
-    {
-      "n": 4,
-      "stop": "jun26",
-      "tab": "decision",
-      "questions": [
-        "Q31",
-        "V32",
-        "Q32"
-      ]
-    }
+    { "n": 1, "stop": "t0", "tab": "position", "questions": ["D1", "Q3"] },
+    { "n": 2, "stop": "mar26", "tab": "repricing", "questions": ["Q4", "D2"] },
+    { "n": 3, "stop": "apr26", "tab": "recognition", "questions": ["Q5"] },
+    { "n": 4, "stop": "jun26", "tab": "decision", "questions": ["Q6", "D3"] }
   ],
   "shocks": [
     {
@@ -279,7 +263,33 @@
   },
   "timeline": [
     {
-      "id": "f0",
+      "id": "E0",
+      "date": "2025-02-28",
+      "kind": "financials",
+      "spread": 210,
+      "dates": {
+        "occurred": "FY2024",
+        "disclosed": "2025-02-28",
+        "ho": "2025-02-28",
+        "branch": null,
+        "decision": "D1"
+      }
+    },
+    {
+      "id": "E1",
+      "date": "2025-08-29",
+      "kind": "financials",
+      "spread": 300,
+      "dates": {
+        "occurred": "H1 2025",
+        "disclosed": "2025-08-29",
+        "ho": "2025-08-29",
+        "branch": null,
+        "decision": "none"
+      }
+    },
+    {
+      "id": "M1",
       "date": "2025-09-15",
       "kind": "market",
       "spread": 330,
@@ -287,76 +297,82 @@
       "dates": {
         "occurred": "2025-09-15",
         "disclosed": "2025-09-15",
-        "ho": null,
+        "ho": "2025-09-15",
         "branch": null,
-        "decision": null
+        "decision": "none"
       }
     },
     {
-      "id": "f1",
-      "date": "2025-12-15",
+      "id": "E2",
+      "date": "2026-01-06",
       "kind": "operating",
+      "spread": 450,
       "dates": {
-        "occurred": "2025-12-15",
-        "disclosed": "2025-12-15",
-        "ho": null,
+        "occurred": "2025-12-31",
+        "disclosed": "2026-01-06",
+        "ho": "2026-01-06",
         "branch": null,
-        "decision": null
+        "decision": "watch"
       }
     },
     {
-      "id": "f2",
+      "id": "E3",
       "date": "2026-02-10",
       "kind": "governance",
+      "spread": 500,
       "dates": {
         "occurred": "2026-02-10",
         "disclosed": "2026-02-10",
-        "ho": null,
+        "ho": "2026-02-10",
         "branch": null,
-        "decision": null
+        "decision": "review"
       }
     },
     {
-      "id": "f3",
+      "id": "E4",
+      "date": "2026-03-12",
+      "kind": "funding",
+      "spread": 450,
+      "branchOnly": true,
+      "dates": {
+        "occurred": "2026-03-10",
+        "disclosed": null,
+        "ho": "2026-04-20",
+        "branch": "2026-03-12",
+        "decision": "D2held",
+        "hoCounterfactual": "2026-03-13"
+      }
+    },
+    {
+      "id": "C1",
       "date": "2026-03-15",
       "kind": "payment",
+      "spread": 450,
+      "width": 40,
       "dates": {
         "occurred": "2026-03-15",
         "disclosed": "2026-03-15",
-        "ho": null,
+        "ho": "2026-03-15",
         "branch": null,
-        "decision": null
+        "decision": "D2"
       }
     },
     {
-      "id": "f4",
-      "date": "2026-03-12",
-      "kind": "funding",
-      "dates": {
-        "occurred": "2026-03-12",
-        "disclosed": null,
-        "ho": null,
-        "branch": "2026-03-12",
-        "decision": null
-      },
-      "branchOnly": true
-    },
-    {
-      "id": "f5",
+      "id": "E5",
       "date": "2026-04-14",
       "kind": "financials",
       "spread": 550,
       "width": 60,
       "dates": {
-        "occurred": "2026-04-14",
+        "occurred": "FY2025",
         "disclosed": "2026-04-14",
-        "ho": null,
+        "ho": "2026-04-14",
         "branch": null,
-        "decision": null
+        "decision": "D2b"
       }
     },
     {
-      "id": "f6",
+      "id": "E6",
       "date": "2026-06-12",
       "kind": "rating",
       "spread": 700,
@@ -364,21 +380,23 @@
       "dates": {
         "occurred": "2026-06-12",
         "disclosed": "2026-06-12",
-        "ho": null,
+        "ho": "2026-06-12",
         "branch": null,
-        "decision": null
+        "decision": "D3"
       }
     },
     {
-      "id": "f7",
-      "date": "2026-06-15",
-      "kind": "maturities",
+      "id": "S",
+      "date": "2026-07-31",
+      "kind": "support",
+      "spreadA": 350,
+      "spreadB": 900,
       "dates": {
-        "occurred": "2026-06-15",
-        "disclosed": "2026-06-15",
-        "ho": null,
+        "occurred": "by 2026-07-31",
+        "disclosed": "2026-07-31",
+        "ho": "2026-07-31",
         "branch": null,
-        "decision": null
+        "decision": "review2"
       }
     }
   ],
@@ -387,7 +405,7 @@
       "spreadLevel": 500,
       "spreadWidening": 250,
       "priceFloor": 95,
-      "cashCover": 1.0,
+      "cashCover": 1,
       "minHits": 2
     },
     "observations": [
@@ -673,97 +691,49 @@
     "fxHedge"
   ],
   "referenceList": [
-    {
-      "id": "r1",
-      "currency": "CNY",
-      "benchmark": "cgb"
-    },
-    {
-      "id": "r2",
-      "currency": "CNY",
-      "benchmark": "cgb"
-    },
-    {
-      "id": "r3",
-      "currency": "CNY",
-      "benchmark": "cgb"
-    },
-    {
-      "id": "r4",
-      "currency": "CNY",
-      "benchmark": "cgb"
-    },
-    {
-      "id": "r5",
-      "currency": "CNY",
-      "benchmark": "cgb"
-    },
-    {
-      "id": "r6",
-      "currency": "CNY",
-      "benchmark": "cgb"
-    },
-    {
-      "id": "r7",
-      "currency": "CNY",
-      "benchmark": "cgb"
-    },
-    {
-      "id": "r8",
-      "currency": "USD",
-      "benchmark": "ust"
-    },
-    {
-      "id": "r9",
-      "currency": "USD",
-      "benchmark": "ust"
-    }
+    { "id": "r1", "currency": "CNY", "benchmark": "cgb", "spread": "0", "book": "AC" },
+    { "id": "r2", "currency": "CNY", "benchmark": "cgb", "spread": "~15", "book": "AC" },
+    { "id": "r3", "currency": "CNY", "benchmark": "cgb", "spread": "~10", "book": "FVOCI" },
+    { "id": "r4", "currency": "CNY", "benchmark": "cgb", "spread": "~40", "book": "AC" },
+    { "id": "r5", "currency": "CNY", "benchmark": "cgb", "spread": "~120", "book": "AC" },
+    { "id": "r6", "currency": "CNY", "benchmark": "cgb", "spread": "~110", "book": "AC" },
+    { "id": "r7", "currency": "CNY", "benchmark": "cgb", "spread": "~25", "book": "FVOCI" },
+    { "id": "r8", "currency": "CNY", "benchmark": "cgb", "spread": "210 → 700", "book": "AC" },
+    { "id": "r9", "currency": "USD", "benchmark": "ust", "spread": "~250", "book": "FVOCI" }
   ],
   "riskWeights": [
-    {
-      "id": "cgb",
-      "rw": 0
-    },
-    {
-      "id": "pbc",
-      "rw": 0
-    },
-    {
-      "id": "policyBank",
-      "rw": 0
-    },
-    {
-      "id": "localGeneral",
-      "rw": 10
-    },
-    {
-      "id": "localSpecial",
-      "rw": 20
-    },
-    {
-      "id": "bankA",
-      "rw": 40
-    },
-    {
-      "id": "bankB",
-      "rw": 75
-    },
-    {
-      "id": "bankTier2",
-      "rw": 150
-    },
-    {
-      "id": "corpIG",
-      "rw": 75
-    },
-    {
-      "id": "corpGeneral",
-      "rw": 100
-    },
-    {
-      "id": "corpSub",
-      "rw": 150
-    }
+    { "id": "cgb", "rw": 0, "art": "61" },
+    { "id": "localGeneral", "rw": 10, "art": "62" },
+    { "id": "localSpecial", "rw": 20, "art": "62" },
+    { "id": "policyBank", "rw": 0, "art": "64" },
+    { "id": "bankAplus", "rw": 30, "art": "65" },
+    { "id": "bankA", "rw": 40, "art": "65" },
+    { "id": "bankB", "rw": 75, "art": "65" },
+    { "id": "bankC", "rw": 150, "art": "65" },
+    { "id": "otherFi", "rw": 100, "art": "66" },
+    { "id": "otherFiIG", "rw": 75, "art": "66" },
+    { "id": "corpGeneral", "rw": 100, "art": "67" },
+    { "id": "corpIG", "rw": 75, "art": "67" },
+    { "id": "corpSme", "rw": 85, "art": "67" },
+    { "id": "reDev", "rw": 150, "art": "70" },
+    { "id": "reDevPrudent", "rw": 100, "art": "70" },
+    { "id": "sub", "rw": 150, "art": "77" },
+    { "id": "defaultedLow", "rw": 150, "art": "80" },
+    { "id": "defaultedHigh", "rw": 100, "art": "80" }
+  ],
+  "capitalArticles": [
+    { "id": "prc", "rw": "0%", "art": "61" },
+    { "id": "sov", "rw": "by rating", "art": "58" },
+    { "id": "prov", "rw": "10% / 20%", "art": "62" },
+    { "id": "policy", "rw": "0%", "art": "64" },
+    { "id": "banks", "rw": "30 / 40 / 75 / 150%", "art": "65" },
+    { "id": "otherFi", "rw": "100%; 75%", "art": "66" },
+    { "id": "corp", "rw": "100%; 75%; 85%; 75%", "art": "67" },
+    { "id": "reDev", "rw": "150% / 100%", "art": "70" },
+    { "id": "sub", "rw": "150%", "art": "77" },
+    { "id": "equity", "rw": "250%", "art": "78" },
+    { "id": "defaulted", "rw": "150% / 100%", "art": "80" },
+    { "id": "holdings", "rw": "deduction, then weighting", "art": "36–38" }
   ],
   "capital": {
     "ratio": 10.5,
@@ -774,91 +744,30 @@
     "tlac2028": 18
   },
   "agenda": [
-    {
-      "id": "b1",
-      "start": "10:00",
-      "end": "10:10",
-      "tabs": [
-        "home",
-        "position"
-      ],
-      "slides": "1–5"
-    },
-    {
-      "id": "b2",
-      "start": "10:10",
-      "end": "10:30",
-      "tabs": [
-        "mechanisms",
-        "bondsloans",
-        "position"
-      ],
-      "slides": "6–10"
-    },
-    {
-      "id": "b3",
-      "start": "10:30",
-      "end": "10:55",
-      "tabs": [
-        "repricing",
-        "spread",
-        "ratings"
-      ],
-      "slides": "11–17"
-    },
-    {
-      "id": "b4",
-      "start": "10:55",
-      "end": "11:10",
-      "tabs": [],
-      "slides": ""
-    },
-    {
-      "id": "b5",
-      "start": "11:10",
-      "end": "11:40",
-      "tabs": [
-        "timeline",
-        "structure",
-        "portfolio"
-      ],
-      "slides": "18–25"
-    },
-    {
-      "id": "b6",
-      "start": "11:40",
-      "end": "12:05",
-      "tabs": [
-        "recognition",
-        "capital",
-        "controls"
-      ],
-      "slides": "26–30"
-    },
-    {
-      "id": "b7",
-      "start": "12:05",
-      "end": "12:20",
-      "tabs": [
-        "decision"
-      ],
-      "slides": "31–32"
-    },
-    {
-      "id": "b8",
-      "start": "12:20",
-      "end": "12:30",
-      "tabs": [
-        "answer"
-      ],
-      "slides": "33–35"
-    }
+    { "id": "b1", "start": "10:00", "end": "10:11", "tabs": ["home", "mechanisms"], "slides": "1–4" },
+    { "id": "b2", "start": "10:11", "end": "10:26", "tabs": ["bondsloans", "mechanisms", "position"], "slides": "5–7" },
+    { "id": "b3", "start": "10:26", "end": "10:38", "tabs": ["position"], "slides": "8" },
+    { "id": "b4", "start": "10:38", "end": "10:55", "tabs": ["repricing", "spread", "ratings"], "slides": "9–10" },
+    { "id": "b5", "start": "10:55", "end": "11:10", "tabs": [], "slides": "11" },
+    { "id": "b6", "start": "11:10", "end": "11:24", "tabs": ["repricing", "timeline"], "slides": "12–13" },
+    { "id": "b7", "start": "11:24", "end": "11:44", "tabs": ["timeline", "structure"], "slides": "14–17" },
+    { "id": "b8", "start": "11:44", "end": "12:04", "tabs": ["recognition", "portfolio", "controls"], "slides": "18–21" },
+    { "id": "b9", "start": "12:04", "end": "12:21", "tabs": ["decision", "workout"], "slides": "22–25" },
+    { "id": "b10", "start": "12:21", "end": "12:30", "tabs": ["answer", "controls"], "slides": "26–27" }
   ],
   "tieOut": [
+    { "id": "ev50", "path": "cf.ev50", "expected": 94.01, "dp": 2, "tab": "decision" },
+    { "id": "ev25", "path": "cf.ev25", "expected": 91.96, "dp": 2, "tab": "decision" },
+    { "id": "d1carry", "path": "purchase.carry", "expected": 160, "dp": 0, "tab": "position" },
+    { "id": "d1net", "path": "purchase.net", "expected": 35, "dp": 0, "approx": true, "tab": "position" },
+    { "id": "d1share", "path": "purchase.issueShare", "expected": 0.033, "dp": 3, "pct": true, "tab": "position" },
+    { "id": "pfOn", "path": "portfolio.onBalance", "expected": 3600, "dp": 0, "tab": "portfolio" },
+    { "id": "pfOff", "path": "portfolio.withOff", "expected": 3900, "dp": 0, "tab": "portfolio" },
+    { "id": "pfStress", "path": "portfolio.stress.total", "expected": 286.4, "dp": 1, "tab": "portfolio" },
     {
       "id": "t0price",
       "path": "t0.price",
-      "expected": 100.0,
+      "expected": 100,
       "dp": 2,
       "tab": "position"
     },
@@ -1040,7 +949,7 @@
     {
       "id": "elt",
       "path": "ecl.aprLifetime",
-      "expected": 6.0,
+      "expected": 6,
       "dp": 2,
       "tab": "recognition"
     },
@@ -1061,7 +970,7 @@
     {
       "id": "es1",
       "path": "ecl.stage1Charge",
-      "expected": 3.0,
+      "expected": 3,
       "dp": 2,
       "tab": "recognition"
     },
@@ -1183,7 +1092,7 @@
     {
       "id": "xml",
       "path": "extension.modificationLoss",
-      "expected": 0.0,
+      "expected": 0,
       "dp": 2,
       "tab": "decision"
     },
@@ -1229,7 +1138,7 @@
     {
       "id": "brAc",
       "path": "bridge.apr26.ac.carrying",
-      "expected": 94.0,
+      "expected": 94,
       "dp": 2,
       "tab": "recognition"
     },
@@ -1328,274 +1237,49 @@
     }
   ],
   "route": [
-    {
-      "slide": 1,
-      "tab": "home",
-      "questions": []
-    },
-    {
-      "slide": 2,
-      "tab": "home",
-      "questions": [
-        "Q02"
-      ]
-    },
-    {
-      "slide": 3,
-      "tab": "home",
-      "questions": [
-        "Q03"
-      ]
-    },
-    {
-      "slide": 4,
-      "tab": "position",
-      "questions": [
-        "Q04"
-      ]
-    },
-    {
-      "slide": 5,
-      "tab": "home",
-      "questions": []
-    },
-    {
-      "slide": 6,
-      "tab": "home",
-      "questions": []
-    },
-    {
-      "slide": 7,
-      "tab": "mechanisms",
-      "questions": [
-        "Q07"
-      ]
-    },
-    {
-      "slide": 8,
-      "tab": "bondsloans",
-      "questions": [
-        "Q08"
-      ]
-    },
-    {
-      "slide": 9,
-      "tab": "mechanisms",
-      "questions": [
-        "Q09"
-      ]
-    },
-    {
-      "slide": 10,
-      "tab": "position",
-      "questions": [
-        "Q10"
-      ]
-    },
-    {
-      "slide": 11,
-      "tab": "repricing",
-      "questions": []
-    },
-    {
-      "slide": 12,
-      "tab": "repricing",
-      "questions": [
-        "Q12"
-      ]
-    },
-    {
-      "slide": 13,
-      "tab": "repricing",
-      "questions": [
-        "Q13"
-      ]
-    },
-    {
-      "slide": 14,
-      "tab": "repricing",
-      "questions": [
-        "Q14"
-      ]
-    },
-    {
-      "slide": 15,
-      "tab": "spread",
-      "questions": [
-        "Q15"
-      ]
-    },
-    {
-      "slide": 16,
-      "tab": "ratings",
-      "questions": [
-        "Q16"
-      ]
-    },
-    {
-      "slide": 17,
-      "tab": "repricing",
-      "questions": [
-        "V17",
-        "Q17"
-      ]
-    },
-    {
-      "slide": 18,
-      "tab": "timeline",
-      "questions": []
-    },
-    {
-      "slide": 19,
-      "tab": "timeline",
-      "questions": []
-    },
-    {
-      "slide": 20,
-      "tab": "timeline",
-      "questions": [
-        "V20",
-        "Q20"
-      ]
-    },
-    {
-      "slide": 21,
-      "tab": "timeline",
-      "questions": [
-        "Q21"
-      ]
-    },
-    {
-      "slide": 22,
-      "tab": "timeline",
-      "questions": [
-        "Q22"
-      ]
-    },
-    {
-      "slide": 23,
-      "tab": "timeline",
-      "questions": [
-        "Q23"
-      ]
-    },
-    {
-      "slide": 24,
-      "tab": "structure",
-      "questions": [
-        "Q24"
-      ]
-    },
-    {
-      "slide": 25,
-      "tab": "portfolio",
-      "questions": [
-        "Q25"
-      ]
-    },
-    {
-      "slide": 26,
-      "tab": "recognition",
-      "questions": []
-    },
-    {
-      "slide": 27,
-      "tab": "recognition",
-      "questions": [
-        "Q27"
-      ]
-    },
-    {
-      "slide": 28,
-      "tab": "recognition",
-      "questions": [
-        "Q28"
-      ]
-    },
-    {
-      "slide": 29,
-      "tab": "capital",
-      "questions": [
-        "Q29"
-      ]
-    },
-    {
-      "slide": 30,
-      "tab": "controls",
-      "questions": [
-        "Q30"
-      ]
-    },
-    {
-      "slide": 31,
-      "tab": "decision",
-      "questions": [
-        "Q31"
-      ]
-    },
-    {
-      "slide": 32,
-      "tab": "decision",
-      "questions": [
-        "V32",
-        "Q32"
-      ]
-    },
-    {
-      "slide": 33,
-      "tab": "answer",
-      "questions": [
-        "Q33"
-      ]
-    },
-    {
-      "slide": 34,
-      "tab": "answer",
-      "questions": []
-    },
-    {
-      "slide": 35,
-      "tab": "answer",
-      "questions": []
-    }
+    { "slide": 1, "tab": "home", "questions": [] },
+    { "slide": 2, "tab": "home", "questions": ["Q1"] },
+    { "slide": 3, "tab": "mechanisms", "questions": ["Q03", "Q07"] },
+    { "slide": 4, "tab": "home", "questions": [] },
+    { "slide": 5, "tab": "bondsloans", "questions": ["Q08"] },
+    { "slide": 6, "tab": "mechanisms", "questions": ["Q2"] },
+    { "slide": 7, "tab": "position", "questions": ["Q10"] },
+    { "slide": 8, "tab": "position", "questions": ["D1", "Q04"] },
+    { "slide": 9, "tab": "repricing", "questions": ["Q3"] },
+    { "slide": 10, "tab": "spread", "questions": ["Q15", "Q16"] },
+    { "slide": 11, "tab": "home", "questions": [] },
+    { "slide": 12, "tab": "repricing", "questions": ["Q4", "Q13", "Q14"] },
+    { "slide": 13, "tab": "repricing", "questions": ["D2", "Q17"] },
+    { "slide": 14, "tab": "timeline", "questions": ["Q21"] },
+    { "slide": 15, "tab": "timeline", "questions": ["Q22"] },
+    { "slide": 16, "tab": "timeline", "questions": ["Q23"] },
+    { "slide": 17, "tab": "structure", "questions": ["Q24"] },
+    { "slide": 18, "tab": "recognition", "questions": ["Q5", "Q27"] },
+    { "slide": 19, "tab": "recognition", "questions": ["Q28"] },
+    { "slide": 20, "tab": "portfolio", "questions": [] },
+    { "slide": 21, "tab": "controls", "questions": ["Q30"] },
+    { "slide": 22, "tab": "decision", "questions": ["Q6", "Q31"] },
+    { "slide": 23, "tab": "decision", "questions": ["D3", "Q32"] },
+    { "slide": 24, "tab": "workout", "questions": [] },
+    { "slide": 25, "tab": "workout", "questions": [] },
+    { "slide": 26, "tab": "answer", "questions": [] },
+    { "slide": 27, "tab": "answer", "questions": [] }
   ],
   "appendix": [
-    {
-      "slide": "A1",
-      "tab": "position"
-    },
-    {
-      "slide": "A2",
-      "tab": "repricing"
-    },
-    {
-      "slide": "A3",
-      "tab": "recognition"
-    },
-    {
-      "slide": "A4",
-      "tab": "recognition"
-    },
-    {
-      "slide": "A5",
-      "tab": "recognition"
-    },
-    {
-      "slide": "A6",
-      "tab": "capital"
-    },
-    {
-      "slide": "A7",
-      "tab": "glossary"
-    },
-    {
-      "slide": "A8",
-      "tab": "portfolio"
-    },
-    {
-      "slide": "A9",
-      "tab": "glossary"
-    }
+    { "slide": "A1", "tab": "position", "questions": [] },
+    { "slide": "A2", "tab": "position", "questions": [] },
+    { "slide": "A3", "tab": "capital", "questions": ["Q29"] },
+    { "slide": "A4", "tab": "structure", "questions": [] },
+    { "slide": "A5", "tab": "recognition", "questions": [] },
+    { "slide": "A6", "tab": "portfolio", "questions": ["Q25"] },
+    { "slide": "A7", "tab": "spread", "questions": [] },
+    { "slide": "A8", "tab": "decision", "questions": [] },
+    { "slide": "A9", "tab": "answer", "questions": ["Q33"] },
+    { "slide": "A10", "tab": "glossary", "questions": [] },
+    { "slide": "A11", "tab": "glossary", "questions": [] },
+    { "slide": "A12", "tab": "answer", "questions": [] },
+    { "slide": "A13", "tab": "glossary", "questions": [] },
+    { "slide": "A14", "tab": "timeline", "questions": [] }
   ],
   "quoteConvention": {
     "note": "width = full quoted bid–ask in yield; mid_to_bid = width / 2; block concession = width / 2; executable bid = mid + mid_to_bid + block"
@@ -1603,7 +1287,7 @@
   "forward": {
     "date": "2026-09-15",
     "months": 18,
-    "reinvestRate": 2.0,
+    "reinvestRate": 2,
     "A": {
       "dSpread": 140,
       "width": 60

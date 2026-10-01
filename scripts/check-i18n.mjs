@@ -56,13 +56,13 @@ for (const file of walk(join(root, 'src'))) {
 }
 
 // Dynamic key families (template literals) expanded from case data.
-const TABS = ['home', 'position', 'mechanisms', 'bondsloans', 'repricing', 'spread', 'ratings', 'timeline', 'structure', 'portfolio', 'recognition', 'controls', 'decision', 'answer', 'capital', 'glossary'];
+const TABS = ['home', 'position', 'mechanisms', 'bondsloans', 'repricing', 'spread', 'ratings', 'timeline', 'structure', 'portfolio', 'recognition', 'controls', 'decision', 'workout', 'answer', 'capital', 'glossary'];
 TABS.forEach((id) => ['title', 'short', 'intro', 'back'].forEach((f) => used.add(`tabs.${id}.${f}`)));
 CASE.stops.forEach((s) => used.add(`stops.${s.id}.short`));
 CASE.classStops.forEach((s) => { used.add(`classStops.s${s.n}`); used.add(`classStops.d${s.n}`); });
 CASE.agenda.forEach((b) => used.add(`agenda.${b.id}`));
 CASE.mechanisms.forEach((m) => {
-  ['name', 'desc', 'case'].forEach((f) => used.add(`mech.${m.id}.${f}`));
+  ['name', 'desc', 'case', 'seenBy'].forEach((f) => used.add(`mech.${m.id}.${f}`));
   ['AC', 'FVOCI', 'FVTPL'].forEach((l) => used.add(`mech.${m.id}.where.${l}`));
 });
 CASE.impacts.forEach((i) => used.add(`impact.${i}`));
@@ -72,8 +72,10 @@ CASE.tieOut.forEach((r) => used.add(`tie.${r.id}`));
 CASE.timeline.forEach((f) => { used.add(`timeline.facts.${f.id}`); used.add(`timeline.readings.${f.id}`); used.add(`timeline.kinds.${f.kind}`); });
 CASE.portfolio.forEach((l) => ['name', 'desc', 'mechanism', 'missing', 'control', 'evidence'].forEach((f) => used.add(`portfolio.lines.${l.id}.${f}`)));
 CASE.portfolioControls.forEach((c) => used.add(`portfolio.controls.${c}`));
-CASE.referenceList.forEach((r) => ['name', 'mech', 'control'].forEach((f) => used.add(`portfolio.ref.${r.id}.${f}`)));
-CASE.riskWeights.forEach((r) => { used.add(`capital.rwRows.${r.id}`); used.add(`capital.rwRef.${r.id}`); });
+CASE.referenceList.forEach((r) => ['name', 'mech'].forEach((f) => used.add(`portfolio.ref.${r.id}.${f}`)));
+CASE.riskWeights.forEach((r) => used.add(`capital.rwRows.${r.id}`));
+CASE.capitalArticles.forEach((r) => { used.add(`capital.arts.${r.id}.name`); used.add(`capital.arts.${r.id}.rw`); });
+['cet1', 'gsib', 'tlac', 'approach'].forEach((k) => ['label', 'value', 'text'].forEach((f) => used.add(`capital.icbc.${k}.${f}`)));
 CASE.controlSteps.forEach((s) => { used.add(`controls.steps.${s.id}.name`); used.add(`controls.steps.${s.id}.text`); s.dates.forEach((d) => used.add(`controls.dates.${d}`)); });
 CASE.escalation.observations.forEach((o) => used.add(`controls.dates.${o.id}`));
 ['CNY', 'USD'].forEach((c) => used.add(`ccy.${c}`));
@@ -97,7 +99,9 @@ CASE.shocks.forEach((s) => used.add(`lab.shock.${s.id}`));
 ['normal', 'specialMention', 'substandard', 'doubtful', 'loss'].forEach((c) => used.add(`recog.fc.cats.${c}`));
 ['impaired', 'dpd90', 'sicr', 'dpd30', 'none'].forEach((r) => used.add(`recog.fc.stageReason.${r}`));
 ['dpdAny', 'adverse', 'restructured', 'dpd90', 'impaired', 'debtor10', 'dpd270', 'ecl50', 'dpd360', 'ecl90'].forEach((r) => used.add(`recog.fc.rules.${r}`));
-['fmd', 'branch', 'risk', 'audit', 'operations'].forEach((l) => ['name', 'role', 'case'].forEach((f) => used.add(`controls.lenses.${l}.${f}`)));
+['purchase', 'watchlist', 'sicr', 'regulatory', 'sale', 'legal'].forEach((r) => ['name', 'proposes', 'decides', 'consulted', 'tested'].forEach((f) => used.add(`controls.rights.rows.${r}.${f}`)));
+['proposes', 'decides', 'consulted', 'tested'].forEach((c) => used.add(`controls.rights.cols.${c}`));
+['m1', 'm2', 'm3', 'm4'].forEach((m) => ['name', 'text'].forEach((f) => used.add(`controls.measures.${m}.${f}`)));
 ['hold', 'reduce', 'hedge', 'exit'].forEach((a) => used.add(`decision.actions.${a}`));
 ['spread', 'price', 'cashCover', 'event', 'date'].forEach((m) => used.add(`decision.metrics.${m}`));
 ['action', 'sellShare', 'rationale', 'owner', 'trigger', 'escalation', 'responseA', 'responseB'].forEach((v) => used.add(`decision.v.${v}`));

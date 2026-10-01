@@ -1,4 +1,4 @@
-// Class questions (data/questions.json = the class question bank, loaded unchanged).
+// Class questions (data/questions.json = the class question bank v5, transcribed from the deck).
 // One "Choose one" panel design for every screen; engine questions are answered by the engine at
 // runtime, concept questions reveal the stored answer and its reference, votes show the room's tally.
 import { QUESTIONS, CASE } from './data.js';
@@ -44,8 +44,12 @@ export function tabFor(q) {
   return r ? r.tab : 'home';
 }
 
+/** Instructor-tier questions (deck Appendix A12) are not on the participant sheet and show only in instructor mode. */
+const visible = (q) => q.tier !== 'instructor' || store.get().mode === 'instructor';
+const slideOrder = (q) => { const x = String(q.slide ?? ''); return /^A/i.test(x) ? 100 + Number(x.slice(1)) : Number(x); };
+
 export function questionsFor(tab) {
-  return allQuestions().filter((q) => tabFor(q) === tab).sort((a, b) => Number(a.slide) - Number(b.slide));
+  return allQuestions().filter((q) => tabFor(q) === tab && visible(q)).sort((a, b) => slideOrder(a) - slideOrder(b));
 }
 
 let engineCache = null;
@@ -66,7 +70,7 @@ export function correctIndex(q) {
 
 export function score() {
   const s = store.get();
-  const graded = allQuestions().filter((q) => q.kind !== 'vote' && q.answer != null);
+  const graded = allQuestions().filter((q) => q.kind !== 'vote' && q.answer != null && visible(q));
   const answered = graded.filter((q) => s.answers[q.id] != null);
   const right = answered.filter((q) => s.answers[q.id] === correctIndex(q));
   return { total: graded.length, answered: answered.length, right: right.length };
@@ -128,7 +132,8 @@ export function choosePanel(ctx, q) {
 // ---- Printable question sheet and answer key --------------------------------------------------
 
 export function questionSheet({ key = false } = {}) {
-  const qs = allQuestions();
+  // The participant sheet carries the class tier only; the answer key carries every question.
+  const qs = allQuestions().filter((q) => key || q.tier !== 'instructor').sort((a, b) => slideOrder(a) - slideOrder(b));
   return h('div', null,
     h('h2', null, key ? t('q.keyTitle') : t('q.sheetTitle')),
     key ? null : h('p', null, `${t('q.name')}: ____________________________    ${t('q.unit')}: ____________________`),

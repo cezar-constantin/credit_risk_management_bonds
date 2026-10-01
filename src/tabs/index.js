@@ -13,9 +13,10 @@ import * as recognition from './recognition.js';
 import * as capital from './capital.js';
 import * as controls from './controls.js';
 import * as decision from './decision.js';
+import * as workout from './workout.js';
 import * as answer from './answer.js';
 import * as glossary from './glossary.js';
 
 export const TAB_MODULES = {
-  home, position, mechanisms, bondsloans, repricing, spread, ratings, timeline, structure, portfolio, recognition, capital, controls, decision, answer, glossary,
+  home, position, mechanisms, bondsloans, repricing, spread, ratings, timeline, structure, portfolio, recognition, capital, controls, decision, workout, answer, glossary,
 };

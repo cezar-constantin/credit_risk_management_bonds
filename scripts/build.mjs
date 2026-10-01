@@ -88,7 +88,7 @@ const bundled = order.map((abs) => {
 const css = ['src/styles/tokens.css', 'src/styles/app.css', 'src/styles/print.css'].map(read).join('\n');
 const i18n = { en: JSON.parse(read('i18n/en.json')), zh: existsSync(resolve(root, 'i18n/zh.json')) ? JSON.parse(read('i18n/zh.json')) : {} };
 const caseData = JSON.parse(read('data/case.json'));
-// The class question bank is copied into data/ unchanged; the app reads it as-is.
+// The class question bank (data/questions.json, transcribed from the v5 deck); the app reads it as-is.
 const questions = existsSync(resolve(root, 'data/questions.json')) ? JSON.parse(read('data/questions.json')) : null;
 if (!questions) console.warn('data/questions.json not found — choose-one panels will be empty until the question bank is added.');
 const pkg = JSON.parse(read('package.json'));
@@ -112,7 +112,7 @@ writeFileSync(resolve(root, 'app/focus.html'), page('focus', read('src/styles/fo
 
 // ---- app/description.html: generated from the same translation files --------------------------
 const esc = (x) => String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const TABS = ['home', 'position', 'mechanisms', 'bondsloans', 'repricing', 'spread', 'ratings', 'timeline', 'structure', 'portfolio', 'recognition', 'controls', 'decision', 'answer', 'capital', 'glossary'];
+const TABS = ['home', 'position', 'mechanisms', 'bondsloans', 'repricing', 'spread', 'ratings', 'timeline', 'structure', 'portfolio', 'recognition', 'controls', 'decision', 'workout', 'answer', 'capital', 'glossary'];
 function descBody(L) {
   const d = i18n[L];
   if (!d.desc) return '';

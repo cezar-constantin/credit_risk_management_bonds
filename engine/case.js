@@ -3,7 +3,7 @@
 
 import { cashflows, pv, macaulayDuration, modifiedDuration, shockCompare, decompose, holdingPeriod, yieldFromPrice, accrued } from './pricing.js';
 import { ecl, lifetimeEcl, recognition, accountingBridge } from './ecl.js';
-import { breakEvenProbability, extensionBranch, breakEvenPD, sizing } from './decision.js';
+import { breakEvenProbability, extensionBranch, breakEvenPD, sizing, expectedReturnAfterCosts, groupExposure, jointStress } from './decision.js';
 
 export const bp = (x) => x / 10000;
 export const pct = (x) => x / 100;
@@ -129,7 +129,8 @@ export function caseFigures(data, { position = data.position } = {}) {
   const A = valueAtStop(position, stops.jun26, 'A');
   const B = valueAtStop(position, stops.jun26, 'B');
   const be = breakEvenProbability({ saleProceeds: j.bid, valueA: A.mid, valueB: B.mid });
-  const cf = { remaining: A.remaining, A: A.mid, B: B.mid, breakEven: be.raw };
+  // Expected hold value at the memo's two illustrative probabilities of support (deck slide 22–23).
+  const cf = { remaining: A.remaining, A: A.mid, B: B.mid, breakEven: be.raw, ev50: 0.5 * A.mid + 0.5 * B.mid, ev25: 0.25 * A.mid + 0.75 * B.mid };
 
   // Forward-horizon model: sell now and reinvest vs hold to the horizon in A or B (at mid and at bid).
   const FW = data.forward;
@@ -181,7 +182,19 @@ export function caseFigures(data, { position = data.position } = {}) {
     restIncome: S.restSpreads.map((r) => sizing({ weight: pct(S.weight), lgd: pct(S.lgd), restSpread: bp(r) }).restIncome),
   };
 
-  return { t0, shocks, mar26, apr26, ecl: eclFig, recognition: rec, bridge, jun26, cf, forward, secondTranche, extension, spread };
+  // Decision 1 — expected return after costs and size against the issue (deck slide 8; ledger §4).
+  const pp = data.prePurchase;
+  const purchase = pp ? {
+    ...expectedReturnAfterCosts({ yieldPct: y0 * 100, fundingPct: position.funding, pd: pct(position.pd12), lgd: pct(position.lgd), rw: pct(pp.rw), capitalRatio: pct(pp.capitalRatio), costOfCapital: pct(pp.costOfCapital), liquidityBp: pp.liquidityBp }),
+    issueShare: position.nominal / pp.issueSize,
+    exitShare: pp.dealerSize / position.nominal,
+  } : null;
+
+  // Portfolio view — group exposure and joint stress (ledger §8).
+  const pf = data.groupView;
+  const portfolio = pf ? { ...groupExposure(pf.rows, 'huaxing'), stress: jointStress(pf.stress) } : null;
+
+  return { t0, shocks, mar26, apr26, ecl: eclFig, recognition: rec, bridge, jun26, cf, forward, secondTranche, extension, spread, purchase, portfolio };
 }
 
 /** Reads a dotted path such as "mar26.price" or "shocks.0.dcf" from the figures object. */

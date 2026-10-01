@@ -51,6 +51,8 @@ export function defaultState() {
       replay: 'none',
       view: 'same',
     },
+    workout: { meetingDate: '2026-09-01', totalVotes: 100, presentVotes: 75, votesFor: 60, record: {} },
+    votes: { mine: {} },
     answers: {},
     qtally: {},
     guided: null,

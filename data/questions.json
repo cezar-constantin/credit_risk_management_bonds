@@ -1,0 +1,1012 @@
+{
+ "title": {
+  "en": "Credit Risk in Bond Investment — question bank v5",
+  "zh": "债券投资信用风险——题库第5版"
+ },
+ "source": "Credit_Risk_in_Bond_Investment_Training_Deck_ICBC_v5_EN (participant questions Q1–Q6, votes D1–D3, Appendix A12 instructor questions); answers tied to Case_Ledger_v5.md",
+ "questions": [
+  {
+   "id": "Q1",
+   "slide": 2,
+   "block": "b1",
+   "tier": "class",
+   "kind": "concept",
+   "app": "home",
+   "q": {
+    "en": "A bond has paid every coupon on time. Which losses can already have occurred?",
+    "zh": "一只债券每期票息都按时支付。哪些损失可能已经发生？"
+   },
+   "opts": [
+    {
+     "en": "None — nothing is lost until the issuer defaults",
+     "zh": "没有——发行人违约前不会有任何损失"
+    },
+    {
+     "en": "Only losses caused by a rise in interest rates",
+     "zh": "只有利率上升造成的损失"
+    },
+    {
+     "en": "Value, expected credit losses, sale proceeds and capital consumption can all have moved",
+     "zh": "价值、预期信用损失、出售所得和资本占用都可能已经变化"
+    }
+   ],
+   "answer": 2,
+   "why": {
+    "en": "Value (spread), the ECL allowance (remeasured at every reporting date), executable proceeds (liquidity) and capital can all move before any missed payment. Rates are one cause among several — and not a credit cause.",
+    "zh": "价值（利差）、预期信用损失准备（每个报告日重新计量）、可成交所得（流动性）和资本都可能在任何未付款之前变化。利率只是原因之一——而且不是信用原因。"
+   },
+   "verification": "Conceptual — deck slide 2 notes"
+  },
+  {
+   "id": "Q03",
+   "slide": 3,
+   "block": "b1",
+   "tier": "instructor",
+   "kind": "concept",
+   "app": "mechanisms",
+   "q": {
+    "en": "Which of these three is NOT credit risk?",
+    "zh": "以下三项中哪一项不是信用风险？"
+   },
+   "opts": [
+    {
+     "en": "Benchmark interest rates rose, so the bond’s value fell",
+     "zh": "基准利率上升，因此债券价值下跌"
+    },
+    {
+     "en": "The credit spread widened, so the bond’s value fell",
+     "zh": "信用利差扩大，因此债券价值下跌"
+    },
+    {
+     "en": "Expected credit losses rose, so an impairment charge was booked",
+     "zh": "预期信用损失上升，因此计提了减值"
+    }
+   ],
+   "answer": 0,
+   "why": {
+    "en": "A benchmark-rate move is interest-rate risk — the control used to show that the same size of loss can come from a different mechanism.",
+    "zh": "基准利率变动属于利率风险——用作对照，说明同样规模的损失可能来自不同机制。"
+   },
+   "verification": "Conceptual — deck A12"
+  },
+  {
+   "id": "Q07",
+   "slide": 3,
+   "block": "b1",
+   "tier": "instructor",
+   "kind": "concept",
+   "app": "mechanisms",
+   "q": {
+    "en": "Huaxing’s spread widens by 100 bp; nothing else changes. Which mechanism is at work?",
+    "zh": "华兴利差扩大100个基点；其他不变。起作用的是哪种机制？"
+   },
+   "opts": [
+    {
+     "en": "1 — benchmark-rate move",
+     "zh": "1——基准利率变动"
+    },
+    {
+     "en": "2 — credit-spread widening",
+     "zh": "2——信用利差扩大"
+    },
+    {
+     "en": "6 — distressed extension",
+     "zh": "6——困境展期"
+    }
+   ],
+   "answer": 1,
+   "why": {
+    "en": "The benchmark has not moved and no terms have been amended. Whether the allowance (4) reacts depends on the PD estimate and the SICR judgement; liquidity (3) only if you sell.",
+    "zh": "基准利率未变，条款也未修改。准备（4）是否变化取决于违约概率估计和信用风险显著增加的判断；流动性（3）只在出售时体现。"
+   },
+   "verification": "Conceptual — deck A12"
+  },
+  {
+   "id": "Q08",
+   "slide": 5,
+   "block": "b2",
+   "tier": "instructor",
+   "kind": "concept",
+   "app": "bondsloans",
+   "q": {
+    "en": "Where does a bond differ most from a loan to the same obligor?",
+    "zh": "对同一债务人，债券与贷款最大的区别在哪里？"
+   },
+   "opts": [
+    {
+     "en": "The obligor’s ability to pay",
+     "zh": "债务人的偿付能力"
+    },
+    {
+     "en": "Valuation and exit — a bond has a market price every day and can be sold",
+     "zh": "估值与退出——债券每天都有市场价格且可以出售"
+    },
+    {
+     "en": "The need for credit analysis",
+     "zh": "是否需要信用分析"
+    }
+   ],
+   "answer": 1,
+   "why": {
+    "en": "Ability to pay and the need for analysis are identical; what differs is daily pricing (mechanisms 1–3 visible) and the exit; the bank cannot renegotiate bilaterally.",
+    "zh": "偿付能力和分析需求相同；不同的是每日定价（机制1–3可见）和退出；本行无法双边重新谈判。"
+   },
+   "verification": "Conceptual — deck A12"
+  },
+  {
+   "id": "Q2",
+   "slide": 6,
+   "block": "b2",
+   "tier": "class",
+   "kind": "concept",
+   "app": "mechanisms",
+   "q": {
+    "en": "A bond at amortised cost falls 6% in price on spread widening; the bank’s PD estimate for the issuer has also risen. What appears in the accounts?",
+    "zh": "一只按摊余成本计量的债券因利差扩大价格下跌6%；本行对发行人的违约概率估计也已上升。账上会体现什么？"
+   },
+   "opts": [
+    {
+     "en": "−6% in profit or loss",
+     "zh": "损益中−6%"
+    },
+    {
+     "en": "−6% in other comprehensive income",
+     "zh": "其他综合收益中−6%"
+    },
+    {
+     "en": "No fair-value change — but the ECL allowance is remeasured now (12-month ECL in Stage 1); it becomes lifetime ECL only if the evidence shows a significant increase in credit risk",
+     "zh": "没有公允价值变动——但预期信用损失准备现在就要重新计量（第一阶段为12个月预期信用损失）；只有证据显示信用风险显著增加时，才变为整个存续期预期信用损失"
+    }
+   ],
+   "answer": 2,
+   "why": {
+    "en": "No fair-value change is recognised at amortised cost. The allowance is remeasured at each reporting date (5.5.8) — a higher PD raises 12-month ECL inside Stage 1. If the spread move and the other evidence show a significant increase in credit risk (5.5.9; B5.5.17 lists spreads among the indicators), the allowance becomes lifetime ECL (5.5.3). Stage 2 is still performing.",
+    "zh": "摊余成本下不确认公允价值变动。准备在每个报告日重新计量（5.5.8）——违约概率上升会提高第一阶段内的12个月预期信用损失。如果利差变动及其他证据显示信用风险显著增加（5.5.9；B5.5.17将利差列为指标之一），准备变为整个存续期预期信用损失（5.5.3）。第二阶段仍属正常履约。"
+   },
+   "verification": "IFRS 9 as adopted by Commission Regulation (EU) 2016/2067 — https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R2067 ¶¶ 4.1.2, 5.5.1–5.5.3, 5.5.5, 5.5.8, 5.5.9, B5.5.17"
+  },
+  {
+   "id": "Q10",
+   "slide": 7,
+   "block": "b2",
+   "tier": "instructor",
+   "kind": "concept",
+   "app": "position",
+   "q": {
+    "en": "In ICBC’s book, where would a loss while payments continue be least visible?",
+    "zh": "在工行账簿中，付息持续期间的损失在哪里最不明显？"
+   },
+   "opts": [
+    {
+     "en": "FVTPL bonds",
+     "zh": "FVTPL债券"
+    },
+    {
+     "en": "FVOCI bonds — fair value on the balance sheet and in OCI",
+     "zh": "FVOCI债券——资产负债表和其他综合收益中体现公允价值"
+    },
+    {
+     "en": "Credit paper at amortised cost — no fair value shown; the allowance moves with PD estimates and steps up only on SICR",
+     "zh": "按摊余成本计量的信用债——不显示公允价值；准备随违约概率估计变化，只有在信用风险显著增加时才跃升"
+    }
+   ],
+   "answer": 2,
+   "why": {
+    "en": "For the credit slice, 36% sits at amortised cost; there deterioration reaches earnings only through ECL, modification or sale. (72% is total investments, not the credit slice.)",
+    "zh": "信用部分中36%按摊余成本计量；在那里，恶化只能通过预期信用损失、修改或出售影响利润。（72%是全部投资，而非信用部分。）"
+   },
+   "verification": "ICBC 2025 Annual Results Announcement (HKEX 27 Mar 2026), Note 50(a) — https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0327/2026032700688.pdf"
+  },
+  {
+   "id": "D1",
+   "slide": 8,
+   "block": "b3",
+   "tier": "class",
+   "kind": "vote",
+   "app": "position",
+   "q": {
+    "en": "Decision 1: approve the purchase at 210 bp?",
+    "zh": "决策1：是否批准以210个基点的利差购买？"
+   },
+   "opts": [
+    {
+     "en": "Approve as proposed (RMB 100 m)",
+     "zh": "按提议批准（1亿元）"
+    },
+    {
+     "en": "Approve with conditions — size, triggers, information from the branch",
+     "zh": "有条件批准——规模、触发条件、来自分行的信息"
+    },
+    {
+     "en": "Decline",
+     "zh": "拒绝"
+    }
+   ],
+   "answer": null,
+   "why": {
+    "en": "Mostly B. Defensible: A (within mandate and limits), B (conditions), C (margin too thin for the information quality). Not defensible: approving without naming the exit capacity and the trigger list.",
+    "zh": "多数选B。可辩护：A（在授权和限额内）、B（附条件）、C（相对于信息质量，收益过薄）。不可辩护：批准时既不说明退出能力，也不列出触发条件。"
+   },
+   "verification": "Deck slide 8; illustrative framework",
+   "expected": "B"
+  },
+  {
+   "id": "Q04",
+   "slide": 8,
+   "block": "b3",
+   "tier": "instructor",
+   "kind": "concept",
+   "app": "position",
+   "q": {
+    "en": "Which of these gives the bank a contractual right against anyone other than Huaxing itself?",
+    "zh": "以下哪一项使本行对华兴以外的任何主体拥有合同权利？"
+   },
+   "opts": [
+    {
+     "en": "The provincial SOE’s 20% shareholding",
+     "zh": "省属国企20%的持股"
+    },
+    {
+     "en": "The RMB 5 bn shareholder loan of 2024",
+     "zh": "2024年50亿元的股东贷款"
+    },
+    {
+     "en": "None — the bank holds a senior unsecured claim on Huaxing only",
+     "zh": "都没有——本行仅对华兴持有高级无担保债权"
+    }
+   ],
+   "answer": 2,
+   "why": {
+    "en": "Ownership and a past loan are facts about the shareholder, not contracts in the bank’s favour; no guarantee and no keepwell on our MTN.",
+    "zh": "持股和过去的贷款是关于股东的事实，而不是有利于本行的合同；我行中期票据没有担保，也没有维好协议。"
+   },
+   "verification": "Conceptual — deck A12"
+  },
+  {
+   "id": "Q3",
+   "slide": 9,
+   "block": "b4",
+   "tier": "class",
+   "kind": "engine",
+   "app": "repricing",
+   "q": {
+    "en": "Huaxing MTN, modified duration 2.80, RMB 100 m. Which costs more: the benchmark +30 bp, or the spread +30 bp?",
+    "zh": "华兴中期票据，修正久期2.80，1亿元。哪个损失更大：基准利率+30个基点，还是利差+30个基点？"
+   },
+   "opts": [
+    {
+     "en": "The benchmark move",
+     "zh": "基准利率变动"
+    },
+    {
+     "en": "The spread move",
+     "zh": "利差变动"
+    },
+    {
+     "en": "The same — about RMB −0.84 m each",
+     "zh": "相同——各约−84万元"
+    }
+   ],
+   "answer": 2,
+   "why": {
+    "en": "For a fixed-rate bullet, spread duration equals modified duration: −100 × 2.80 × 0.003 = −0.84 m in both cases. Same size, different mechanism, different control.",
+    "zh": "对于固定利率到期一次还本的债券，利差久期等于修正久期：两种情况均为−100 × 2.80 × 0.003 = −0.84百万元。规模相同，机制不同，控制手段不同。"
+   },
+   "verification": "Case engine (engine/questions.js) and Case_Ledger_v5.md; checked in CI"
+  },
+  {
+   "id": "Q15",
+   "slide": 10,
+   "block": "b4",
+   "tier": "instructor",
+   "kind": "engine",
+   "app": "spread",
+   "q": {
+    "en": "Spread 210 bp, LGD 60%. At what annual default rate does the spread just cover the expected loss?",
+    "zh": "利差210个基点，违约损失率60%。年违约率为多少时，利差恰好覆盖预期损失？"
+   },
+   "opts": [
+    {
+     "en": "1.26%",
+     "zh": "1.26%"
+    },
+    {
+     "en": "3.5%",
+     "zh": "3.5%"
+    },
+    {
+     "en": "21%",
+     "zh": "21%"
+    }
+   ],
+   "answer": 1,
+   "why": {
+    "en": "2.10% ÷ 0.60 = 3.5% a year — a simplified break-even, not an observed or forecast PD. (1.26% is 2.10 × 0.60; 21% is 2.10 ÷ 0.10.)",
+    "zh": "2.10% ÷ 0.60 = 每年3.5%——简化的盈亏平衡值，并非观测或预测的违约概率。（1.26%是2.10 × 0.60；21%是2.10 ÷ 0.10。）"
+   },
+   "verification": "Case engine (engine/questions.js) and Case_Ledger_v5.md; checked in CI"
+  },
+  {
+   "id": "Q16",
+   "slide": 10,
+   "block": "b4",
+   "tier": "instructor",
+   "kind": "concept",
+   "app": "ratings",
+   "q": {
+    "en": "Huaxing’s national-scale rating is terminated ‘at the issuer’s request’. What is this?",
+    "zh": "华兴的国内评级“应发行人要求”终止。这意味着什么？"
+   },
+   "opts": [
+    {
+     "en": "An automatic transfer to Stage 2",
+     "zh": "自动转入第二阶段"
+    },
+    {
+     "en": "No signal",
+     "zh": "没有信号"
+    },
+    {
+     "en": "Information removed — find out why, refresh the internal rating, use it as evidence in the SICR assessment",
+     "zh": "信息被移除——查明原因，更新内部评级，作为信用风险显著增加评估的证据"
+    }
+   ],
+   "answer": 2,
+   "why": {
+    "en": "A termination is missing information, not a downgrade and not a trigger. It needs a reason before it changes a rating or a stage.",
+    "zh": "评级终止是信息缺失，不是降级，也不是触发条件。在改变评级或阶段之前需要查明原因。"
+   },
+   "verification": "Conceptual — deck A12"
+  },
+  {
+   "id": "Q4",
+   "slide": 12,
+   "block": "b6",
+   "tier": "class",
+   "kind": "concept",
+   "app": "repricing",
+   "q": {
+    "en": "Which of the dated facts is a missed payment on our MTN?",
+    "zh": "以下有日期的事实中，哪一项是我行中期票据的未付款？"
+   },
+   "opts": [
+    {
+     "en": "The 12-month extension of the two project-company trust loans",
+     "zh": "两家项目公司信托贷款展期12个月"
+    },
+    {
+     "en": "The CFO’s resignation",
+     "zh": "首席财务官辞职"
+    },
+    {
+     "en": "None — every coupon on our MTN was paid; this is deterioration in information, not in payment",
+     "zh": "都不是——我行中期票据每期票息都已支付；这是信息层面的恶化，而非付款层面"
+    }
+   ],
+   "answer": 2,
+   "why": {
+    "en": "The trust loans are project-level debt of different legal obligors with different lenders; the CFO’s exit is governance information. Nothing on the list is a contractual shortfall on our instrument — everything is mechanisms 2, 4 and 5.",
+    "zh": "信托贷款是不同法律债务人、不同贷款人的项目层面债务；首席财务官离职是公司治理信息。清单上没有任何一项是我行工具的合同性短付——都属于机制2、4和5。"
+   },
+   "verification": "Conceptual — deck slide 12 notes; Case_Ledger_v5.md §3"
+  },
+  {
+   "id": "Q13",
+   "slide": 12,
+   "block": "b6",
+   "tier": "instructor",
+   "kind": "engine",
+   "app": "repricing",
+   "q": {
+    "en": "March 2026: benchmark +30 bp and spread +240 bp; the price falls from 100.00 to 95.07 (RMB −4.93 m). How much of it is credit repricing?",
+    "zh": "2026年3月：基准利率+30个基点，利差+240个基点；价格从100.00跌至95.07（−493万元）。其中多少是信用重新定价？"
+   },
+   "opts": [
+    {
+     "en": "RMB −0.57 m",
+     "zh": "−57万元"
+    },
+    {
+     "en": "RMB −4.36 m",
+     "zh": "−436万元"
+    },
+    {
+     "en": "All of it",
+     "zh": "全部"
+    }
+   ],
+   "answer": 1,
+   "why": {
+    "en": "Sequential decomposition: reprice at 3.90% (rates only) → −0.57; then at 6.30% → a further −4.36.",
+    "zh": "顺序分解：按3.90%重新定价（仅利率）→ −0.57；再按6.30% → 进一步−4.36。"
+   },
+   "verification": "Case engine (engine/questions.js) and Case_Ledger_v5.md; checked in CI"
+  },
+  {
+   "id": "Q14",
+   "slide": 12,
+   "block": "b6",
+   "tier": "instructor",
+   "kind": "engine",
+   "app": "repricing",
+   "q": {
+    "en": "Coupon received +3.60; price 100.00 → 95.07; funding cost 2.00. What is the funded return for the year?",
+    "zh": "收到票息+3.60；价格100.00 → 95.07；资金成本2.00。全年扣除资金成本后的收益是多少？"
+   },
+   "opts": [
+    {
+     "en": "+1.60 m — the carry",
+     "zh": "+160万元——利差收益"
+    },
+    {
+     "en": "−1.33 m",
+     "zh": "−133万元"
+    },
+    {
+     "en": "−3.33 m",
+     "zh": "−333万元"
+    }
+   ],
+   "answer": 2,
+   "why": {
+    "en": "Gross = 3.60 − 4.93 = −1.33; funded = −1.33 − 2.00 = −3.33. Income positive, total return negative — and the issuer has paid in full.",
+    "zh": "总收益 = 3.60 − 4.93 = −1.33；扣除资金成本 = −1.33 − 2.00 = −3.33。收入为正，总收益为负——而发行人已足额付款。"
+   },
+   "verification": "Case engine (engine/questions.js) and Case_Ledger_v5.md; checked in CI"
+  },
+  {
+   "id": "D2",
+   "slide": 13,
+   "block": "b6",
+   "tier": "class",
+   "kind": "vote",
+   "app": "repricing",
+   "q": {
+    "en": "Decision 2: on 15 March 2026, what do you do?",
+    "zh": "决策2：2026年3月15日，您怎么做？"
+   },
+   "opts": [
+    {
+     "en": "Hold with dated triggers",
+     "zh": "附有日期的触发条件持有"
+    },
+    {
+     "en": "Reduce",
+     "zh": "减持"
+    },
+    {
+     "en": "Hedge",
+     "zh": "对冲"
+    },
+    {
+     "en": "Exit",
+     "zh": "退出"
+    }
+   ],
+   "answer": null,
+   "why": {
+    "en": "Most of the room holds with triggers; reduce-to-limit is also defensible. Model answer: hold with three dated triggers (refinancing plan for the September bond by 15 Aug; two monthly sales prints; any support event), watchlist entry and internal-rating refresh now, and — if the branch report arrives — a formal review with a documented SICR assessment. Not defensible: a decision without an executable price, a date and a name.",
+    "zh": "多数人附触发条件持有；减持至限额也可辩护。参考答案：附三个有日期的触发条件持有（8月15日前9月到期债券的再融资方案；两期月度销售数据；任何支持事件），现在列入观察名单并更新内部评级，并且——如果分行报告到达——进行正式审查并记录信用风险显著增加评估。不可辩护：没有可成交价格、日期和负责人的决策。"
+   },
+   "verification": "Deck slide 13",
+   "expected": "A"
+  },
+  {
+   "id": "Q17",
+   "slide": 13,
+   "block": "b6",
+   "tier": "instructor",
+   "kind": "concept",
+   "app": "repricing",
+   "q": {
+    "en": "March 2026: price 95, early signals. Which decision is NOT defensible?",
+    "zh": "2026年3月：价格95，早期信号。哪项决策不可辩护？"
+   },
+   "opts": [
+    {
+     "en": "Hold, with a dated trigger on the September 2026 refinancing",
+     "zh": "持有，并设置针对2026年9月再融资的有日期触发条件"
+    },
+    {
+     "en": "Reduce to the limit at the executable bid (94.37) because the position exceeds the concentration line",
+     "zh": "因头寸超过集中度线，按可成交买价（94.37）减持至限额"
+    },
+    {
+     "en": "Sell because the price fell — without an executable price or a reason",
+     "zh": "因价格下跌而卖出——没有可成交价格，也没有理由"
+    }
+   ],
+   "answer": 2,
+   "why": {
+    "en": "Hold-with-trigger and reduce-to-limit both state a condition and a price. ‘Sell because it fell’ has neither: it realises the liquidity discount for no stated reason.",
+    "zh": "附触发条件持有和减持至限额都说明了条件和价格。“因为跌了就卖”两者都没有：它在没有说明理由的情况下实现了流动性折价。"
+   },
+   "verification": "Conceptual — deck A12; executable bid 94.37 from the case engine"
+  },
+  {
+   "id": "Q21",
+   "slide": 14,
+   "block": "b7",
+   "tier": "instructor",
+   "kind": "engine",
+   "app": "timeline",
+   "q": {
+    "en": "FY2025: unrestricted cash RMB 42 bn, short-term debt RMB 98 bn. What is the ratio, and what does it say?",
+    "zh": "2025财年：非受限现金420亿元，短期债务980亿元。比率是多少，说明什么？"
+   },
+   "opts": [
+    {
+     "en": "0.43× — the 12-month refinancing need exceeds cash (alarm)",
+     "zh": "0.43倍——12个月再融资需求超过现金（警报）"
+    },
+    {
+     "en": "2.33× — comfortable",
+     "zh": "2.33倍——宽裕"
+    },
+    {
+     "en": "1.07× — watch",
+     "zh": "1.07倍——关注"
+    }
+   ],
+   "answer": 0,
+   "why": {
+    "en": "42 ÷ 98 = 0.43; alarm below 1.0×. At purchase 75 ÷ 70 = 1.07×. 2.33× is the ratio upside down.",
+    "zh": "42 ÷ 98 = 0.43；低于1.0倍即警报。购买时为75 ÷ 70 = 1.07倍。2.33倍是比率倒过来算。"
+   },
+   "verification": "Case engine (engine/questions.js) and Case_Ledger_v5.md; checked in CI"
+  },
+  {
+   "id": "Q22",
+   "slide": 15,
+   "block": "b7",
+   "tier": "instructor",
+   "kind": "concept",
+   "app": "timeline",
+   "q": {
+    "en": "What evidence would justify believing that the shareholder will support Huaxing (counterfactual A)?",
+    "zh": "什么证据能证明股东会支持华兴（反事实A）？"
+   },
+   "opts": [
+    {
+     "en": "The shareholder is state-owned",
+     "zh": "股东是国有企业"
+    },
+    {
+     "en": "A press statement that ‘the shareholder stands behind the company’",
+     "zh": "一则“股东支持公司”的新闻声明"
+    },
+    {
+     "en": "A registered guarantee or a drawn loan visible in filings — and a reading of which debt it covers",
+     "zh": "在公告中可见的登记担保或已提款贷款——并弄清它覆盖哪笔债务"
+    }
+   ],
+   "answer": 2,
+   "why": {
+    "en": "Ownership is a fact to analyse, not a contract; words are not evidence. Registration and cash are — and a guarantee for the new bond does not cover our MTN.",
+    "zh": "持股是需要分析的事实，而非合同；言辞不是证据。登记和现金才是——而为新债券提供的担保并不覆盖我行中期票据。"
+   },
+   "verification": "Conceptual — deck A12"
+  },
+  {
+   "id": "Q23",
+   "slide": 16,
+   "block": "b7",
+   "tier": "instructor",
+   "kind": "concept",
+   "app": "timeline",
+   "q": {
+    "en": "LGFV profile 2: weak regional finances, negative own operating cash flow, a maturity wall within 12 months, no refinancing-bond allocation. Which mechanism is the live risk while its coupons are paid?",
+    "zh": "城投主体2：区域财政较弱，自身经营现金流为负，12个月内集中到期，没有再融资债券额度。在其票息照常支付时，现实风险是哪种机制？"
+   },
+   "opts": [
+    {
+     "en": "1 — benchmark rates",
+     "zh": "1——基准利率"
+    },
+    {
+     "en": "5 — refinancing vulnerability and weakening support, feeding the spread (2) and the ECL (4)",
+     "zh": "5——再融资脆弱性和支持减弱，传导至利差（2）和预期信用损失（4）"
+    },
+    {
+     "en": "A non-call",
+     "zh": "不赎回"
+    }
+   ],
+   "answer": 1,
+   "why": {
+    "en": "An LGFV’s payment record can be perfect until the refinancing fails. Score the entity’s own cash flows and the region’s capacity.",
+    "zh": "城投的付款记录可能一直完美，直到再融资失败。要评估主体自身的现金流和区域的能力。"
+   },
+   "verification": "Conceptual — deck A12"
+  },
+  {
+   "id": "Q24",
+   "slide": 17,
+   "block": "b7",
+   "tier": "instructor",
+   "kind": "concept",
+   "app": "structure",
+   "q": {
+    "en": "Our MTN (onshore parent, senior unsecured) and the group’s US$ keepwell notes (offshore SPV). Which is the stronger claim?",
+    "zh": "我行中期票据（境内母公司，高级无担保）与集团的美元维好票据（境外特殊目的载体）。哪个债权更强？"
+   },
+   "opts": [
+    {
+     "en": "The US$ notes — foreign law",
+     "zh": "美元票据——适用外国法律"
+    },
+    {
+     "en": "Our MTN — a direct claim on the operating parent; the notes sit behind every onshore creditor and rely on a deed with limited remedies",
+     "zh": "我行中期票据——对经营母公司的直接债权；票据排在所有境内债权人之后，依赖救济有限的协议"
+    },
+    {
+     "en": "The same claim",
+     "zh": "相同的债权"
+    }
+   ],
+   "answer": 1,
+   "why": {
+    "en": "Structural subordination: the SPV’s creditors reach the parent only through the deed. Founder: deeds enforceable and breached — nominal damages for those claimants.",
+    "zh": "结构性次级：特殊目的载体的债权人只能通过协议触及母公司。方正案：协议可执行且已被违反——这些申索人仅获名义赔偿。"
+   },
+   "verification": "Nuoxi Capital Ltd & Ors v Peking University Founder Group Co Ltd, [2025] HKCFA 6 — https://southsquare.com/wp-content/uploads/2025/03/FACV000007_2024.pdf"
+  },
+  {
+   "id": "Q5",
+   "slide": 18,
+   "block": "b8",
+   "tier": "class",
+   "kind": "engine",
+   "app": "recognition",
+   "q": {
+    "en": "15 Apr 2026, amortised cost, Stage 2: allowance 1.20 → 6.00. P&L charge for the period?",
+    "zh": "2026年4月15日，摊余成本，第二阶段：准备从1.20 → 6.00。本期损益费用是多少？"
+   },
+   "opts": [
+    {
+     "en": "−6.41 — the fair-value change",
+     "zh": "−6.41——公允价值变动"
+    },
+    {
+     "en": "−4.80",
+     "zh": "−4.80"
+    },
+    {
+     "en": "−3.60 — 12-month ECL",
+     "zh": "−3.60——12个月预期信用损失"
+    }
+   ],
+   "answer": 1,
+   "why": {
+    "en": "6.00 − 1.20 = 4.80 for the period. Since purchase: 5.40 excluding the day-1 charge, 6.00 including it. −6.41 is the FVTPL cumulative figure; −3.60 would be the 12-month ECL had SICR not been judged (PD 6%) — the charge would then have been 2.40.",
+    "zh": "本期为6.00 − 1.20 = 4.80。自购买以来：不含首日费用为5.40，含首日费用为6.00。−6.41是FVTPL的累计数；−3.60是未判断信用风险显著增加时的12个月预期信用损失（违约概率6%）——那时本期费用为2.40。"
+   },
+   "verification": "Case engine (engine/questions.js) and Case_Ledger_v5.md; checked in CI; IFRS 9 as adopted by Commission Regulation (EU) 2016/2067 — https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R2067 ¶¶ 5.5.3, 5.5.8"
+  },
+  {
+   "id": "Q27",
+   "slide": 18,
+   "block": "b8",
+   "tier": "instructor",
+   "kind": "engine",
+   "app": "recognition",
+   "q": {
+    "en": "15 Apr 2026, amortised cost, Stage 2: the allowance rises from 1.20 to 6.00; since purchase from 0.60. What is the cumulative P&L charge since purchase, excluding the day-1 charge?",
+    "zh": "2026年4月15日，摊余成本，第二阶段：准备从1.20升至6.00；自购买以来从0.60起。不含首日费用，自购买以来累计损益费用是多少？"
+   },
+   "opts": [
+    {
+     "en": "−6.41 m",
+     "zh": "−641万元"
+    },
+    {
+     "en": "−5.40 m",
+     "zh": "−540万元"
+    },
+    {
+     "en": "−4.80 m",
+     "zh": "−480万元"
+    }
+   ],
+   "answer": 1,
+   "why": {
+    "en": "6.00 − 0.60 = 5.40 (6.00 including the day-1 charge; 4.80 for the March–April period). FVOCI shows the same P&L; FVTPL shows −6.41.",
+    "zh": "6.00 − 0.60 = 5.40（含首日费用为6.00；3–4月期间为4.80）。FVOCI在损益中显示相同金额；FVTPL显示−6.41。"
+   },
+   "verification": "Case engine (engine/questions.js) and Case_Ledger_v5.md; checked in CI"
+  },
+  {
+   "id": "Q28",
+   "slide": 19,
+   "block": "b8",
+   "tier": "instructor",
+   "kind": "concept",
+   "app": "recognition",
+   "q": {
+    "en": "A Huaxing project company’s trust loan is extended. Does our parent MTN become non-performing?",
+    "zh": "华兴一家项目公司的信托贷款展期。我行持有的母公司中期票据是否变为不良？"
+   },
+   "opts": [
+    {
+     "en": "Yes, automatically — same group",
+     "zh": "是，自动——同一集团"
+    },
+    {
+     "en": "Not automatically — a different debtor; assess (Art. 7). The 10% rule applies to one debtor’s exposures at the bank, with an exception for recognised credit enhancement",
+     "zh": "不会自动——不同债务人；需评估（第7条）。10%规则适用于同一债务人在本行的债权，经认可的增信方式除外"
+    },
+    {
+     "en": "Yes, because the spread is above 500 bp",
+     "zh": "是，因为利差超过500个基点"
+    }
+   ],
+   "answer": 1,
+   "why": {
+    "en": "The Measures propagate non-performing status within one non-retail debtor’s exposures at the bank (over 10% → all, Art. 7, exception for recognised credit enhancement) and require an assessment for other group members. Spread level is not a classification criterion.",
+    "zh": "《风险分类办法》在同一非零售债务人在本行的债权内传导不良状态（超过10% → 全部，第7条，经认可的增信方式除外），并要求对其他集团成员进行评估。利差水平不是分类标准。"
+   },
+   "verification": "《商业银行金融资产风险分类办法》(2023年第1号) — https://www.gov.cn/zhengce/2023-02/11/content_5750184.htm Art. 7"
+  },
+  {
+   "id": "Q30",
+   "slide": 21,
+   "block": "b8",
+   "tier": "instructor",
+   "kind": "concept",
+   "app": "controls",
+   "q": {
+    "en": "The bank first reacts in June 2026. Which control step was missed?",
+    "zh": "本行在2026年6月才首次作出反应。遗漏了哪个控制步骤？"
+   },
+   "opts": [
+    {
+     "en": "Execution — the sale was too slow",
+     "zh": "执行——出售太慢"
+    },
+    {
+     "en": "Monitoring and escalation — the December print, the CFO exit and the branch’s March information should have produced a watchlist entry and a formal review before April",
+     "zh": "监测与上报——12月数据、首席财务官离职和分行3月的信息本应在4月之前促成列入观察名单和正式审查"
+    },
+    {
+     "en": "None — June was on time",
+     "zh": "都没有——6月很及时"
+    }
+   ],
+   "answer": 1,
+   "why": {
+    "en": "Four steps, four dates: monitoring (Jan), escalation (Feb–Mar), formal assessment (Apr), execution (Jun). Reacting first in June skips the first two.",
+    "zh": "四个步骤，四个日期：监测（1月）、上报（2–3月）、正式评估（4月）、执行（6月）。到6月才首次反应，跳过了前两步。"
+   },
+   "verification": "Conceptual — deck A12; Case_Ledger_v5.md §3"
+  },
+  {
+   "id": "Q6",
+   "slide": 22,
+   "block": "b9",
+   "tier": "class",
+   "kind": "engine",
+   "app": "decision",
+   "q": {
+    "en": "Above what probability of support does holding beat selling today, before capital and liquidity costs?",
+    "zh": "在不考虑资本和流动性成本的情况下，支持概率高于多少时，持有优于今天出售？"
+   },
+   "opts": [
+    {
+     "en": "About 8%",
+     "zh": "约8%"
+    },
+    {
+     "en": "About 17%",
+     "zh": "约17%"
+    },
+    {
+     "en": "About 50%",
+     "zh": "约50%"
+    }
+   ],
+   "answer": 1,
+   "why": {
+    "en": "(91.32 − 89.91) / (98.11 − 89.91) = 17.2%. The earlier 8% came from comparing June proceeds with July values and is withdrawn. With capital and liquidity costs the hurdle is somewhat higher.",
+    "zh": "(91.32 − 89.91) / (98.11 − 89.91) = 17.2%。早先的8%来自用6月所得对比7月价值，已撤回。考虑资本和流动性成本后，门槛会更高一些。"
+   },
+   "verification": "Case engine (engine/questions.js) and Case_Ledger_v5.md; checked in CI"
+  },
+  {
+   "id": "Q31",
+   "slide": 22,
+   "block": "b9",
+   "tier": "instructor",
+   "kind": "engine",
+   "app": "decision",
+   "q": {
+    "en": "15 June 2026: executable bid 91.32; hold value today 98.11 if support arrives, 89.91 if not. Above what probability of support does holding beat selling (before capital and liquidity costs)?",
+    "zh": "2026年6月15日：可成交买价91.32；若获得支持，今日持有价值98.11，否则89.91。支持概率高于多少时持有优于出售（不考虑资本和流动性成本）？"
+   },
+   "opts": [
+    {
+     "en": "About 8%",
+     "zh": "约8%"
+    },
+    {
+     "en": "About 17%",
+     "zh": "约17%"
+    },
+    {
+     "en": "About 50%",
+     "zh": "约50%"
+    }
+   ],
+   "answer": 1,
+   "why": {
+    "en": "(91.32 − 89.91) / (98.11 − 89.91) = 17.2% on one date. The earlier 8% mixed a June bid with July values.",
+    "zh": "同一日期下(91.32 − 89.91) / (98.11 − 89.91) = 17.2%。早先的8%混用了6月买价与7月价值。"
+   },
+   "verification": "Case engine (engine/questions.js) and Case_Ledger_v5.md; checked in CI"
+  },
+  {
+   "id": "D3",
+   "slide": 23,
+   "block": "b9",
+   "tier": "class",
+   "kind": "vote",
+   "app": "decision",
+   "q": {
+    "en": "Decision 3, 15 June 2026: hold, reduce, hedge or exit?",
+    "zh": "决策3，2026年6月15日：持有、减持、对冲还是退出？"
+   },
+   "opts": [
+    {
+     "en": "Hold with triggers",
+     "zh": "附触发条件持有"
+    },
+    {
+     "en": "Reduce",
+     "zh": "减持"
+    },
+    {
+     "en": "Hedge",
+     "zh": "对冲"
+    },
+    {
+     "en": "Exit",
+     "zh": "退出"
+    }
+   ],
+   "answer": null,
+   "why": {
+    "en": "Split between A and B. Model answer: B as written in the memo. Acceptable: A with the same triggers and a stated liquidity position; D if the committee states that the mandate no longer fits. Not acceptable: ‘monitor closely’; ‘sell if it falls further’; waiting for a missed payment before the credit-impaired assessment.",
+    "zh": "A与B之间分歧。参考答案：按备忘录所写选B。可接受：A，但须有相同的触发条件并说明流动性状况；D，如委员会说明授权已不再适用。不可接受：“密切关注”；“若继续下跌就卖出”；等到未付款才做信用减值评估。"
+   },
+   "verification": "Deck slide 23",
+   "expected": "B"
+  },
+  {
+   "id": "Q32",
+   "slide": 23,
+   "block": "b9",
+   "tier": "instructor",
+   "kind": "concept",
+   "app": "decision",
+   "q": {
+    "en": "Which of these is a trigger that an auditor can test?",
+    "zh": "以下哪一项是审计可以检验的触发条件？"
+   },
+   "opts": [
+    {
+     "en": "‘Monitor the situation closely’",
+     "zh": "“密切关注形势”"
+    },
+    {
+     "en": "‘If no refinancing plan for the September bond is announced by 15 August 2026, exit the remainder at or above the stated floor by 31 August’",
+     "zh": "“如果2026年8月15日前未公布9月到期债券的再融资方案，则在8月31日前以不低于既定底价退出剩余部分”"
+    },
+    {
+     "en": "‘Sell if the price falls further’",
+     "zh": "“如果价格进一步下跌就卖出”"
+    }
+   ],
+   "answer": 1,
+   "why": {
+    "en": "A trigger has a number or event, a date, a consequence and an owner. ‘Monitor’ has none; ‘if it falls further’ has no level, no date and no owner.",
+    "zh": "触发条件要有数字或事件、日期、后果和负责人。“关注”什么都没有；“若进一步下跌”没有水平、没有日期、没有负责人。"
+   },
+   "verification": "Conceptual — deck A12"
+  },
+  {
+   "id": "Q29",
+   "slide": "A3",
+   "block": null,
+   "tier": "instructor",
+   "kind": "concept",
+   "app": "capital",
+   "q": {
+    "en": "Under the weighted (standardised) approach, Huaxing’s spread doubles and its ECL rises. What happens to its risk weight today?",
+    "zh": "在权重法（标准法）下，华兴的利差翻倍，预期信用损失上升。其风险权重今天会怎样？"
+   },
+   "opts": [
+    {
+     "en": "It doubles with the spread",
+     "zh": "随利差翻倍"
+    },
+    {
+     "en": "Nothing — until default or loss of ‘investment-grade’ status (or a change of mapping); the allowance affects capital through provisions",
+     "zh": "不变——直到违约或失去“投资级”地位（或映射变化）；准备通过拨备影响资本"
+    },
+    {
+     "en": "It falls, because provisions rose",
+     "zh": "下降，因为拨备增加了"
+    }
+   ],
+   "answer": 1,
+   "why": {
+    "en": "Standardised weights react to status, not to spreads. Under IRB the higher PD raises RWA now. Capital reacts late — that is why monitoring cannot rely on it.",
+    "zh": "标准权重对状态作出反应，而非利差。在内部评级法下，更高的违约概率会立即提高风险加权资产。资本反应滞后——这就是监测不能依赖资本的原因。"
+   },
+   "verification": "《商业银行资本管理办法》(2023年第4号) — https://www.gov.cn/zhengce/202311/content_6913410.htm Arts. 67, 70, 80"
+  },
+  {
+   "id": "Q25",
+   "slide": "A6",
+   "block": null,
+   "tier": "instructor",
+   "kind": "concept",
+   "app": "portfolio",
+   "q": {
+    "en": "Which of the nine positions can lose value only through rates and liquidity — never through issuer credit?",
+    "zh": "九个头寸中，哪一个只会因利率和流动性而损失价值——绝不会因发行人信用？"
+   },
+   "opts": [
+    {
+     "en": "The 10-year China Government Bond",
+     "zh": "10年期中国国债"
+    },
+    {
+     "en": "The district-level LGFV MTN",
+     "zh": "区县级城投中期票据"
+    },
+    {
+     "en": "The US$ keepwell note",
+     "zh": "美元维好票据"
+    }
+   ],
+   "answer": 0,
+   "why": {
+    "en": "Sovereign RMB paper has no issuer-credit mechanism in this session (a case assumption, not a rule); it still has duration and can be illiquid in a sell-off. The controls are duration limits, not credit limits.",
+    "zh": "在本课程中，人民币主权债券没有发行人信用机制（这是案例假设，不是规则）；它仍有久期，在抛售中也可能缺乏流动性。控制手段是久期限额，而非信用限额。"
+   },
+   "verification": "Conceptual — deck A6, A12"
+  },
+  {
+   "id": "Q33",
+   "slide": "A9",
+   "block": null,
+   "tier": "instructor",
+   "kind": "concept",
+   "app": "answer",
+   "q": {
+    "en": "Does the Canton of Zurich’s guarantee change how ZKB should analyse a corporate bond it buys?",
+    "zh": "苏黎世州的担保是否改变苏黎世州银行分析其所购公司债券的方式？"
+   },
+   "opts": [
+    {
+     "en": "Yes — the canton covers losses on ZKB’s investments",
+     "zh": "是——州政府承担苏黎世州银行投资的损失"
+    },
+    {
+     "en": "No — the guarantee protects ZKB’s creditors, not the securities ZKB owns",
+     "zh": "否——担保保护的是苏黎世州银行的债权人，而非其持有的证券"
+    },
+    {
+     "en": "Only for Swiss-franc bonds",
+     "zh": "仅适用于瑞士法郎债券"
+    }
+   ],
+   "answer": 1,
+   "why": {
+    "en": "The statutory guarantee (Cantonal Bank Act §6) covers ZKB’s liabilities. Credit risk in what ZKB owns is managed like anyone else’s; the guarantee may change risk appetite, not the analysis.",
+    "zh": "法定担保（《州银行法》第6条）覆盖苏黎世州银行的负债。其所持资产的信用风险与其他机构一样管理；担保可能改变风险偏好，但不改变分析。"
+   },
+   "verification": "Kantonalbankgesetz LS 951.1 §6; ZKB Annual Report 2025"
+  }
+ ]
+}

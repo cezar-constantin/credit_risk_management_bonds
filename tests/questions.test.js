@@ -58,7 +58,7 @@ test('Q17 — executable bid 94.37 = price at 6.70% with two years remaining', (
 
 test('option selection logic picks the option carrying the computed figure', () => {
   assert.equal(selectOption(A.Q14, ['+3.60 (coupon)', '−1.33 (gross)', '−3.33 (funded)']), 2);
-  assert.equal(selectOption(A.Q13, ['rates −4.36, spread −0.57', 'rates −0.57, spread −4.36', 'rates −2.47, spread −2.46']), 1);
+  assert.equal(selectOption(A.Q13, ['RMB −0.57 m', 'RMB −4.36 m', 'All of it']), 1);
   assert.equal(selectOption(A.Q12, ['benchmark hurts more', 'spread hurts more', 'identical, −0.84 m each']), 2);
   assert.equal(selectOption(A.Q6, ['≈ 8%', '≈ 17%', '≈ 50%']), 1);
   assert.equal(selectOption(A.Q5, ['−6.41', '−4.80', '−3.60']), 1);
@@ -69,7 +69,7 @@ test('option selection logic picks the option carrying the computed figure', () 
 const bankPath = new URL('../data/questions.json', import.meta.url);
 const hasBank = existsSync(bankPath);
 
-test('question bank: engine questions select the stored answer', { skip: hasBank ? false : 'data/questions.json not yet added (copy question_bank.json unchanged)' }, () => {
+test('question bank: engine questions select the stored answer', { skip: hasBank ? false : 'data/questions.json not yet added' }, () => {
   const raw = JSON.parse(readFileSync(bankPath, 'utf8'));
   const items = Array.isArray(raw) ? raw : raw.questions || raw.items || [];
   const byId = Object.fromEntries(items.map((q) => [q.id, q]));
@@ -91,5 +91,22 @@ test('question bank: shape (v5: 31 items)', { skip: hasBank ? false : 'data/ques
   const raw = JSON.parse(readFileSync(bankPath, 'utf8'));
   const items = Array.isArray(raw) ? raw : raw.questions || raw.items || [];
   assert.equal(items.length, 31);
-  for (const q of items) for (const f of ['id', 'slide', 'kind', 'q', 'opts', 'app']) assert.ok(q[f] != null, `${q.id} has ${f}`);
+  for (const q of items) for (const f of ['id', 'slide', 'kind', 'q', 'opts', 'app', 'tier']) assert.ok(q[f] != null, `${q.id} has ${f}`);
+  assert.equal(new Set(items.map((q) => q.id)).size, items.length, 'ids are unique');
+  // Class tier = the participant sheet: Q1–Q6 and the three committee votes.
+  assert.deepEqual(items.filter((q) => q.tier === 'class').map((q) => q.id).sort(), ['D1', 'D2', 'D3', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6']);
+  for (const q of items) {
+    assert.ok(q.q.en && q.q.zh, `${q.id} is bilingual`);
+    q.opts.forEach((o, i) => assert.ok(o.en && o.zh, `${q.id} option ${i} is bilingual`));
+    if (q.kind === 'vote') assert.equal(q.answer, null, `${q.id}: votes have no stored answer`);
+    else assert.ok(q.answer >= 0 && q.answer < q.opts.length, `${q.id}: answer is an option index`);
+  }
+});
+
+test('question bank: every question routes to a screen that exists', { skip: hasBank ? false : 'data/questions.json not yet added' }, () => {
+  const raw = JSON.parse(readFileSync(bankPath, 'utf8'));
+  const tabs = ['home', 'position', 'mechanisms', 'bondsloans', 'repricing', 'spread', 'ratings', 'timeline', 'structure', 'portfolio', 'recognition', 'controls', 'decision', 'workout', 'answer', 'capital', 'glossary'];
+  for (const q of raw.questions) assert.ok(tabs.includes(q.app), `${q.id} → ${q.app}`);
+  const routed = new Set([...data.route, ...data.appendix].flatMap((r) => r.questions || []));
+  for (const q of raw.questions) assert.ok(routed.has(q.id), `${q.id} is placed on the slide route`);
 });

@@ -1,7 +1,7 @@
 // Shared tab helpers.
 import { t } from '../i18n.js';
 import * as store from '../state.js';
-import { h, backStrip, nextId } from '../ui.js';
+import { h, backStrip, nextId, card, segmented } from '../ui.js';
 
 /** Standard tab header: number, title, intro and the "Back to the question" strip. */
 export function tabHeader(id, extra) {
@@ -45,4 +45,22 @@ export const isClass = () => store.get().preset === 'class';
 export function guidedKeep(el) {
   el.dataset.guided = 'keep';
   return el;
+}
+
+/** Show-of-hands vote or management choice: instructor enters counts; participants tick their own answer. */
+export function voteCard(ctx, { id, title, question, options, note }) {
+  return card(title,
+    h('p', null, h('strong', null, question)),
+    ctx.live(() => {
+      const s = store.get();
+      const tally = (s.votes && s.votes[id]) || {};
+      const total = options.reduce((n, o) => n + (tally[o.value] || 0), 0);
+      if (s.mode !== 'instructor') {
+        return segmented({ path: `votes.mine.${id}`, label: question, options: options.map((o) => ({ value: o.value, label: `${o.value} · ${o.label}` })) });
+      }
+      return h('div', { class: 'stack' }, options.map((o) => h('div', null,
+        h('div', { class: 'row small' }, h('strong', null, o.value), h('span', null, o.label), tallyInput(`votes.${id}.${o.value}`, `${id} ${o.value}`)),
+        total ? voteBar(tally[o.value] || 0, total) : null)));
+    }),
+    note ? h('p', { class: 'small note' }, note) : null);
 }

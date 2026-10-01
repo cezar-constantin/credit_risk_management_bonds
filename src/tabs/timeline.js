@@ -41,7 +41,8 @@ export function render(root, ctx) {
         return h('li', null,
           h('div', null, h('span', { class: 't-date' }, fmt.date(f.date, { month: true })), h('span', { class: 't-kind' }, t(`timeline.kinds.${f.kind}`))),
           h('p', null, t(`timeline.facts.${f.id}`)),
-          f.spread ? h('p', { class: 'small muted' }, t('timeline.marketLine', { spread: fmt.bp(f.spread), ba: fmt.bp(f.width) })) : null,
+          f.spread ? h('p', { class: 'small muted' }, f.width ? t('timeline.marketLine', { spread: fmt.bp(f.spread), ba: fmt.bp(f.width) }) : t('timeline.spreadLine', { spread: fmt.bp(f.spread) })) : null,
+          f.spreadA ? h('p', { class: 'small muted' }, t('timeline.spreadAB', { a: fmt.bp(f.spreadA), b: fmt.bp(f.spreadB) })) : null,
           f.branchOnly ? h('p', null, h('span', { class: 'pill amber' }, t('timeline.branchOnly'))) : null,
           h('div', { class: 'row small' }, h('strong', null, t('timeline.thesis')),
             s.mode === 'instructor'
@@ -57,11 +58,20 @@ export function render(root, ctx) {
     ];
   }));
 
-  // Who knew what, when: occurrence / disclosure / head-office knowledge / branch knowledge / decision.
+  // Who knew what, when (case ledger §3): occurrence / disclosure / head-office knowledge / branch knowledge / decision.
   const COLS = ['occurred', 'disclosed', 'ho', 'branch', 'decision'];
+  const dateCell = (x) => (!x ? '—' : /^\d{4}-\d{2}-\d{2}$/.test(x) ? fmt.date(x) : x.startsWith('by ') ? t('timeline.byDate', { date: fmt.date(x.slice(3)) }) : x);
+  const cellFor = (f, c) => {
+    if (c === 'decision') return t(`timeline.decisions.${f.dates.decision}`);
+    if (c === 'disclosed' && !f.dates.disclosed) return t('timeline.notPublic');
+    if (c === 'ho' && f.dates.hoCounterfactual) return t('timeline.hoBase', { base: fmt.date(f.dates.ho), cf: fmt.date(f.dates.hoCounterfactual) });
+    return dateCell(f.dates[c]);
+  };
+  const spreadCell = (f) => (f.spreadA ? `A ${f.spreadA} / B ${f.spreadB}` : f.spread ?? '—');
   const datesCard = card(t('timeline.datesTitle'),
-    table([t('timeline.event'), ...COLS.map((c) => t(`timeline.cols.${c}`))],
-      facts.map((f) => ({ cls: f.branchOnly ? 'hl' : null, cells: [`${fmt.date(f.date, { month: true })} · ${t(`timeline.kinds.${f.kind}`)}${f.branchOnly ? ` (${t('timeline.branchOnly')})` : ''}`, ...COLS.map((c) => (f.dates[c] ? fmt.date(f.dates[c]) : '—'))] }))),
+    table([t('timeline.event'), ...COLS.map((c) => t(`timeline.cols.${c}`)), t('timeline.cols.spread')],
+      facts.map((f) => ({ cls: f.branchOnly ? 'hl' : null, cells: [`${f.id} · ${t(`timeline.kinds.${f.kind}`)}${f.branchOnly ? ` (${t('timeline.branchOnly')})` : ''}`, ...COLS.map((c) => cellFor(f, c)), spreadCell(f)] })),
+      { numericCols: [6] }),
     h('p', { class: 'note' }, t('timeline.datesNote')));
 
   const ratios = card(t('timeline.ratiosTitle'),

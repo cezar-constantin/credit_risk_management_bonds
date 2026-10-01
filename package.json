@@ -1,6 +1,6 @@
 {
   "name": "bond-credit-risk-case-lab",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Bond Credit Risk Case Lab — interactive companion app for the UZH Executive Education class Credit Risk Management in Bond Investment.",
   "type": "module",
   "private": true,

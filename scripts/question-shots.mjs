@@ -26,7 +26,8 @@ for (const lang of ['en', 'zh']) {
     await page.goto(pathToFileURL(resolve(root, 'app/index.html')).href);
     await page.evaluate(([l, m]) => localStorage.setItem('bcrcl-state-v1', JSON.stringify({ lang: l, mode: m, guided: true })), [lang, mode]);
     await page.reload();
-    for (const q of items) {
+    // Instructor-tier questions (deck Appendix A12) are shown only in instructor mode — by design.
+    for (const q of items.filter((x) => mode === 'instructor' || x.tier !== 'instructor')) {
       // The app resolves the screen; find the tab whose panel list contains this question.
       const tabs = await page.$$eval('[role=tab]', (els) => els.map((e) => e.id));
       let found = false;
@@ -48,4 +49,4 @@ for (const lang of ['en', 'zh']) {
 }
 await browser.close();
 if (missing.length) { console.error(`Not reachable:\n  ${missing.join('\n  ')}`); process.exit(1); }
-console.log(`${items.length} questions reachable and captured in EN/中文, participant/instructor → docs/questions/`);
+console.log(`${items.length} questions reachable (instructor tier in instructor mode only) and captured in EN/中文, participant/instructor → docs/questions/`);

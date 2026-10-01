@@ -1,4 +1,4 @@
-// Bonds vs loans (class slide 8) — the same obligor in the branch book (loan) and the head-office book
+// Bonds vs loans (class slide 5) — the same obligor in the branch book (loan) and the head-office book
 // (bond): six rows, flipped one by one, each feeding one of the six loss mechanisms.
 import { t, tr } from '../i18n.js';
 import { h, card, reveal } from '../ui.js';
@@ -33,5 +33,6 @@ export function render(root, ctx) {
       card(t('bl.tableTitle'), table),
       h('div', { class: 'grid grid-2' },
         card(t('bl.measuresTitle'), h('p', null, t('bl.measures'))),
-        card(t('bl.closeTitle'), ...tr('bl.close').map((x) => h('p', null, x)))))));
+        card(t('bl.closeTitle'), ...tr('bl.close').map((x) => h('p', null, x)))),
+      card(t('bl.askTitle'), h('p', null, t('bl.ask')), h('p', { class: 'small muted' }, t('bl.source'))))));
 }

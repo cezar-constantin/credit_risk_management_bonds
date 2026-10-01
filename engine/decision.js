@@ -69,6 +69,70 @@ export function sizing({ weight, lgd, restSpread }) {
   return { loss, restIncome, yearsToRecover: restIncome > 0 ? loss / restIncome : Infinity };
 }
 
+/**
+ * Expected return after costs at purchase (Decision 1), in bp a year: carry = yield − funding;
+ * minus expected loss (PD × LGD), capital cost (RW × capital ratio × cost of capital) and a liquidity reserve.
+ */
+export function expectedReturnAfterCosts({ yieldPct, fundingPct, pd, lgd, rw, capitalRatio, costOfCapital, liquidityBp }) {
+  const carry = (yieldPct - fundingPct) * 100;
+  const el = pd * lgd * 1e4;
+  const capital = rw * capitalRatio * costOfCapital * 1e4;
+  return { carry, el, capital, liquidity: liquidityBp, net: carry - el - capital - liquidityBp };
+}
+
+/** Group exposure by legal obligor: on-balance, with off-balance items, excluding non-bank and memo lines. */
+export function groupExposure(rows, group) {
+  const mine = rows.filter((r) => r.group === group && r.bank);
+  const onBalance = mine.filter((r) => !r.offBalance).reduce((n, r) => n + r.amount, 0);
+  const withOff = mine.reduce((n, r) => n + r.amount, 0);
+  return { onBalance, withOff };
+}
+
+/**
+ * Illustrative joint stress: spread shock on the bond (fair value), PD multiple on the loans (lifetime ECL)
+ * and a wider bid–ask on the bond (extra exit cost). All amounts in the units of the inputs.
+ */
+export function jointStress({ bond, spreadDuration, spreadShockBp, loans, pdFrom, pdTo, lgd, extraWidthBp }) {
+  const bondFV = bond * spreadDuration * spreadShockBp / 1e4;
+  const loanEcl = (pdTo - pdFrom) * lgd * loans;
+  const exit = bond * spreadDuration * extraWidthBp / 1e4;
+  const total = bondFV + loanEcl + exit;
+  return { bondFV, loanEcl, exit, total, loanShare: loanEcl / total };
+}
+
+/**
+ * Date n working days (Mon–Fri) before an ISO date. Public holidays are not modelled — a teaching
+ * simplification; the issue documents and the NAFMII calendar govern in practice.
+ */
+export function workingDaysBefore(iso, n) {
+  const d = new Date(`${iso}T00:00:00Z`);
+  let left = n;
+  while (left > 0) {
+    d.setUTCDate(d.getUTCDate() - 1);
+    const wd = d.getUTCDay();
+    if (wd !== 0 && wd !== 6) left -= 1;
+  }
+  return d.toISOString().slice(0, 10);
+}
+
+/**
+ * NAFMII holders' meeting rules (revised 7 Dec 2023, effective 1 Apr 2024): notice at least 10 working
+ * days before the meeting (Art. 16), agenda at least 7 (Art. 17); a special resolution (Art. 5 matters,
+ * e.g. changing principal, interest, timing or credit enhancement) needs ≥ 2/3 of the votes present AND
+ * > 50% of the issue's total votes (Art. 30).
+ */
+export function holdersMeeting({ meetingDate, totalVotes, presentVotes, votesFor }) {
+  const shareOfPresent = presentVotes > 0 ? votesFor / presentVotes : 0;
+  const shareOfTotal = totalVotes > 0 ? votesFor / totalVotes : 0;
+  const presentOk = shareOfPresent >= 2 / 3 - 1e-12;
+  const totalOk = shareOfTotal > 0.5;
+  return {
+    noticeBy: meetingDate ? workingDaysBefore(meetingDate, 10) : null,
+    agendaBy: meetingDate ? workingDaysBefore(meetingDate, 7) : null,
+    shareOfPresent, shareOfTotal, presentOk, totalOk, passes: presentOk && totalOk,
+  };
+}
+
 // --- Capital -------------------------------------------------------------------------------------
 
 function normCdf(x) {

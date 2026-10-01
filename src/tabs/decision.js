@@ -135,9 +135,21 @@ export function render(root, ctx, { goTab }) {
     }));
 
   // ---- v5 model decision record (memo rows) ---------------------------------------------------
+  const MEMO = ['decision', 'why', 'sequence', 'floor', 'impairment', 'owner'];
   const model = card(t('decision.model.title'),
     h('p', { class: 'small muted' }, t('decision.model.intro')),
-    table([t('decision.model.item'), t('decision.model.value')], ['tranche1', 'support', 'refinancing', 'exit', 'floor', 'impairment', 'sizing'].map((k) => [t(`decision.model.rows.${k}.k`), t(`decision.model.rows.${k}.v`, { tr2: fmt.price(figures().secondTranche.bid) })])),
+    ctx.live(() => {
+      const F = figures();
+      const vals = { tr2: fmt.price(F.secondTranche.bid), bid: fmt.price(F.jun26.bid, 1), ev50: fmt.price(F.cf.ev50), ev25: fmt.price(F.cf.ev25), be: fmt.pct(F.cf.breakEven, 0) };
+      return [
+        table([t('decision.model.item'), t('decision.model.value')], MEMO.map((k) => [t(`decision.model.rows.${k}.k`), t(`decision.model.rows.${k}.v`, vals)])),
+        table([t('decision.model.pA'), t('decision.model.ev')], [
+          ['50 / 50', fmt.price(F.cf.ev50)],
+          ['25 / 75', fmt.price(F.cf.ev25)],
+          { cls: 'hl', cells: [t('decision.model.beRow', { be: fmt.pct(F.cf.breakEven, 1) }), fmt.price(F.jun26.bid)] },
+        ], { numericCols: [1], caption: t('decision.model.evCaption') }),
+      ];
+    }),
     h('p', { class: 'note' }, t('decision.model.note')));
 
   // ---- Extension branch -----------------------------------------------------------------------

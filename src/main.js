@@ -89,7 +89,7 @@ function panel() {
         h('h2', null, t('ui.route')),
         h('ol', { class: 'small route-list' }, CASE.route.map((r) => h('li', { value: r.slide },
           button(`${t(`route.s${r.slide}`)}${r.questions.length ? ` · ${r.questions.join(' ')}` : ''}`, () => goTab(r.tab), { cls: 'btn btn-link btn-small' })))),
-        h('p', { class: 'small' }, `${t('ui.appendix')}: `, CASE.appendix.map((a, i) => button(`${a.slide} ${t(`route.a${i + 1}`)}`, () => goTab(a.tab), { cls: 'btn btn-link btn-small' }))),
+        h('p', { class: 'small' }, `${t('ui.appendix')}: `, CASE.appendix.map((a, i) => button(`${a.slide} ${t(`route.a${i + 1}`)}${(a.questions || []).length ? ` · ${a.questions.join(' ')}` : ''}`, () => goTab(a.tab), { cls: 'btn btn-link btn-small' }))),
         h('p', { class: 'shortcut-help' }, h('kbd', null, '→'), ' ', t('ui.kNext'), ' · ', h('kbd', null, 'R'), ' ', t('ui.kReset'), ' · ', h('kbd', null, 'P'), ' ', t('ui.kPresenter'))),
       panelCtx.live(() => {
         const s = store.get();

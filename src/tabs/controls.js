@@ -1,5 +1,5 @@
 // 11 · Controls — monitoring → escalation → formal impairment assessment → execution, mapped to the case
-// dates; the illustrative escalation rule (editable, NOT ICBC policy, NOT regulation); four lenses.
+// dates; the illustrative escalation rule (editable, NOT ICBC policy, NOT regulation); decision-rights map; four measures.
 import { t, tr } from '../i18n.js';
 import * as store from '../state.js';
 import { CASE } from '../data.js';
@@ -9,7 +9,10 @@ import { evaluateEscalation, accrued } from '../../engine/index.js';
 import { tabHeader, guidedKeep } from './common.js';
 import { value, stopById, position, bond } from '../model.js';
 
-const LENSES = ['fmd', 'branch', 'risk', 'audit', 'operations'];
+// Decision-rights map (deck slide 21) and four observable control measures (slide 26) — illustrative.
+const RIGHTS = ['purchase', 'watchlist', 'sicr', 'regulatory', 'sale', 'legal'];
+const RIGHT_COLS = ['proposes', 'decides', 'consulted', 'tested'];
+const MEASURES = ['m1', 'm2', 'm3', 'm4'];
 
 function observations() {
   return CASE.escalation.observations.map((o) => {
@@ -60,14 +63,24 @@ export function render(root, ctx) {
       ];
     }));
 
-  const lenses = card(t('controls.lensesTitle'),
-    table([t('controls.function'), t('controls.responsibility'), t('controls.inCase')],
-      LENSES.map((l) => [t(`controls.lenses.${l}.name`), t(`controls.lenses.${l}.role`), t(`controls.lenses.${l}.case`)])));
+  const rights = card(t('controls.rights.title'),
+    h('p', null, h('span', { class: 'label-illustrative' }, t('controls.rights.label'))),
+    table([t('controls.rights.decision'), ...RIGHT_COLS.map((c) => t(`controls.rights.cols.${c}`))],
+      RIGHTS.map((r) => [t(`controls.rights.rows.${r}.name`), ...RIGHT_COLS.map((c) => t(`controls.rights.rows.${r}.${c}`))])),
+    h('div', { class: 'grid grid-2' },
+      h('div', null, h('h4', null, t('controls.rights.disagreeTitle')), h('p', { class: 'small' }, t('controls.rights.disagree'))),
+      h('div', null, h('h4', null, t('controls.rights.infoTitle')), h('p', { class: 'small' }, t('controls.rights.info')))),
+    h('p', { class: 'small note' }, t('controls.rights.note')));
+
+  const measures = card(t('controls.measures.title'),
+    h('ol', { class: 'statements' }, MEASURES.map((m) => h('li', null, h('strong', null, t(`controls.measures.${m}.name`)), h('br'), h('span', { class: 'small' }, t(`controls.measures.${m}.text`))))),
+    h('p', { class: 'small note' }, t('controls.measures.note')));
 
   const q = card(t('controls.qTitle'), h('p', null, t('controls.q')), reveal(ctx, 'q', () => paras(tr('controls.a'))));
 
-  guidedKeep(lenses);
+  guidedKeep(rights);
   root.append(...tabHeader('controls'),
     h('div', { class: 'grid grid-2' }, h('div', { class: 'stack' }, steps, q), rule),
-    h('div', { style: { marginTop: '16px' } }, lenses));
+    h('div', { style: { marginTop: '16px' } }, rights),
+    h('div', { style: { marginTop: '16px' } }, measures));
 }

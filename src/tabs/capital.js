@@ -1,4 +1,5 @@
-// 10 · Capital — illustrative risk weights, IRB vs weighted approach, OCI into CET1, G-SIB/TLAC facts.
+// Capital (reference) — standardised weights by article (Appendix A3), IRB vs weighted approach, OCI into CET1,
+// ICBC's capital position, G-SIB/TLAC facts.
 import { t, tr } from '../i18n.js';
 import * as store from '../state.js';
 import { CASE } from '../data.js';
@@ -9,19 +10,26 @@ import { tabHeader, guidedKeep } from './common.js';
 import { position, figures } from '../model.js';
 
 export function render(root, ctx) {
+  // Appendix A3: standardised weights by article (Capital Rules 2023) and ICBC's capital position.
   const rwTable = card(t('capital.rwTitle'),
-    h('span', { class: 'label-illustrative' }, t('ui.illustrative')),
     table([t('capital.exposure'), t('capital.rw'), t('capital.ref')],
-      CASE.riskWeights.map((r) => [t(`capital.rwRows.${r.id}`), fmt.pctRaw(r.rw, 0), t(`capital.rwRef.${r.id}`)]), { numericCols: [1] }),
+      CASE.capitalArticles.map((r) => [t(`capital.arts.${r.id}.name`), t(`capital.arts.${r.id}.rw`), r.art]), { numericCols: [2] }),
     h('p', { class: 'note' }, t('capital.rwNote')),
-    workings('cap-holdings', t('capital.weightedFormula'), [[t('capital.rwRows.bankTier2'), '150%']], t('capital.holdingsNote')));
+    workings('cap-holdings', t('capital.weightedFormula'), [[t('capital.rwRows.sub'), '150%']], t('capital.holdingsNote')));
+
+  const icbc = card(t('capital.icbcTitle'),
+    h('div', { class: 'grid grid-2' }, ['cet1', 'gsib', 'tlac', 'approach'].map((k) => h('div', null,
+      h('p', { class: 'small muted' }, t(`capital.icbc.${k}.label`)),
+      h('p', null, h('strong', null, t(`capital.icbc.${k}.value`))),
+      h('p', { class: 'small' }, t(`capital.icbc.${k}.text`))))),
+    h('p', { class: 'small note' }, t('capital.icbcSource')));
 
   const approach = card(t('capital.approachTitle'),
     segmented({ path: 'capital.approach', label: t('capital.approach'), options: [{ value: 'weighted', label: t('capital.weighted') }, { value: 'irb', label: t('capital.irb') }] }),
     ctx.live(() => {
       const c = store.get().capital;
       if (c.approach === 'weighted') {
-        return select({ path: 'capital.rwClass', label: t('capital.rwClass'), options: CASE.riskWeights.map((r) => ({ value: r.id, label: `${t(`capital.rwRows.${r.id}`)} — ${fmt.pctRaw(r.rw, 0)}` })) });
+        return select({ path: 'capital.rwClass', label: t('capital.rwClass'), options: CASE.riskWeights.map((r) => ({ value: r.id, label: `${t(`capital.rwRows.${r.id}`)} — ${fmt.pctRaw(r.rw, 0)} (${t('capital.art', { n: r.art })})` })) });
       }
       return h('div', null,
         slider({ path: 'capital.pd', label: t('capital.pd'), min: 0.05, max: 30, step: 0.05, fmt: (v) => fmt.pctRaw(v, 2) }),
@@ -36,9 +44,10 @@ export function render(root, ctx) {
       let rows;
       let formula;
       if (c.approach === 'weighted') {
-        rw = CASE.riskWeights.find((r) => r.id === c.rwClass).rw / 100;
+        const cls = CASE.riskWeights.find((r) => r.id === c.rwClass) || CASE.riskWeights.find((r) => r.id === 'corpGeneral');
+        rw = cls.rw / 100;
         formula = t('capital.weightedFormula');
-        rows = [[t('capital.rwClass'), t(`capital.rwRows.${c.rwClass}`)], [t('capital.rw'), fmt.pct(rw, 0)]];
+        rows = [[t('capital.rwClass'), t(`capital.rwRows.${cls.id}`)], [t('capital.rw'), fmt.pct(rw, 0)]];
       } else {
         const irb = irbCorporateRW({ pd: c.pd / 100, lgd: c.lgd / 100, maturity: c.maturity });
         rw = irb.rw;
@@ -79,5 +88,5 @@ export function render(root, ctx) {
 
   guidedKeep(nots);
   root.append(...tabHeader('capital'),
-    h('div', { class: 'grid grid-2' }, h('div', { class: 'stack' }, approach, oci, q), h('div', { class: 'stack' }, rwTable, nots, gsib)));
+    h('div', { class: 'grid grid-2' }, h('div', { class: 'stack' }, approach, oci, q), h('div', { class: 'stack' }, rwTable, icbc, nots, gsib)));
 }

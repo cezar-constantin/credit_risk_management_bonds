@@ -219,3 +219,46 @@ test('illustrative escalation rule', () => {
   assert.equal(res.firstTrigger, 'b');
   assert.equal(res.rows[0].count, 0);
 });
+
+// ---- v5 additions: Decision 1, portfolio view, workout ----------------------------------------
+import { expectedReturnAfterCosts, jointStress, holdersMeeting, workingDaysBefore } from '../engine/index.js';
+
+test('Decision 1 — return after costs 160 − 60 − 45 − 20 ≈ 35 bp; position 3.3% of the issue', () => {
+  const F = caseFigures(data);
+  assert.equal(Math.round(F.purchase.carry), 160);
+  assert.equal(Math.round(F.purchase.el), 60);
+  assert.equal(Math.round(F.purchase.capital), 45);
+  assert.equal(Math.round(F.purchase.net), 35);
+  assert.equal((F.purchase.issueShare * 100).toFixed(1), '3.3');
+  const r = expectedReturnAfterCosts({ yieldPct: 3.6, fundingPct: 2, pd: 0.01, lgd: 0.6, rw: 1, capitalRatio: 0.08, costOfCapital: 0.056, liquidityBp: 20 });
+  assert.equal(r.net.toFixed(1), '35.2');
+});
+
+test('Portfolio view — group 3,600 on-balance, 3,900 with guarantees; joint stress 4.8 + 280 + 1.6 = 286.4', () => {
+  const F = caseFigures(data);
+  assert.equal(F.portfolio.onBalance, 3600);
+  assert.equal(F.portfolio.withOff, 3900);
+  const s = jointStress({ bond: 100, spreadDuration: 1.6, spreadShockBp: 300, loans: 3500, pdFrom: 0.1, pdTo: 0.3, lgd: 0.4, extraWidthBp: 100 });
+  assert.equal(s.bondFV.toFixed(1), '4.8');
+  assert.equal(s.loanEcl.toFixed(1), '280.0');
+  assert.equal(s.exit.toFixed(1), '1.6');
+  assert.equal(s.total.toFixed(1), '286.4');
+  assert.equal(Math.round(s.loanShare * 100), 98);
+});
+
+test('Workout — NAFMII deadlines in working days and the special-resolution double test', () => {
+  assert.equal(workingDaysBefore('2026-09-01', 10), '2026-08-18');
+  assert.equal(workingDaysBefore('2026-09-01', 7), '2026-08-21');
+  const pass = holdersMeeting({ meetingDate: '2026-09-01', totalVotes: 100, presentVotes: 75, votesFor: 51 });
+  assert.equal(pass.passes, true);
+  const lowTotal = holdersMeeting({ meetingDate: '2026-09-01', totalVotes: 100, presentVotes: 60, votesFor: 45 });
+  assert.equal(lowTotal.presentOk, true);
+  assert.equal(lowTotal.totalOk, false);
+  assert.equal(lowTotal.passes, false);
+});
+
+test('Workout — extension PV cost 60 − 60 × 1.036 / 1.088 = 2.87; modification loss at the EIR nil', () => {
+  const F = caseFigures(data);
+  assert.equal(F.extension.pvCost.toFixed(2), '2.87');
+  assert.equal(Math.abs(F.extension.modificationLoss).toFixed(2), '0.00');
+});

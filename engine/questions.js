@@ -36,8 +36,8 @@ export function engineAnswers(data, { position = data.position } = {}) {
       values: { rates: hp.benchmarkEffect, spread: hp.spreadEffect, total: hp.totalPriceEffect },
       workings: `rates ${f2(hp.benchmarkEffect)} + spread ${f2(hp.spreadEffect)} = ${f2(hp.totalPriceEffect)} (price 99.43 at 3.90%, 95.07 at 6.30%)`,
       display: `${f2(hp.benchmarkEffect)} / ${f2(hp.spreadEffect)} / ${f2(hp.totalPriceEffect)}`,
-      targets: [Math.abs(hp.benchmarkEffect), Math.abs(hp.spreadEffect)],
-      ordered: true,
+      // v5 wording asks for the credit (spread) part of the fall: −4.36.
+      targets: [Math.abs(hp.spreadEffect)],
       expectedLetter: 'B',
     },
     Q14: {

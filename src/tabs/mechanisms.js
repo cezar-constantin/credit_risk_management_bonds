@@ -18,6 +18,7 @@ export function render(root, ctx) {
         h('h3', null, `${i + 1}. ${t(`mech.${m.id}.name`)}`),
         h('p', { class: 'small' }, t(`mech.${m.id}.desc`)),
         h('span', { class: `pill ${m.credit ? 'red' : 'neutral'}` }, m.credit ? t('mech.credit') : t('mech.notCredit')),
+        h('p', { class: 'small muted' }, `${t('mech.seenByCol')}: ${t(`mech.${m.id}.seenBy`)}`),
         checkbox({ path, label: t('mech.showWhere') }),
         on ? h('div', null,
           h('div', { class: 'impact-row', role: 'list', 'aria-label': t('mech.whereLabel') },
@@ -32,11 +33,12 @@ export function render(root, ctx) {
     const s = store.get();
     const lens = s.ctx.lens;
     return table(
-      [t('mech.mechanism'), ...CASE.impacts.map((i) => t(`impact.${i}`)), t('mech.creditCol')],
+      [t('mech.mechanism'), ...CASE.impacts.map((i) => t(`impact.${i}`)), t('mech.creditCol'), t('mech.seenByCol')],
       CASE.mechanisms.map((m) => [
         t(`mech.${m.id}.name`),
         ...CASE.impacts.map((i) => (m.where[lens].includes(i) ? '●' : '–')),
         m.credit ? t('ui.yes') : t('mech.control'),
+        t(`mech.${m.id}.seenBy`),
       ]),
       { caption: t('mech.matrixCaption', { lens: t(`lens.${lens}.name`) }) },
     );

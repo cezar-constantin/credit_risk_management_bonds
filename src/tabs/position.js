@@ -87,6 +87,28 @@ export function render(root, ctx) {
       ];
     }));
 
+  // Decision 1 · 15 March 2025 — seven-point pre-purchase check (illustrative framework) and vote.
+  const PP = CASE.prePurchase;
+  const CHECK = ['mandate', 'issuer', 'instrument', 'information', 'downside', 'return', 'size'];
+  const check = card(t('position.check.title'),
+    h('p', null, h('span', { class: 'label-illustrative' }, t('position.check.label'))),
+    ctx.live(() => {
+      const P = figures().purchase;
+      const p = pos();
+      const vals = { limit: fmt.money(PP.limitPerDeveloper, 0), lgd: fmt.pctRaw(p.lgd, 0), net: fmt.bp(P.net, 0), share: fmt.pct(P.issueShare, 1), issue: fmt.money(PP.issueSize, 0), dealer: fmt.money(PP.dealerSize, 0), days: PP.exitDays };
+      return [
+        h('ol', { class: 'statements' }, CHECK.map((k) => h('li', null, h('strong', null, t(`position.check.${k}.name`)), ' — ', t(`position.check.${k}.text`, vals)))),
+        table([t('position.check.line'), t('position.check.bp')], [
+          [t('position.check.carry', { y: fmt.pct(y0()), f: fmt.pctRaw(p.funding) }), fmt.num(P.carry, 0)],
+          [t('position.check.el', { pd: fmt.pctRaw(p.pd12, 1), lgd: fmt.pctRaw(p.lgd, 0) }), fmt.num(-P.el, 0)],
+          [t('position.check.capital', { rw: PP.rw, r: PP.capitalRatio, c: fmt.num(PP.costOfCapital, 1) }), fmt.num(-P.capital, 0)],
+          [t('position.check.liquidity'), fmt.num(-P.liquidity, 0)],
+          { cls: 'total', cells: [t('position.check.net'), `≈ ${fmt.num(P.net, 0)}`] },
+        ], { numericCols: [1] }),
+        workings('d1', t('position.check.formula'), [[t('position.check.carryShort'), fmt.num(P.carry, 1)], [t('position.check.elShort'), fmt.num(P.el, 1)], [t('position.check.capitalShort'), fmt.num(P.capital, 1)], [t('position.check.liquidityShort'), P.liquidity], [t('position.check.shareShort'), fmt.pct(P.issueShare, 2)]], t('position.check.note')),
+      ];
+    }));
+
   root.append(
     ...tabHeader('position', fictionalBadge()),
     guidedKeep(h('div', { class: 'print-factsheet' },
@@ -98,6 +120,7 @@ export function render(root, ctx) {
         card(t('position.profileTitle'), profile, h('p', { class: 'small muted' }, t('position.profileNote')))),
       h('p', { class: 'small print-only' }, t('disclaimer.text')))),
     h('div', { class: 'row no-print', style: { margin: '12px 0' } }, button(t('position.printSheet'), printSheet, { cls: 'btn' })),
+    h('div', { class: 'grid grid-2', style: { marginBottom: '16px' } }, check, h('div', { class: 'stack' }, card(t('position.d1.afterTitle'), ...tr('position.d1.after').map((x) => h('p', { class: 'small' }, x))))),
     editor,
     tieOut,
   );

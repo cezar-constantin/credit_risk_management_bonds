@@ -24,24 +24,24 @@ The class is built around one question:
 
 > **What can cause a bond investment to lose money even when the issuer continues paying?**
 
-The app follows one fictional position through four dated stops, computing every number live, and ends by answering that question. The position is a 3.60% RMB 100 m senior unsecured MTN of *Huaxing Development Co., Ltd.* (a fictional composite), bought at issue on 15 March 2025.
+The app follows one fictional position through three committee decisions and four dated stops, computing every number live, and ends by answering that question. The position is a 3.60% RMB 100 m senior unsecured MTN of *Huaxing Development Co., Ltd.* (a fictional composite), bought at issue on 15 March 2025.
 
 | Stop | Date | What happens |
 |---|---|---|
-| 1 | Sep 2025 | Market repricing, no issuer news |
-| 2 | Mar 2026 | One coupon received; spread 450 bp; price 95.07; first decision |
-| 3 | Dec 2025 → Jun 2026 | Deterioration while every coupon is paid; counterfactuals A (support) and B (extension) |
-| 4 | Jun 2026 | The decision: executable proceeds vs probability-weighted holding value |
+| 1 | 15 Mar 2025 | Purchase: seven-point pre-purchase check, Decision 1 (approve?) |
+| 2 | 15 Mar 2026 | One year later: coupon received; spread 450 bp; price 95.07; executable bid 94.37; what head office and the branch knew; Decision 2 |
+| 3 | 14–15 Apr 2026 | FY2025 results; SICR → Stage 2; accounting bridge; support, structure, portfolio view, decision rights |
+| 4 | 15 Jun 2026 | Decision 3: executable proceeds vs hold value on one date; the committee memo; workout if support fails; own book vs WM product |
 
-Fifteen tabs: Home · Position · Mechanisms · Repricing lab · Spread anatomy · Ratings · Timeline · Structure · Portfolio · Recognition · Capital · Controls · Decision · The answer · Glossary. See [`app/description.html`](app/description.html) for each module's purpose, inputs and outputs, and [`docs/slide-to-module-map.md`](docs/slide-to-module-map.md) for where each class slide lives in the app.
+Seventeen tabs: Home · Bond & client · Mechanisms · Bonds vs loans · Repricing lab · Spread anatomy · Ratings · Timeline · Structure · Portfolio · Recognition · Controls · Decision · Workout · The answer · Capital (reference) · Glossary. See [`app/description.html`](app/description.html) for each module's purpose, inputs and outputs, and [`docs/slide-to-module-map.md`](docs/slide-to-module-map.md) for where each class slide lives in the app.
 
 ### Open it online
 
 The app is published on GitHub Pages at **https://cezar-constantin.github.io/credit_risk_management_bonds/**. It works on any laptop or tablet browser, and participants can use it straight away. Every push to `main` redeploys it.
 
-### Class questions (v3)
+### Class questions (v5)
 
-Every teaching screen ends with its **Choose one** questions from the class question bank. Copy `question_bank.json` unchanged to `data/questions.json`, then run `npm run build`. Participants tap an answer and reveal it. The instructor enters hand counts and reveals with → . Engine questions show the figure the engine computed, together with its workings. The Answer screen shows the participant's score and prints the question sheet or, in instructor mode, the answer key. **Guided** mode (default for participants) keeps each screen to one table plus its questions; **Full** shows everything. `npm run question-shots` checks that every question is reachable on its screen and saves screenshots to `docs/questions/`.
+Every teaching screen ends with its **Choose one** questions from the class question bank in `data/questions.json` (31 items). The bank was transcribed from the v5 deck: the six participant questions Q1–Q6 and the three committee votes D1–D3 (the **class** tier, on the participant sheet), plus the 22 additional instructor questions of Appendix A12 (the **instructor** tier, shown only in instructor mode and in the answer key). English is verbatim from the deck; the Chinese is a translation for the interpreter to check. Each item records its slide, screen, answer and source; the votes carry the deck's expected outcome. Participants tap an answer and reveal it. The instructor enters hand counts and reveals with → . Engine questions show the figure the engine computed, together with its workings. The Answer screen shows the participant's score and prints the question sheet or, in instructor mode, the answer key. **Guided** mode (default for participants) keeps each screen to one table plus its questions; **Full** shows everything. `npm run question-shots` checks that every question is reachable on its screen and saves screenshots to `docs/questions/`.
 
 ### Two views: standard and focus
 
@@ -80,6 +80,7 @@ Choose **Participant**. Work through the tabs at your own pace. Hints and **Chec
 
 - **Engine:** `engine/` is a pure, framework-free module (pricing, ECL, recognition, five-category classification, decision maths, capital). It uses annual coupons, bullet repayment, DCF with fractional exponents, and “dirty” value = PV of all remaining cash flows, accrued interest included. Executable bid = price at mid yield + full quoted bid–ask.
 - **Acceptance tests:** `tests/engine.test.js` hard-codes every figure in the deck. Examples: T0 price 100.00, Macaulay 2.90, modified 2.80. Shocks −3.36/−3.28, −1.40/−1.38, −0.84/−0.83. Mar 2026: 99.43, 95.07, −0.57, −4.36, −1.33, −3.33, bid 94.37 (mid + 20 bp mid-to-bid + 20 bp block). Apr 2026: 100.30, 93.89, 92.91. ECL 0.60 / 3.60 / 6.00 / 5.79, charges 5.40 / 3.00. Recognition: AC 94.30, FVOCI 93.89 with OCI −0.41, FVTPL −6.41. Jun 2026: 100.89, 92.76, 91.32. 15 Jun 2026 counterfactuals (same date as the bid): A 98.11, B 89.91, break-even ≈ 17.2%; forward horizon 15 Sep 2026: sell 91.78, A 99.39 / 98.56, B 92.25 / 90.45, break-even 16.3%. ECL path 0.60 → 1.20 → 6.00 and the accounting bridge (AC 99.40 → 98.80 → 94.00; FVOCI 100.00 → 95.07 → 93.59; period P&L −4.80, OCI +3.32, equity −1.48). Extension: PV cost 2.87, modification loss 0.00. Break-even PD 3.5%; sizing 0.60% vs 0.396% / 1.485%. **Any drift fails CI.**
+- **v5 additions (also in CI):** Decision 1 return after costs 160 − 60 − 45 − 20 ≈ 35 bp, position 3.3% of the RMB 3 bn issue; group exposure 3,600 on-balance / 3,900 with guarantees; joint stress 4.8 + 280 + 1.6 = 286.4 (98% in the loans); hold value 94.01 at 50/50 and 91.96 at 25/75; NAFMII notice ≥ 10 and agenda ≥ 7 working days, special resolution ≥ 2/3 of votes present and > 50% of the total.
 - **On screen:** the same figures are listed in `data/case.json → tieOut` and recomputed live in the tie-out table. Every calculation has **Show workings** with its formula and inputs.
 - **Quote convention (v5):** width = full quoted bid–ask in yield; mid-to-bid = width ÷ 2; block concession = width ÷ 2; executable bid = mid + width.
 
@@ -93,7 +94,8 @@ src/                    UI source: shell, components, tabs, styles (tokens.css =
 engine/                 pricing, ECL, classification, decision maths (pure ES modules)
 tests/                  acceptance and unit tests (node --test)
 i18n/en.json, zh.json   every user-visible string, English and 简体中文
-data/case.json          Huaxing case, presets, timeline, tie-out figures
+data/case.json          Huaxing case, presets, timeline (ledger §3), group view (§8), route, tie-out figures
+data/questions.json     class question bank v5 (31 items: Q1–Q6, D1–D3, A12 instructor questions)
 docs/                   screenshots (both languages), slide-to-module map
 scripts/                build.mjs (bundler), check-i18n.mjs (parity), screenshots.mjs
 .github/workflows/      test + build + Pages deploy
@@ -128,16 +130,20 @@ The visual identity is derived from the public website icbc.com.cn (primary red 
 
 > **即使发行人仍在按时付息，是什么导致债券投资亏损？**
 
-应用带领学员沿四个日期节点跟踪一个虚构头寸，所有数字实时计算，最后明确回答这一问题。该头寸为 *华兴发展有限公司*（虚构的综合案例）发行的票面利率3.60%、面值1亿元的优先无担保中期票据，于2025年3月15日发行时买入。
+应用带领学员经历三个委员会决策和四个日期节点，跟踪一个虚构头寸，所有数字实时计算，最后明确回答这一问题。该头寸为 *华兴发展有限公司*（虚构的综合案例）发行的票面利率3.60%、面值1亿元的优先无担保中期票据，于2025年3月15日发行时买入。
 
 | 节点 | 日期 | 内容 |
 |---|---|---|
-| 1 | 2025年9月 | 市场重新定价，发行人无新消息 |
-| 2 | 2026年3月 | 收到一次票息；利差450个基点；价格95.07；第一次决策 |
-| 3 | 2025年12月 → 2026年6月 | 每期票息均按时支付，但信用持续恶化；反事实情景A（支持）与B（展期） |
-| 4 | 2026年6月 | 决策：可成交价格对比概率加权的持有价值 |
+| 1 | 2025年3月15日 | 购买：购买前七项检查，决策1（是否批准） |
+| 2 | 2026年3月15日 | 一年后：收到票息；利差450个基点；价格95.07；可成交买价94.37；总行与分行各自掌握的信息；决策2 |
+| 3 | 2026年4月14–15日 | 2025财年业绩；信用风险显著增加 → 第二阶段；会计桥；支持、结构、组合视角、决策权限 |
+| 4 | 2026年6月15日 | 决策3：同一日期的可成交所得与持有价值；委员会备忘录；支持落空时的处置；自营账户与理财产品 |
 
-应用共15个标签页。各模块的目的、输入和输出见 [`app/description.html`](app/description.html)；每张课程幻灯片对应的模块见 [`docs/slide-to-module-map.md`](docs/slide-to-module-map.md)。
+应用共17个标签页。各模块的目的、输入和输出见 [`app/description.html`](app/description.html)；每张课程幻灯片对应的模块见 [`docs/slide-to-module-map.md`](docs/slide-to-module-map.md)。
+
+### 课堂问题（第5版）
+
+每个教学页面末尾都有来自课堂题库 `data/questions.json`（31题）的“选择一项”问题。题库依据第5版课件整理：学员问题1–6和三个委员会投票D1–D3（**课堂**层级，列入学员题单），以及附录A12的22道讲师补充问题（**讲师**层级，仅在讲师模式和答案中显示）。英文与课件原文一致；中文为译文，请口译员核对。
 
 ### 在线打开
 
